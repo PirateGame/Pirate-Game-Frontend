@@ -1,5 +1,5 @@
 <template>
-    <body class="bg-pirate">
+    <div class="bg-pirate">
         <div class="config-box">
             <h2 class="title">Settings</h2>
             <form action="play">
@@ -16,7 +16,7 @@
                 </div>
             </form>
         </div>
-    </body>
+    </div>
 </template>
 <script>
 export default {
