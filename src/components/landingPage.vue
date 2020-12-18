@@ -29,6 +29,3 @@ export default {
     name: 'landingPage'
 }
 </script>
-<style>
-    
-</style>
