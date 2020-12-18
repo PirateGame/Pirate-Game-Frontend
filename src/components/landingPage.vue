@@ -8,7 +8,7 @@
         <div class="mainMenu">
             <ul id="menuUL">
                 <li class="bg-blue">
-                    <a href="host.html">Host Game</a>
+                    <a>Host Game</a>
                 </li>
                 <li class="bg-green" onclick="ShowPopUp()">
                     <a>Join Game</a>
@@ -24,11 +24,13 @@
         </div>
     </div>
 </template>
+
 <script>
 export default {
     name: 'landingPage'
 }
 </script>
+
 <style>
     
 </style>

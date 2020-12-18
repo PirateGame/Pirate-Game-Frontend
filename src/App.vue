@@ -1,18 +1,19 @@
 <template>
-  <LandingPage/>
+<router-view></router-view>
 </template>
 
 <script>
-import LandingPage from './components/landingPage.vue'
 
 export default {
-  name: 'App',
-  components: {
-    LandingPage
-  }
+  name: 'App'
 }
 </script>
 
 <style>
 @import '/assets/css/style.css';
+
+#heightTest {
+  height: 100vh;
+}
+
 </style>
