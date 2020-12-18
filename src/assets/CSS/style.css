@@ -8,10 +8,25 @@
     height: 100%;
 }
 
-.title {
+.big-title {
     font-family: PirateFont;
+    font-size: 100px;
     text-align: center;
+<<<<<<< Updated upstream
     color: black;
+=======
+    -webkit-text-stroke: 1px black;
+	-webkit-text-fill-color: white;
+    padding-top: 10%;
+}
+
+.small-title {
+    font-family: PirateFont;
+    font-size: 75px;
+    text-align: center;
+    -webkit-text-stroke: 1px black;
+	-webkit-text-fill-color: white;
+>>>>>>> Stashed changes
     padding-top: 10%;
 }
 
