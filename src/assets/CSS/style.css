@@ -96,7 +96,7 @@
 }
 
 .bg-pirate {
-    background-image: url("Media/pirateimg.jpg");
+    background-image: url("/images/piratebg.jpg");
     height: 100vh;
     background-position: center;
     background-repeat: no-repeat;
