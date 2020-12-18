@@ -3,9 +3,9 @@
         <div class="config-box">
             <h2 class="title">Settings</h2>
             <form action="play">
-                <h3 class="float-left">Grid Size = {slider value}</h3>
+                <h3 class="float-left">Grid Size = {{ gridSize }}</h3>
                 <div class="input-container">
-                    <input type="range" min="5" max="15" value="7" class="slider" id="gridSize">
+                    <input type="range" min="5" max="15" :size='gridSize' class="slider" id="gridSize" v-model='gridSize'>
                 </div>
                 <h3 class="float-left">Custom Game ID</h3>
                 <div class="input-container">
@@ -20,6 +20,11 @@
 </template>
 <script>
 export default {
-    name: 'HostPage'
+    name: 'HostPage',
+    data: function () {
+        return {
+            gridSize: 7
+        }
+    }
 }
 </script>
