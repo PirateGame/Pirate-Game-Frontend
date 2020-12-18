@@ -9,10 +9,10 @@
                 </div>
                 <h3 class="float-left">Custom Game ID</h3>
                 <div class="input-container">
-                    <input type="text" class="text-box" placeholder="ID" id="gameID">
+                    <input type="text" class="text-box" placeholder="ID" id="gameID" v-model="gameId">
                 </div>
                 <div style="text-align: center;">
-                    <input type="submit" value="Start" style="color: white; text-decoration: none;" class="host-button bg-blue">
+                    <input type="button" value="Start" style="color: white; text-decoration: none;" class="host-button bg-blue" @click="createGame">
                 </div>
             </form>
         </div>
@@ -23,7 +23,13 @@ export default {
     name: 'HostPage',
     data: function () {
         return {
-            gridSize: 7
+            gridSize: 7,
+            gameId: null
+        }
+    },
+    methods: {
+        createGame() {
+            alert('This will create a game with grid size ' + this.gridSize + ' with a game code of ' + this.gameId);
         }
     }
 }
