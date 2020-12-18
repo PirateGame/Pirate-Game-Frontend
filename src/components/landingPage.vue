@@ -11,7 +11,7 @@
                     <a>Host Game</a>
                 </li>
                 <li class="bg-green" onclick="ShowPopUp()">
-                    <a>Join Game</a>
+                    <router-link to="">Join Game</router-link>
                 </li>
                 <!--<li class="bg-red">
                     <a>
