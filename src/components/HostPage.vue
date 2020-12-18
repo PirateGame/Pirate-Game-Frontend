@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-pirate">
+    <div class="bg-pirate body">
         <div class="config-box">
             <h2 class="title">Settings</h2>
             <form action="play">

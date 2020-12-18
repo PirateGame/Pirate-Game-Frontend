@@ -1,6 +1,6 @@
 <template>
-    <div class="bg-pirate">
-        <h2 class="title">The Pirate Game</h2>
+    <div class="bg-pirate body">
+        <h1 class="title">The Pirate Game</h1>
         <div class="mainMenu">
             <ul id="menuUL">
                 <li class="bg-blue">

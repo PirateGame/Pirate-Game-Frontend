@@ -3,7 +3,7 @@
     src: url("/fonts/piratefont.ttf");
   }
 
-body {
+.body {
     font-family: Arial;
     height: 100%;
 }
@@ -11,7 +11,7 @@ body {
 .title {
     font-family: PirateFont;
     text-align: center;
-    font-size: xx-large;
+    
     padding-top: 10%;
 }
 
