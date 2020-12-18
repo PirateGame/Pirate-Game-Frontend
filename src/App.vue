@@ -1,15 +1,18 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3.0 + Vite" />
+  <LandingPage/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import LandingPage from './components/landingPage.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    LandingPage
   }
 }
 </script>
+
+<style>
+@import '/assets/css/style.css';
+</style>
