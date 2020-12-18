@@ -1,5 +1,5 @@
 <template>
-<router-view></router-view>
+<router-view id="router-view"></router-view>
 </template>
 
 <script>
@@ -11,9 +11,4 @@ export default {
 
 <style>
 @import '/assets/css/style.css';
-
-#heightTest {
-  height: 100vh;
-}
-
 </style>

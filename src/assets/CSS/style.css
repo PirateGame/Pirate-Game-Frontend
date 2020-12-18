@@ -77,3 +77,7 @@ body {
                 text-decoration: none;
                 color: white
             }
+
+#router-view {
+    min-height: 100vh;
+    }
