@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-pirate body">
+    <div class="bg-pirate">
         <div class="config-box">
             <h2 class="title">Settings</h2>
             <form action="play">
@@ -9,10 +9,10 @@
                 </div>
                 <h3 class="float-left">Custom Game ID</h3>
                 <div class="input-container">
-                    <input type="text" class="text-box" placeholder="ID" id="gameID" v-model="gameId">
+                    <input type="text" class="text-box" placeholder=" Please enter a game id..." id="gameID" v-model="gameId">
                 </div>
                 <div style="text-align: center;">
-                    <input type="button" value="Start" style="color: white; text-decoration: none;" class="host-button bg-blue" @click="createGame">
+                    <input type="button" value="Start" style="color: white; text-decoration: none;" class="big-button bg-blue" @click="createGame">
                 </div>
             </form>
         </div>

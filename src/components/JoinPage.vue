@@ -1,8 +1,8 @@
 <template>
-    <div class="bg-pirate body">
+    <div class="bg-pirate">
         <div class="config-box">
             <h2 class="title">Join</h2>
-            <form action="play">
+            <form>
                 <h3 class="float-left">Game ID</h3>
                 <div class="input-container">
                     <input type="text" class="text-box" placeholder="ID" id="gameID">
@@ -12,7 +12,7 @@
                     <input type="text" class="text-box" placeholder="Name" id="playerName">
                 </div>
                 <div style="text-align: center;">
-                    <input type="submit" value="Start" style="color: white; text-decoration: none;" class="host-button bg-blue">
+                    <input type="button" value="Start" style="color: white; text-decoration: none;" class="big-button bg-blue">
                 </div>
             </form>
         </div>
