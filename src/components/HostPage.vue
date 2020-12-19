@@ -20,6 +20,7 @@
     </div>
 </template>
 <script>
+import Api from '/services/backend.js';
 export default {
     name: 'HostPage',
     data: function () {
@@ -30,8 +31,17 @@ export default {
         }
     },
     methods: {
-        createGame() {
-            alert('This will create a game with grid size ' + this.gridSizex + 'x' + this.gridSizey + ' with a game code of ' + this.gameId);
+        async createGame() {
+            //alert('This will create a game with grid size ' + this.gridSizex + 'x' + this.gridSizey + ' with a game code of ' + this.gameId);
+            
+            
+            let response = await Api().post('create_game',
+            {
+                    Sizex: this.gridSizex,
+                    Sizey: this.gridSizey,
+                    ID: this.gameId
+                }
+            );
         }
     }
 }

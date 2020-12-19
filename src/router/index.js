@@ -4,6 +4,7 @@ import LandingPage from '../components/LandingPage.vue'
 import HostPage from '../components/HostPage.vue'
 import JoinPage from '../components/JoinPage.vue'
 
+
 let router = createRouter({
     history: createWebHistory(),
     routes: [
