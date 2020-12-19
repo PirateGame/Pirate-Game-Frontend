@@ -112,3 +112,34 @@
     top: 0;
     bottom: 0;
 }
+
+.mainMenu {
+    margin: auto;
+    margin-top: 5%;
+    text-align: center;
+    width: 30%;
+    color: white;
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+    .mainMenu ul {
+        list-style: none;
+        
+    }
+
+        .mainMenu ul li {
+            text-decoration: none;
+            margin-top: 5%;
+            padding: 5%;
+            border-radius: 15px;
+        }
+
+        .mainMenu ul li :hover {
+            cursor: pointer;
+        }
+
+            .mainMenu ul li a {
+                text-decoration: none;
+                color: white
+            }
