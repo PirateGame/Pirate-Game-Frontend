@@ -3,9 +3,10 @@
         <div class="config-box">
             <h2 class="title">Settings</h2>
             <form action="play">
-                <h3 class="float-left">Grid Size = {{ gridSize }}</h3>
+                <h3 class="float-left">Grid Size = {{ gridSizex }} x {{ gridSizey }}</h3>
                 <div class="input-container">
-                    <input type="range" min="5" max="15" :size='gridSize' class="slider" id="gridSize" v-model='gridSize'>
+                    <input type="range" min="5" max="15" :size='gridSizey' class="slider" id="gridSizex" v-model='gridSizex'>
+                    <input type="range" min="5" max="15" :size='gridSizex' class="slider" id="gridSizey" v-model='gridSizey'>
                 </div>
                 <h3 class="float-left">Custom Game ID</h3>
                 <div class="input-container">
@@ -23,13 +24,14 @@ export default {
     name: 'HostPage',
     data: function () {
         return {
-            gridSize: 7,
+            gridSizex: 7,
+            gridSizey: 7,
             gameId: null
         }
     },
     methods: {
         createGame() {
-            alert('This will create a game with grid size ' + this.gridSize + ' with a game code of ' + this.gameId);
+            alert('This will create a game with grid size ' + this.gridSizex + 'x' + this.gridSizey + ' with a game code of ' + this.gameId);
         }
     }
 }
