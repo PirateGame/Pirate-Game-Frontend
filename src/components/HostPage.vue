@@ -45,19 +45,22 @@ export default {
     },
     methods: {
         async createGame() {
-            //alert('This will create a game with grid size ' + this.gridSizex + 'x' + this.gridSizey + ' with a game code of ' + this.gameId);
-            
-            
-            let response = await Api().post('create_game',
-            {
-                    Sizex: this.gridSizex,
-                    Sizey: this.gridSizey,
-                    ID: this.gameId,
-                    isHostPlaying: this.isHostPlaying,
-                    playerName: this.playerName
+            let response = null;
+            try {
+                    response = await Api().post('create_game',
+                        {
+                                Sizex: this.gridSizex,
+                                Sizey: this.gridSizey,
+                                ID: this.gameId,
+                                isHostPlaying: this.isHostPlaying,
+                                playerName: this.playerName
+                            }
+                        );
+                } catch (err) {
+                    alert("server offline")
+                } finally {
+                    alert('This will create a game with grid size ' + this.gridSizex + 'x' + this.gridSizey + ' with a game code of ' + this.gameId);
                 }
-            );
-            
         }
     }
 }
