@@ -13,6 +13,16 @@
                     <input type="text" class="text-box" placeholder=" Please enter a game id..." id="gameID" v-model="gameId">
                 </div>
                 <div style="text-align: center;">
+                    <h3>Do you want to play?</h3>
+                    <input type="radio" id="yes" name="hostPlaying" v-bind:value="true" v-model='isHostPlaying'>
+                    <label for="yes">Yes</label>
+                    <input type="radio" id="no" name="hostPlaying" v-bind:value="false" v-model='isHostPlaying'>
+                    <label for="no">No</label><br>
+                </div>
+                <div class="input-container" v-show="isHostPlaying">
+                    <input type="text" class="text-box" placeholder=" Please enter your name..." id="playerName" v-model="playerName">
+                </div>
+                <div style="text-align: center;">
                     <input type="button" value="Start" style="color: white; text-decoration: none;" class="big-button bg-blue" @click="createGame">
                 </div>
             </form>
@@ -20,6 +30,7 @@
     </div>
 </template>
 <script>
+import LandingPage from './landingPage.vue';
 import Api from '/services/backend.js';
 export default {
     name: 'HostPage',
@@ -27,7 +38,9 @@ export default {
         return {
             gridSizex: 7,
             gridSizey: 7,
-            gameId: null
+            gameId: null,
+            playerName: null,
+            isHostPlaying: false
         }
     },
     methods: {
@@ -39,9 +52,12 @@ export default {
             {
                     Sizex: this.gridSizex,
                     Sizey: this.gridSizey,
-                    ID: this.gameId
+                    ID: this.gameId,
+                    isHostPlaying: this.isHostPlaying,
+                    playerName: this.playerName
                 }
             );
+            
         }
     }
 }
