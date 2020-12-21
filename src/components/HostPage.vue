@@ -10,7 +10,7 @@
                 </div>
                 <h3 class="float-left">Custom Game ID</h3>
                 <div class="input-container">
-                    <input type="text" class="text-box" placeholder=" Please enter a game id..." id="gameID" v-model="gameId">
+                    <input type="text" class="text-box" placeholder=" Please enter a game id..." id="gameName" v-model="gameName">
                 </div>
                 <div style="text-align: center;">
                     <h3>Do you want to play?</h3>
@@ -30,15 +30,15 @@
     </div>
 </template>
 <script>
-import LandingPage from './landingPage.vue';
-import Api from '/services/backend.js';
+import Axios from '/services/axios.js';
+import router from '../router/index';
 export default {
     name: 'HostPage',
     data: function () {
         return {
             gridSizex: 7,
             gridSizey: 7,
-            gameId: null,
+            gameName: null,
             playerName: null,
             isHostPlaying: false
         }
@@ -47,20 +47,27 @@ export default {
         async createGame() {
             let response = null;
             try {
-                    response = await Api().post('create_game',
-                        {
-                                Sizex: this.gridSizex,
-                                Sizey: this.gridSizey,
-                                ID: this.gameId,
-                                isHostPlaying: this.isHostPlaying,
-                                playerName: this.playerName
-                            }
-                        );
-                } catch (err) {
-                    alert("server offline")
-                } finally {
-                    alert('This will create a game with grid size ' + this.gridSizex + 'x' + this.gridSizey + ' with a game code of ' + this.gameId);
-                }
+                response = await Axios().post('create_game',
+                    {
+                        Sizex: this.gridSizex,
+                        Sizey: this.gridSizey,
+                        gameName: this.gameName,
+                        ownerName: this.playerName,
+                        isHostPlaying: this.isHostPlaying,
+                    },
+                );
+                console.log(response.data.authCode);
+
+                //incase we already have one
+                localStorage.removeItem('authcode');
+                localStorage.setItem("authcode", response.data["authCode"]);
+                router.push("/HostPanel")
+
+            } catch (err) {
+                alert("server offline")
+                console.log(err)
+            }
+
         }
     }
 }
