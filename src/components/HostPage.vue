@@ -1,7 +1,7 @@
 <template>
     <div class="bg-pirate">
         <div class="config-box">
-            <h2 class="title">Settings</h2>
+            <h2 class="title">Host</h2>
             <form action="play">
                 <h3 class="float-left">Grid Size = {{ gridSizex }} x {{ gridSizey }}</h3>
                 <div class="input-container">
