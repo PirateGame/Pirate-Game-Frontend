@@ -6,6 +6,7 @@ import JoinPage from '../components/JoinPage.vue'
 import WaitingRoom from '../components/WaitingRoom.vue'
 import HostPanel from '../components/HostPanel.vue'
 import AdminPanel from '../components/AdminPanel.vue'
+import Board from '../components/Board.vue'
 
 
 let router = createRouter({
@@ -17,6 +18,7 @@ let router = createRouter({
       { path: '/HostPanel', component: HostPanel, name: 'HostPanel' },
       { path: '/AdminPanel', component: AdminPanel, name: 'AdminPanel' },
       { path: '/WaitingRoom', component: WaitingRoom, name: 'WaitingRoom' }
+      { path: '/Board', component: Board, name: 'Board' }
 
     ]
   });
