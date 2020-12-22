@@ -9,6 +9,23 @@
 </template>
 <script>
 export default {
-    name: 'HostPanel'
+    name: 'HostPanel',
+    data: function () {
+        return {
+            secretcode: localStorage.getItem('authcode'),
+            gameName: localStorage.getItem('gamename')
+        }
+    },
+    async mounted () {
+        let response = null;
+        try {
+            response = await Axios().post('getPlayers',{gameName: this.gameName});
+        }
+        catch(err) {
+            console.log("Server Offline")
+        }
+        console.log(response);
+    }
 }
+
 </script>
