@@ -23,7 +23,7 @@
                     <input type="text" class="text-box" placeholder=" Please enter your name..." id="playerName" v-model="playerName">
                 </div>
                 <div style="text-align: center;">
-                    <input type="button" value="Start" style="color: white; text-decoration: none;" class="big-button bg-blue" @click="createGame">
+                    <input type="button" value="Create" style="color: white; text-decoration: none;" class="big-button bg-blue" @click="createGame">
                 </div>
             </form>
         </div>

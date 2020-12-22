@@ -12,7 +12,7 @@
                     <input type="text" class="text-box" placeholder="Name" id="playerName" v-model="playerName">
                 </div>
                 <div style="text-align: center;">
-                    <input type="button" value="Start" style="color: white; text-decoration: none;" class="big-button bg-blue" @click="joinGame">
+                    <input type="button" value="Join" style="color: white; text-decoration: none;" class="big-button bg-blue" @click="joinGame">
                 </div>
             </form>
         </div>
