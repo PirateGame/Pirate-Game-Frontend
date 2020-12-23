@@ -16,8 +16,7 @@ let router = createRouter({
       { path: '/host', component: HostPage, name: 'HostPage' },
       { path: '/join', component: JoinPage, name: 'JoinPage' },
       { path: '/HostPanel', component: HostPanel, name: 'HostPanel' },
-      { path: '/AdminPanel', component: AdminPanel, name: 'AdminPanel' },
-      { path: '/WaitingRoom', component: WaitingRoom, name: 'WaitingRoom' }
+      { path: '/WaitingRoom', component: WaitingRoom, name: 'WaitingRoom' },
       { path: '/Board', component: Board, name: 'Board' }
 
     ]
