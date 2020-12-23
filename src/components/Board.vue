@@ -10,12 +10,16 @@
 import Axios from '/services/axios.js';
 import router from '../router/index';
 import 'gridstack/dist/gridstack.min.css';
-import GridStack from 'gridstack';
+import 'gridstack/dist/gridstack-h5.js';
 export default {
-    name: 'WaitingRoom',
+    name: 'Board',
     async mounted () {
-        var grid = GridStack.init();
-        grid.addWidget({w: 2, content: 'item 1'});
+        var items = [
+          {content: 'my first widget',noResize: true},
+          {content: 'another widget!',noResize: true}
+        ];
+         var grid = GridStack.init({float: true});
+        grid.load(items);
     }
 }
 
