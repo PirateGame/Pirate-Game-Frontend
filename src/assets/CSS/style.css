@@ -17,8 +17,6 @@
     padding-top: 10%;
 }
 
-
-
 .bg-blue {
     background-color: blue;
 }
@@ -105,7 +103,8 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    overflow:hidden;
+    overflow-y :scroll;
+    overflow-x: hidden;
     position: fixed;
     right: 0;
     left: 0;
@@ -149,3 +148,9 @@
 
 .grid-stack { background: #333333; }
 .grid-stack-item-content { background-color: #0077ff; }
+
+.board-holder {
+    width: 80%;
+    height: auto;
+    margin: auto;
+}
