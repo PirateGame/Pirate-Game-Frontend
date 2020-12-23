@@ -5,7 +5,7 @@
             <form action="play">
                 <h3 class="float-left">Grid Size = {{ gridSizex }} x {{ gridSizey }}</h3>
                 <div class="input-container">
-                    <input type="range" min="5" max="15" :size='gridSizey' class="slider" id="gridSizex" v-model='gridSizex'>
+                    <input type="range" min="5" max="12" :size='gridSizey' class="slider" id="gridSizex" v-model='gridSizex'>
                     <input type="range" min="5" max="15" :size='gridSizex' class="slider" id="gridSizey" v-model='gridSizey'>
                 </div>
                 <h3 class="float-left">Custom Game ID</h3>
