@@ -1,10 +1,11 @@
 <template>
     <div class="bg-pirate">
         <h2>Drag and drop the tiles to create your board, or hit the randomise button.</h2>
-        <div class="board-holder">
-          <div :class="['grid-stack grid-stack-' + gridWidth]"></div>
+          <div class="board-holder">
+            <div :class="['grid grid-stack grid-stack-' + gridWidth]"></div>
+          </div>
+          <div id="sidebar" :class="['bar grid-stack grid-stack-' + 1]"></div>
         </div>
-    </div>
 </template>
 <script>
 import Axios from '/services/axios.js';
@@ -19,8 +20,8 @@ export default {
     name: 'Board',
     data: function () {
         return {
-            gridWidth: 12,
-            gridHeight: 12
+            gridWidth: 8,
+            gridHeight: 8
         }
     },
     async mounted () {
@@ -28,7 +29,9 @@ export default {
           {content: 'my first widget',noResize: true, noMove:false},
           {content: 'another widget!',noResize: true, noMove:false}
         ];
-         var grid = GridStack.init({float: true, column:this.gridWidth, minRow:this.gridHeight});
+        
+        var grid = GridStack.init({class:"grid",float: true, column:this.gridWidth, minRow:this.gridHeight, maxRow:this.gridHeight});
+        var sidebar = GridStack.init({class:"bar",float: false, column:1});
         grid.load(items);
     }
 }

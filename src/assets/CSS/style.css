@@ -150,7 +150,9 @@
 .grid-stack-item-content { background-color: #0077ff; }
 
 .board-holder {
-    width: 80%;
+    width: 60%;
     height: auto;
     margin: auto;
-}
+    margin-left: 4%;
+    margin-bottom: 7%;
+} 
