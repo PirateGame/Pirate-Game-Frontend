@@ -30,14 +30,13 @@
 }
 
 .config-box{
-    margin: auto;
     margin-top: 5%;
     margin-bottom: 5%;
     width: 30%;
     height: 80%;
     vertical-align: middle;
     border-radius: 15px;
-    background-color: rgba(255, 255, 255, 0.473)
+    background-color: rgba(255, 255, 255, 0.521)
 }
 
 
@@ -73,6 +72,10 @@
 
 .float-left{
     margin-left: 7%;
+}
+
+.float-right {
+    margin-right: 7%;
 }
 
 
@@ -164,3 +167,14 @@
     margin: auto;
     margin-left: 3%;
 } 
+
+
+.flex-container {
+    display: flex;
+    height: 100%;
+}
+
+.flex-child {
+    flex: 1;
+    margin: 5%;
+}  
