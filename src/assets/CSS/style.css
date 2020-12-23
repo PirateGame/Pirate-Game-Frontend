@@ -152,7 +152,15 @@
 .board-holder {
     width: 60%;
     height: auto;
+    float: left;
     margin: auto;
-    margin-left: 4%;
-    margin-bottom: 7%;
+    margin-left: 3%;
+} 
+
+.board-holder-narrow {
+    width: 10%;
+    height: auto;
+    float: left;
+    margin: auto;
+    margin-left: 3%;
 } 
