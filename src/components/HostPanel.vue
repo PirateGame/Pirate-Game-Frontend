@@ -3,6 +3,7 @@
         <div class="flex-container">
             <div class="config-box float-left flex-child">
                 <h1 class="title">Host Panel</h1>
+                <h3>Game Name: {{gameName}}</h3>
                 <h3 class="float-left">Decision Time = {{ DecisionTime }}</h3>
                 <div class="input-container">
                     <input type="range" min="10" max="45" step=5 :size='DecisionTime' class="slider" v-model='DecisionTime'>
@@ -16,12 +17,16 @@
             </div>
             <div class="config-box float-left flex-child">
                 <h1 class="title">Players</h1>
-                <h3> List of Players </h3>
+                    <li v-for="item in clientList">
+                        {{item}}
+                    </li>
             </div>
         </div>
     </div>
 </template>
 <script>
+import Axios from '/services/axios.js';
+import router from '../router/index';
 export default {
     name: 'HostPanel',
     data: function () {
@@ -29,18 +34,23 @@ export default {
             secretcode: localStorage.getItem('authcode'),
             gameName: localStorage.getItem('gamename'),
             DecisionTime: 30,
-            randomizeOnly: false
+            randomizeOnly: false,
+            clientList: null
         }
     },
-    async mounted () {
-        let response = null;
-        try {
-            response = await Axios().post('getPlayers',{gameName: this.gameName});
+    async created () {
+        setInterval(this.getPlayers, 5000);
+    },
+    methods: {
+        async getPlayers(){
+            let response = null;
+            response = await Axios().post('getPlayers',
+                {
+                    gameName: this.gameName
+                });
+            console.log(response)
+            this.clientList = response.data
         }
-        catch(err) {
-            console.log("Server Offline")
-        }
-        console.log(response);
     }
 }
 
