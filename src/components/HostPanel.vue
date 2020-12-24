@@ -48,8 +48,10 @@ export default {
                 {
                     gameName: this.gameName
                 });
-            console.log(response)
-            this.clientList = response.data
+            if (response.data["game"] == false){
+                alert("game not found")
+            }
+            this.clientList = response.data["names"]
         }
     }
 }
