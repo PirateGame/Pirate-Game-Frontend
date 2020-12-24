@@ -1,6 +1,6 @@
 <template>
     <div class="bg-pirate">
-        <div class="config-box">
+        <div class="config-box config-box-center">
             <h2 class="title">Join</h2>
             <form>
                 <h3 class="float-left">Game Name</h3>

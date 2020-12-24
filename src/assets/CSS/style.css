@@ -36,8 +36,11 @@
     height: 80%;
     vertical-align: middle;
     border-radius: 15px;
-    background-color: rgba(255, 255, 255, 0.521)
+    background-color: rgba(255, 255, 255, 0.521);
 }
+    .config-box-center{
+        margin: auto;
+    }
 
 
 .input-container {

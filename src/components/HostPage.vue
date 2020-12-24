@@ -1,6 +1,6 @@
 <template>
     <div class="bg-pirate">
-        <div class="config-box">
+        <div class="config-box config-box-center">
             <h2 class="title">Host</h2>
             <form action="play">
                 <h3 class="float-left">Grid Size = {{ gridSizex }} x {{ gridSizey }}</h3>
