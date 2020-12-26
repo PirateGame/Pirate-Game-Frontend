@@ -63,6 +63,7 @@ export default {
                 localStorage.removeItem('gamename');
                 localStorage.setItem("authcode", response.data["authCode"]);
                 localStorage.setItem("gamename", this.gameName);
+                localStorage.setItem("playername", this.playerName);
                 router.push("/HostPanel")
 
             } catch (err) {

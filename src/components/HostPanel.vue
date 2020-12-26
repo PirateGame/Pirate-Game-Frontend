@@ -33,6 +33,7 @@ export default {
         return {
             secretcode: localStorage.getItem('authcode'),
             gameName: localStorage.getItem('gamename'),
+            playerName: localStorage.getItem('playername'),
             DecisionTime: 30,
             randomizeOnly: false,
             clientList: null
@@ -40,6 +41,7 @@ export default {
     },
     async created () {
         setInterval(this.getPlayers, 5000);
+        window.addEventListener('beforeunload', this.stop);
     },
     methods: {
         async getPlayers(){
@@ -52,6 +54,22 @@ export default {
                 alert("game not found")
             }
             this.clientList = response.data["names"]
+        },
+        async startGame(){
+            let response = null;
+            response = await Axios().post('startGame',
+                {
+                    gameName: this.gameName,
+                    authCode: this.authCode,
+                    playerName: this.playerName,
+                });
+            if (response.data["game"] == false){
+                alert("game not found")
+            }
+            alert("game started")
+        },
+        async stop(){
+            clearInterval(this.interval)
         }
     }
 }

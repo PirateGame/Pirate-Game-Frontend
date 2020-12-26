@@ -180,4 +180,18 @@
 .flex-child {
     flex: 1;
     margin: 5%;
-}  
+} 
+
+
+/* HIDE RADIO */
+.radio-hidden { 
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* CHECKED STYLES */
+  .radio-hidden:checked + img {
+    outline: 2px solid #f00;
+  }
