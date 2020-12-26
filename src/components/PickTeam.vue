@@ -1,45 +1,38 @@
 <template>
     <div class="bg-pirate">
-        <h1 class="title" style="padding: 5%; margin:0; padding-bottom:0">Pick your Crew and ship</h1>
-        <div class="flex-container">
-            <div class="config-box flex-child float-left padding-top:5%">
-                <h2>Crew</h2>
-                <label>
-                    <input type="radio" name="Team" v-model='Team' v-bind:value="1" class="radio-hidden">
-                    <img src="/images/placeholder.png" height="150" width="250">
-                </label>
-                <br>
-                <label>
-                    <input type="radio" name="Team" v-model='Team' v-bind:value="2" class="radio-hidden">
-                    <img src="/images/placeholder.png" height="150" width="250">
-                </label>
-                <br>
-                <label>
-                    <input type="radio" name="Team" v-model='Team' v-bind:value="3" class="radio-hidden">
-                    <img src="/images/placeholder.png" height="150" width="250">
-                </label>
-            </div>
-            <div class="config-box flex-child float-right">
-                <h2>Ship</h2>
-                <label>
-                    <input type="radio" name="Ship" v-model='Ship' v-bind:value="1" class="radio-hidden">
-                    <img src="/images/placeholder.png" height="150" width="250">
-                </label>
-                <br>
-                <label>
-                    <input type="radio" name="Ship" v-model='Ship' v-bind:value="2" class="radio-hidden">
-                    <img src="/images/placeholder.png" height="150" width="250">
-                </label>
-                <br>
-                <label>
-                    <input type="radio" name="Ship" v-model='Ship' v-bind:value="3" class="radio-hidden">
-                    <img src="/images/placeholder.png" height="150" width="250">
-                </label>
-            </div>
+        <h1 class="title">Pick your Crew and ship</h1>
+        <div class="team-selector" id="crew">
+            <br>
+            <h2>Crew</h2>
+            <label>
+                <input type="radio" name="Team" v-model='Team' v-bind:value="1" class="radio-hidden" @change="showShip()">
+                <img src="/images/placeholder.png" height="150" width="250">
+            </label>
+            <label>
+                <input type="radio" name="Team" v-model='Team' v-bind:value="2" class="radio-hidden" @change="showShip()">
+                <img src="/images/placeholder.png" height="150" width="250">
+            </label>
+            <label>
+                <input type="radio" name="Team" v-model='Team' v-bind:value="3" class="radio-hidden" @change="showShip()">
+                <img src="/images/placeholder.png" height="150" width="250">
+            </label>
         </div>
-        <div style="text-align: center;">
-                    <input type="button" value="Next" style="color: white; text-decoration: none;" class="big-button bg-blue" @click="saveTeams">
-                </div>
+        <div class="team-selector" style="display: none;" id="ship">
+            <br>
+            <h2>Ship</h2>
+            <label>
+                <input type="radio" name="Ship" v-model='Ship' v-bind:value="1" class="radio-hidden" @change="submit()">
+                <img src="/images/placeholder.png" height="150" width="250">
+            </label>
+            <label>
+                <input type="radio" name="Ship" v-model='Ship' v-bind:value="2" class="radio-hidden" @change="submit()">
+                <img src="/images/placeholder.png" height="150" width="250">
+            </label>
+            <label>
+                <input type="radio" name="Ship" v-model='Ship' v-bind:value="3" class="radio-hidden" @change="submit()">
+                <img src="/images/placeholder.png" height="150" width="250">
+            </label>
+        </div>
     </div>
 </template>
 
@@ -52,15 +45,22 @@ export default {
         return {
             Team: null,
             Ship: null,
-            secretcode: sessionStorage.getItem('authcode'),
+            authCode: sessionStorage.getItem('authcode'),
             gameName: sessionStorage.getItem('gamename'),
             playerName: sessionStorage.getItem('playername')
         }
     },
     methods: {
-        async saveTeams(){
+        showShip() {
+            var x = document.getElementById("crew");
+            x.style.display = "none";
+            var y = document.getElementById("ship");
+            y.style.display = "block";
+            
+        },
+        async submit(){
             let response = null;
-            response = await Axios().post('create_game',
+            response = await Axios().post('setTeam',
                 {
                     Team: this.Team,
                     Ship: this.Ship,

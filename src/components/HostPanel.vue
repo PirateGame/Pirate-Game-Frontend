@@ -31,7 +31,7 @@ export default {
     name: 'HostPanel',
     data: function () {
         return {
-            secretcode: sessionStorage.getItem('authcode'),
+            authCode: sessionStorage.getItem('authcode'),
             gameName: sessionStorage.getItem('gamename'),
             playerName: sessionStorage.getItem('playername'),
             DecisionTime: 30,
@@ -40,8 +40,8 @@ export default {
         }
     },
     async created () {
-        timer = setInterval(this.getPlayers, 5000);
-        window.addEventListener('beforeunload', this.stop);
+        this.getPlayers()
+        this.timer = setInterval(this.getPlayers, 5000);
     },
     methods: {
         async getPlayers(){
@@ -64,14 +64,12 @@ export default {
                     playerName: this.playerName,
                 });
             if (response.data["game"] == false){
-                alert("game not found")
+                alert("an error has occured")
             }
             alert("game started")
-        },
-        async stop(){
             clearInterval(this.timer)
+            //router.push("/PickTeam")
         }
     }
 }
-
 </script>

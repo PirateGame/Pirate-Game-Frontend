@@ -7,7 +7,7 @@
 import Axios from '/services/axios.js';
 import router from '../router/index';
 export default {
-    name: 'WaitingRoom',
+    name: 'AdminPanel',
 }
 
 </script>

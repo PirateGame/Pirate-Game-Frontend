@@ -19,7 +19,7 @@ import 'gridstack/dist/gridstack-h5.js';
 
 
 export default {
-    name: 'Board',
+    name: 'DesignBoard',
     data: function () {
         return {
             gridWidth: 8,
