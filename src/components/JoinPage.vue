@@ -39,7 +39,10 @@ export default {
                         playerName: this.playerName
                     },
                 );
-                console.log(response.data);
+                if (response.data["game"] == false){
+                    alert("Cannot find game with that name.");
+                    return;
+                }
 
                 //incase we already have one
                 localStorage.removeItem('authcode');
