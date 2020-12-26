@@ -11,8 +11,8 @@ export default {
     name: 'WaitingRoom',
     data: function () {
         return {
-            secretcode: localStorage.getItem('authcode'),
-            gameName: localStorage.getItem('gamename')
+            secretcode: sessionStorage.getItem('authcode'),
+            gameName: sessionStorage.getItem('gamename')
         }
     },
     async mounted () {

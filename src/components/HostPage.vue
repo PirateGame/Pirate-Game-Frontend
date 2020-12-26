@@ -56,15 +56,14 @@ export default {
                         isHostPlaying: this.isHostPlaying,
                     },
                 );
-                console.log(response.data.authCode);
-
-                //incase we already have one
-                localStorage.removeItem('authcode');
-                localStorage.removeItem('gamename');
-                localStorage.setItem("authcode", response.data["authCode"]);
-                localStorage.setItem("gamename", this.gameName);
-                localStorage.setItem("playername", this.playerName);
-                router.push("/HostPanel")
+                if (response.data["game"] == false){
+                    alert("Game name already being used.");
+                    return;
+                }
+                sessionStorage.setItem("authcode", response.data["authcode"]);
+                sessionStorage.setItem("gamename", this.gameName);
+                sessionStorage.setItem("playername", this.playerName);
+                //router.push("/HostPanel")
 
             } catch (err) {
                 alert("server offline")

@@ -52,9 +52,9 @@ export default {
         return {
             Team: null,
             Ship: null,
-            secretcode: localStorage.getItem('authcode'),
-            gameName: localStorage.getItem('gamename'),
-            playerName: localStorage.getItem('playername')
+            secretcode: sessionStorage.getItem('authcode'),
+            gameName: sessionStorage.getItem('gamename'),
+            playerName: sessionStorage.getItem('playername')
         }
     },
     methods: {

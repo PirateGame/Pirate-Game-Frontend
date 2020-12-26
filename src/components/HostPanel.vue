@@ -31,16 +31,16 @@ export default {
     name: 'HostPanel',
     data: function () {
         return {
-            secretcode: localStorage.getItem('authcode'),
-            gameName: localStorage.getItem('gamename'),
-            playerName: localStorage.getItem('playername'),
+            secretcode: sessionStorage.getItem('authcode'),
+            gameName: sessionStorage.getItem('gamename'),
+            playerName: sessionStorage.getItem('playername'),
             DecisionTime: 30,
             randomizeOnly: false,
             clientList: null
         }
     },
     async created () {
-        setInterval(this.getPlayers, 5000);
+        timer = setInterval(this.getPlayers, 5000);
         window.addEventListener('beforeunload', this.stop);
     },
     methods: {
@@ -69,7 +69,7 @@ export default {
             alert("game started")
         },
         async stop(){
-            clearInterval(this.interval)
+            clearInterval(this.timer)
         }
     }
 }
