@@ -72,7 +72,9 @@ export default {
             if (response.data["auth"] == false){
                 alert("authentication failed")
             }
-            console.log(response);
+            else{
+                router.push("/DesignBoard")
+            }
         }
     }
 }

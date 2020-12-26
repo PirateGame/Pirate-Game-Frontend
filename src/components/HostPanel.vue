@@ -36,12 +36,13 @@ export default {
             playerName: sessionStorage.getItem('playername'),
             DecisionTime: 30,
             randomizeOnly: false,
-            clientList: null
+            clientList: null,
+            timerID: null
         }
     },
     async created () {
         this.getPlayers()
-        this.timer = setInterval(this.getPlayers, 5000);
+        this.timerID = setInterval(this.getPlayers, 5000);
     },
     methods: {
         async getPlayers(){
@@ -56,6 +57,8 @@ export default {
             this.clientList = response.data["names"]
         },
         async startGame(){
+            clearInterval(this.timerID)
+            console.log("timer stopped")
             let response = null;
             response = await Axios().post('startGame',
                 {
@@ -67,7 +70,7 @@ export default {
                 alert("an error has occured")
             }
             alert("game started")
-            clearInterval(this.timer)
+            
             //router.push("/PickTeam")
         }
     }
