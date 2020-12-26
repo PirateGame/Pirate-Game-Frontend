@@ -5,7 +5,9 @@
       <div :class="['grid-stack grid-stack-' + gridWidth]"></div>
     </div>
     <div class="board-holder-narrow">
+      <input type="button" value="Randomize" style="color: white; text-decoration: none;" class="big-button bg-red" @click="RandomizeBoard">
       <div :class="['grid-stack grid-stack-' + 1]"></div>
+      <input type="button" value="Submit" style="color: white; text-decoration: none;" class="big-button bg-blue" @click="submitBoard">
     </div>
   </div>
 </template>
