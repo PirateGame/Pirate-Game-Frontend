@@ -9,9 +9,6 @@
                 <li class="bg-blue">
                     <router-link :to="{ name: 'HostPage' }">Host Game</router-link>
                 </li>
-                <li class="bg-red">
-                    <router-link :to="{ name: 'DesignBoard' }">Game Board Test</router-link>
-                </li>
                 <li id="inputLI">
                 </li>
             </ul>
