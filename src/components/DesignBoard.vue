@@ -24,16 +24,31 @@ export default {
     name: 'DesignBoard',
     data: function () {
         return {
-            gridWidth: 8,
-            gridHeight: 8
+            gridWidth: 12,
+            gridHeight: 15,
+            authCode: sessionStorage.getItem('authcode'),
+            gameName: sessionStorage.getItem('gamename'),
+            playerName: sessionStorage.getItem('playername')
         }
     },
     async mounted () {
         var items = [
           {content: 'Kill',noResize: true, noMove:false},
-          {content: 'Steal',noResize: true, noMove:false},
-          {content: 'Swap',noResize: true, noMove:false}
+          {content: 'Steal',noResize: true, noMove:false}
         ];
+        let response = null;
+        response = await Axios().post('getNumTiles',
+            {
+                gameName: this.gameName,
+            }
+        );
+        if (response.data["game"] == false){
+            alert("Game not found.");
+            return;
+        }
+
+        console.log(response.data)
+        items = response.data;
 
         //this is pre placed to stop the grid from disappearing
         var MANDATORYitems = [
@@ -54,6 +69,23 @@ export default {
         grids[1].opts.cellHeight = 40; //pixels
         grids[0].load(MANDATORYitems);
         grids[1].load(items);
+    },
+    methods: {
+      async submitBoard(){
+        serializedData = grid.save();
+        let response = null;
+          response = await Axios().post('getPlayers',
+              {
+                  gameName: this.gameName,
+                  playerName: this.playerName,
+                  authCode: this.authcode,
+                  board: serializedData
+              });
+          if (response.data["game"] == false){
+              alert("game not found")
+          }
+
+      }
     }
 }
 

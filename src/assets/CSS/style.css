@@ -152,8 +152,13 @@
 
 
 
-.grid-stack { background: #333333; }
-.grid-stack-item-content { background-color: #0077ff; }
+.grid-stack {
+    background: #333333;
+ }
+.grid-stack-item-content {
+    background-color: #0077ff;
+    overflow: hidden !important;
+}
 
 .board-holder {
     width: 60%;

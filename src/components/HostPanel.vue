@@ -57,8 +57,6 @@ export default {
             this.clientList = response.data["names"]
         },
         async startGame(){
-            clearInterval(this.timerID)
-            console.log("timer stopped")
             let response = null;
             response = await Axios().post('startGame',
                 {
@@ -69,9 +67,15 @@ export default {
             if (response.data["game"] == false){
                 alert("an error has occured")
             }
-            alert("game started")
+            if (response.data["auth"] == false){
+                alert("authentication failed")
+            }
+            else{
+                clearInterval(this.timerID)
+                router.push("/PickTeam")
+            }
             
-            //router.push("/PickTeam")
+            
         }
     }
 }
