@@ -32,7 +32,6 @@ export default {
         await this.getTiles();
         this.getGridDim();
         
-        console.log(this.items)
         //this is pre placed to stop the grid from disappearing
         var MANDATORYitems = [
           {content: '£5000',noResize: true, noMove:false}
@@ -51,7 +50,6 @@ export default {
         this.grids[0].column(this.gridWidth);
         this.grids[0].opts.minRow = this.gridHeight;
         this.grids[0].opts.maxRow = this.gridHeight;
-        this.grids[0].opts.margin = 5;
         this.grids[1].float(false);
         this.grids[1].column(1);
         this.grids[1].opts.cellHeight = 40; //pixels
@@ -69,8 +67,12 @@ export default {
                 authCode: this.authCode,
                 board: serializedData
             });
-        if (response.data["game"] == false){
-            alert("game not found")
+        if (response.data["error"] != false){
+            alert(response.data["error"])
+        }
+        else {
+          //we should probably have a page that just says board submitted waiting for others.
+          router.push("/Game")
         }
 
       },
@@ -95,7 +97,7 @@ export default {
                 playerName: this.playerName
             }
         );
-        console.log("got grid Dimensions")
+        console.log("got grid Dimensions: " + response.data["x"] + ", " + response.data["y"])
         this.gridWidth = response.data["x"]
         this.gridHeight = response.data["y"]
 
@@ -108,8 +110,8 @@ export default {
                 playerName: this.playerName
             }
         );
-        if (response.data["game"] == false){
-            alert("Game not found.");
+        if (response.data["error"] == !false){
+            console.log(response.data["error"])
             return;
         }
         this.items = response.data;

@@ -56,8 +56,8 @@ export default {
                         isHostPlaying: this.isHostPlaying,
                     },
                 );
-                if (response.data["game"] == false){
-                    alert("Game name already being used.");
+                if (response.data["error"] != false){
+                    alert(response.data["error"]);
                     return;
                 }
                 sessionStorage.setItem("authcode", response.data["authcode"]);

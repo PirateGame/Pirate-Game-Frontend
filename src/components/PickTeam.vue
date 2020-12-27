@@ -69,8 +69,8 @@ export default {
                     authCode: this.authCode,
                 },
             );
-            if (response.data["auth"] == false){
-                alert("authentication failed")
+            if (response.data["error"] != false){
+                console.log(response.data["error"])
             }
             else{
                 router.push("/DesignBoard")

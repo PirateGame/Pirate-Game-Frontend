@@ -39,8 +39,8 @@ export default {
                         playerName: this.playerName
                     },
                 );
-                if (response.data["game"] == false){
-                    alert("Cannot find game with that name.");
+                if (response.data["error"] != false){
+                    alert(response.data["error"]);
                     return;
                 }
 
