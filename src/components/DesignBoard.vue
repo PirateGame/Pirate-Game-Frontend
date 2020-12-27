@@ -24,8 +24,8 @@ export default {
     name: 'DesignBoard',
     data: function () {
         return {
-            gridWidth: null,
-            gridHeight: null,
+            gridWidth: 7,
+            gridHeight: 7,
             authCode: sessionStorage.getItem('authcode'),
             gameName: sessionStorage.getItem('gamename'),
             playerName: sessionStorage.getItem('playername'),
@@ -47,15 +47,15 @@ export default {
             return;
         }
         var items = response.data;
-
-        response = await Axios().post('getGridDim',
-            {
-                gameName: this.gameName,
-                playerName: this.playerName
-            }
-        );
-        this.gridWidth = response.data["x"]
-        this.gridHeight = response.data["y"]
+        //response = null;
+        //response = await Axios().post('getGridDim',
+        //    {
+        //        gameName: this.gameName,
+        //        playerName: this.playerName
+        //    }
+        //);
+        //this.gridWidth = response.data["x"]
+        //this.gridHeight = response.data["y"]
 
         //this is pre placed to stop the grid from disappearing
         var MANDATORYitems = [
