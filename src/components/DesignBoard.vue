@@ -16,10 +16,6 @@ import Axios from '/services/axios.js';
 import router from '../router/index';
 import 'gridstack/dist/gridstack.min.css';
 import 'gridstack/dist/gridstack-h5.js';
-
-
-
-
 export default {
     name: 'DesignBoard',
     data: function () {
@@ -31,32 +27,15 @@ export default {
             playerName: sessionStorage.getItem('playername'),
             grid0: null,
             grid1: null,
+            items: []
         }
     },
     async mounted () {
-        //get all the tiles that should be placed in the grid
-        let response = null;
-        response = await Axios().post('getBarTiles',
-            {
-                gameName: this.gameName,
-                playerName: this.playerName
-            }
-        );
-        if (response.data["game"] == false){
-            alert("Game not found.");
-            return;
-        }
-        var items = response.data;
-        //response = null;
-        //response = await Axios().post('getGridDim',
-        //    {
-        //        gameName: this.gameName,
-        //        playerName: this.playerName
-        //    }
-        //);
-        //this.gridWidth = response.data["x"]
-        //this.gridHeight = response.data["y"]
-
+        //this.getTiles();
+        this.items = [{content: '£5000',noResize: true, noMove:false}]
+        this.getGridDim();
+        
+        
         //this is pre placed to stop the grid from disappearing
         var MANDATORYitems = [
           {content: '£5000',noResize: true, noMove:false}
@@ -84,7 +63,7 @@ export default {
         }, '.grid-stack.bar');
 
         this.grid0.load(MANDATORYitems);
-        this.grid1.load(items);
+        this.grid1.load(this.items);
     },
     methods: {
       async submitBoard(){
@@ -114,6 +93,33 @@ export default {
         var board = response.data;
         console.log(board);
         this.grid0.load(board, true);
+      },
+      async getGridDim () {
+        var response = null;
+        response = await Axios().post('getGridDim',
+            {
+                gameName: this.gameName,
+                playerName: this.playerName
+            }
+        );
+        this.gridWidth = response.data["x"]
+        this.gridHeight = response.data["y"]
+
+      },
+      async getTiles(){
+        var response = null;
+        response = await Axios().post('getBarTiles',
+            {
+                gameName: this.gameName,
+                playerName: this.playerName
+            }
+        );
+        if (response.data["game"] == false){
+            alert("Game not found.");
+            return;
+        }
+        console.log(response.data)
+        this.items = response.data;
       }
     }
 }
