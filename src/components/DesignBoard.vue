@@ -2,11 +2,11 @@
   <div class="bg-pirate">
   <h2>Drag and drop the tiles to create your board, or hit the randomise button.</h2>
     <div class="board-holder">
-      <div :class="['grid-stack board grid-stack-' + gridWidth]"></div>
+      <div :class="['grid-stack grid-stack-' + gridWidth]"></div>
     </div>
     <div class="board-holder-narrow">
       <input type="button" value="Randomise" style="color: white; text-decoration: none;" class="big-button bg-red" @click="randomiseBoard">
-      <div :class="['grid-stack bar grid-stack-' + 1]"></div>
+      <div :class="['grid-stack grid-stack-' + 1]"></div>
       <input type="button" value="Submit" style="color: white; text-decoration: none;" class="big-button bg-blue" @click="submitBoard">
     </div>
   </div>
@@ -25,17 +25,14 @@ export default {
             authCode: sessionStorage.getItem('authcode'),
             gameName: sessionStorage.getItem('gamename'),
             playerName: sessionStorage.getItem('playername'),
-            grid0: null,
-            grid1: null,
-            items: []
+            items: [],
         }
     },
     async mounted () {
-        //this.getTiles();
-        this.items = [{content: '£5000',noResize: true, noMove:false}]
+        await this.getTiles();
         this.getGridDim();
         
-        
+        console.log(this.items)
         //this is pre placed to stop the grid from disappearing
         var MANDATORYitems = [
           {content: '£5000',noResize: true, noMove:false}
@@ -44,28 +41,22 @@ export default {
 
         //load grids
 
-        this.grid0 = GridStack.init({
+        //load grids
+        this.grids = GridStack.initAll({
           dragIn: '.grid-stack-item',
           dragInOptions: { revert: 'invalid', scroll: false, appendTo: 'body', helper: 'clone' },
-          acceptWidgets: true,
-          float: false,
-          column: this.gridWidth,
-          row: this.gridHeight,
-          margin: 5,
-        }, '.grid-stack.board');
-
-        //this.grid1 = GridStack.init({
-        //  dragIn: '.grid-stack-item',
-        //  dragInOptions: { revert: 'invalid', scroll: false, appendTo: 'body', helper: 'clone' },
-        //  acceptWidgets: function(el) { return true},
-        //  float: false,
-        //  column: 1,
-        //  cellHeight: 40,
-        //}, '.grid-stack.bar');
-
-
-        this.grid0.load(MANDATORYitems);
-        //this.grid1.load(this.items);
+          acceptWidgets: function(el) { return true; }
+        });
+        this.grids[0].float(true);
+        this.grids[0].column(this.gridWidth);
+        this.grids[0].opts.minRow = this.gridHeight;
+        this.grids[0].opts.maxRow = this.gridHeight;
+        this.grids[0].opts.margin = 5;
+        this.grids[1].float(false);
+        this.grids[1].column(1);
+        this.grids[1].opts.cellHeight = 40; //pixels
+        this.grids[0].load(MANDATORYitems);
+        this.grids[1].load(this.items, true);
     },
     methods: {
       async submitBoard(){
@@ -84,7 +75,7 @@ export default {
 
       },
       async randomiseBoard (){
-        //this.grid1.removeAll();
+        this.grids[1].removeAll();
         let response = null;
         response = await Axios().post('randomiseBoard',
               {
@@ -93,9 +84,8 @@ export default {
                   authCode: this.authCode
               });
         var board = response.data;
-        console.log(board)
         console.log("Randomised board");
-        this.grid0.load(board, true);
+        this.grids[0].load(board, true);
       },
       async getGridDim () {
         var response = null;
@@ -122,7 +112,6 @@ export default {
             alert("Game not found.");
             return;
         }
-        console.log("got tiles")
         this.items = response.data;
       }
     }
