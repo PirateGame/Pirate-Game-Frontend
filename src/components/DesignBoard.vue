@@ -47,23 +47,25 @@ export default {
         this.grid0 = GridStack.init({
           dragIn: '.grid-stack-item',
           dragInOptions: { revert: 'invalid', scroll: false, appendTo: 'body', helper: 'clone' },
-          acceptWidgets: function(el) { return true;},
-          float: true,
+          acceptWidgets: true,
+          float: false,
           column: this.gridWidth,
           row: this.gridHeight,
+          margin: 5,
         }, '.grid-stack.board');
 
-        this.grid1 = GridStack.init({
-          dragIn: '.grid-stack-item',
-          dragInOptions: { revert: 'invalid', scroll: false, appendTo: 'body', helper: 'clone' },
-          acceptWidgets: function(el) { return true},
-          float: false,
-          column: 1,
-          cellHeight: 40,
-        }, '.grid-stack.bar');
+        //this.grid1 = GridStack.init({
+        //  dragIn: '.grid-stack-item',
+        //  dragInOptions: { revert: 'invalid', scroll: false, appendTo: 'body', helper: 'clone' },
+        //  acceptWidgets: function(el) { return true},
+        //  float: false,
+        //  column: 1,
+        //  cellHeight: 40,
+        //}, '.grid-stack.bar');
+
 
         this.grid0.load(MANDATORYitems);
-        this.grid1.load(this.items);
+        //this.grid1.load(this.items);
     },
     methods: {
       async submitBoard(){
@@ -82,7 +84,7 @@ export default {
 
       },
       async randomiseBoard (){
-        this.grid1.removeAll();
+        //this.grid1.removeAll();
         let response = null;
         response = await Axios().post('randomiseBoard',
               {
@@ -91,7 +93,8 @@ export default {
                   authCode: this.authCode
               });
         var board = response.data;
-        console.log(board);
+        console.log(board)
+        console.log("Randomised board");
         this.grid0.load(board, true);
       },
       async getGridDim () {
@@ -102,6 +105,7 @@ export default {
                 playerName: this.playerName
             }
         );
+        console.log("got grid Dimensions")
         this.gridWidth = response.data["x"]
         this.gridHeight = response.data["y"]
 
@@ -118,7 +122,7 @@ export default {
             alert("Game not found.");
             return;
         }
-        console.log(response.data)
+        console.log("got tiles")
         this.items = response.data;
       }
     }
