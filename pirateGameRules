@@ -36,7 +36,7 @@ which squares in your grid will contain each type of space within the specific t
 
 For a recommended board size (7x7), you will have 5 minutes to produce your map consisting of the following spaces:
 
-1x Booby Trap Pack (containing a Rob, Kill, Present, Skull and Crossbones, Swap, Choose Next Square, Shield, Mirror, Bomb, Double and Chest square)
+1x Booby Trap Pack (containing a Rob, Kill, Present, Swap, Skull and Crossbones, Choose Next Square, Shield, Mirror, Bomb, Double and Chest square)
 1x 5000 gold coins
 2x 3000 gold coins
 10x 1000 gold coins
@@ -58,7 +58,19 @@ Phase 3). Each pirate will cross off what they chose to place in that position o
 
 2. Pirates who landed on treasure squares add gold coins to their current stash
 
-If any pirates have one of their squares will an amount of gold coins selected, they gain gold in their stash equal to the value of that square on their treasure map. Simples!
+If any pirates have one of their squares will an amount of gold coins selected, they gain gold in their stash equal to the value of that square on their treasure map.
+Simples!
 
 3. Pirates who landed on booby traps complete the action on that square
 
+If any pirates land on any of the squares in their treasure map listed within the 'Booby Trap Pack' (see Task 2), they have an action to complete during their turn. There are
+3 different types of action: Public Passive, Public Active, and Private.
+
+The first type of action, 'Public Passive', consists of the Rob, Kill, Present, Swap and Skull and Crossbones squares. If any pirates arrive at these spaces, their names will
+will be put into an order at random and will complete their actions accordingly.
+
+If a pirate lands on a 'Rob' square, they choose another pirate and take all of their gold coins from their stash
+If a pirate lands on a 'Kill' square, they choose another pirate and destroy all of their gold coins in their stash AND their treasure chest
+If a pirate lands on a 'Present' square, they choose another pirate and give theim 1000 of their OWN gold coins (or as much as they can)
+If a pirate lands on a 'Swap' square, they choose another pirate and swap their stash of gold coins with them
+If a pirate lands on a 'Skull and Crossbones' square, 
