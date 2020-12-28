@@ -74,3 +74,6 @@ If a pirate lands on a 'Kill' square, they choose another pirate and destroy all
 If a pirate lands on a 'Present' square, they choose another pirate and give theim 1000 of their OWN gold coins (or as much as they can)
 If a pirate lands on a 'Swap' square, they choose another pirate and swap their stash of gold coins with them
 If a pirate lands on a 'Skull and Crossbones' square, 
+
+
+maxEstTime = 5 * (gridDim[0] * gridDim[1]) + 55 + 
