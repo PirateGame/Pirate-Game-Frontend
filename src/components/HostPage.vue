@@ -60,9 +60,10 @@ export default {
                     alert(response.data["error"]);
                     return;
                 }
+
                 sessionStorage.setItem("authcode", response.data["authcode"]);
-                sessionStorage.setItem("gamename", this.gameName);
-                sessionStorage.setItem("playername", this.playerName);
+                sessionStorage.setItem("gamename", response.data["gameName"]);
+                sessionStorage.setItem("playername", response.data["playerName"]);
                 router.push("/HostPanel")
 
             } catch (err) {

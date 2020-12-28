@@ -8,6 +8,10 @@
     height: 100%;
 }
 
+::-webkit-scrollbar {
+    width: 0px;
+}
+
 .title {
     font-size: 75px;
     font-family: PirateFont;
@@ -162,6 +166,14 @@
     overflow: hidden !important;
 }
 
+.current-square{
+    background-color: #00ff40;
+}
+
+.old-square{
+    background-color: #f00;
+}
+
 .board-holder {
     width: 60%;
     height: auto;
@@ -220,10 +232,41 @@ img {
 
 .right-bar {
     width: 30%;
-    height: 70%;
+    height: 80%;
     float: left;
     margin: auto;
     margin-left: 3%;
     background-color: rgba(255, 255, 255, 0.521);
     border-radius: 15px;
+}
+
+.gameLog {
+    height: 75%;
+    width: 80%;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.75);
+    overflow-y: scroll;
+
+}
+
+
+
+/* Chat containers */
+.message {
+    border: 2px solid #f1f1f1;
+    background-color: #f1f1f1;
+    
+}
+
+/* Darker chat container */
+.darker {
+    border-color: #ddd;
+    background-color: #ddd;
+}
+
+/* Clear floats */
+    .message::after {
+    content: "";
+    clear: both;
+    display: table;
 }

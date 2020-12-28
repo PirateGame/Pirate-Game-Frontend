@@ -58,7 +58,7 @@ export default {
     },
     methods: {
       async submitBoard(){
-        var serializedData = this.grid0.save();
+        var serializedData = this.grids[0].save();
         let response = null;
         response = await Axios().post('saveBoard',
             {

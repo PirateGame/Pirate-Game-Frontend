@@ -45,10 +45,11 @@ export default {
                 }
 
                 //incase we already have one
-                localStorage.removeItem('authcode');
-                localStorage.removeItem('gamename');
-                localStorage.setItem("authcode", response.data["authCode"]);
-                localStorage.setItem("gamename", this.gameName);
+                sessionStorage.removeItem('authcode');
+                sessionStorage.removeItem('gamename');
+                sessionStorage.setItem("authcode", response.data["authcode"]);
+                sessionStorage.setItem("gamename", this.gameName);
+                sessionStorage.setItem("playername", this.playerName);
                 router.push("/WaitingRoom")
 
             } catch (err) {
