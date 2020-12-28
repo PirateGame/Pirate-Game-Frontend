@@ -53,8 +53,8 @@ which are:
 
 1. A square is selected and crossed off for all pirates
 
-This square will be the same for all players, and is normally selected at random, although most players will have the opportunity to select one at some point in the game (see
-Phase 3). Each pirate will cross off what they chose to place in that position of their treasure map, and then will complete actions accordingly.
+This square will be the same for all players, and is normally selected at random, although most players will have the opportunity to select one at some point in the game
+(see Phase 3). Each pirate will cross off what they chose to place in that position of their treasure map, and then will complete actions accordingly.
 
 2. Pirates who landed on treasure squares add gold coins to their current stash
 
@@ -63,17 +63,27 @@ Simples!
 
 3. Pirates who landed on booby traps complete the action on that square
 
-If any pirates land on any of the squares in their treasure map listed within the 'Booby Trap Pack' (see Task 2), they have an action to complete during their turn. There are
-3 different types of action: Public Passive, Public Active, and Private.
+If any pirates land on any of the squares in their treasure map listed within the 'Booby Trap Pack' (see Task 2), they have an action to complete during their turn. There 
+are 3 different types of action: Public Passive, Public Active, and Private.
 
-The first type of action, 'Public Passive', consists of the Rob, Kill, Present, Swap and Skull and Crossbones squares. If any pirates arrive at these spaces, their names will
+The first type of action, 'Public Passive', consists of the Rob, Kill, Present, Swap and Skull and Crossbones squares. If any pirates arrive at these spaces, their names
 will be put into an order at random and will complete their actions accordingly.
 
 If a pirate lands on a 'Rob' square, they choose another pirate and take all of their gold coins from their stash
 If a pirate lands on a 'Kill' square, they choose another pirate and destroy all of their gold coins in their stash AND their treasure chest
 If a pirate lands on a 'Present' square, they choose another pirate and give theim 1000 of their OWN gold coins (or as much as they can)
 If a pirate lands on a 'Swap' square, they choose another pirate and swap their stash of gold coins with them
-If a pirate lands on a 'Skull and Crossbones' square, 
+If a pirate lands on a 'Skull and Crossbones' square, they choose either a pirate crew or a pirate ship, and all the pirates in their crew or on that ship have all their
+gold coins in their stash destroyed
 
+These actions are 'Public Passive' actions, as whatever you choose will be shown publicly to all other pirates, including the amounts that you steal and swap with other
+pirates, but you only do them when told to, so are passive actions.
+
+The next action, Choose Next Square, is a 'Public Active' action, as when this square is selected, you have to declare it as quickly as you can by clicking on it. This is
+because if any other pirates have also landed on their Choose Next Square place on their map, it is the first one to declare it who gets to use it, and any others will be
+lost! If a pirate lands on a 'Choose Next Square' square, they choose the next square after all other public actions have been completed, instead of it being picked at
+random, and you can only choose squares on your map that have not been visited yet.
+
+The final type of actions are 'Private' actions, as when these are landed on, 
 
 maxEstTime = 5 * (gridDim[0] * gridDim[1]) + 55 + 
