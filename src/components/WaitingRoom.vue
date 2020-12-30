@@ -37,7 +37,7 @@ export default {
                 this.gameState = response.data["state"]
             }
             console.log(response.data)
-            if (this.gameState == "design"){
+            if (this.gameState == "building"){
                 clearInterval(this.timerID)
                 router.push("/PickTeam")
             }

@@ -79,7 +79,7 @@ export default {
         },
         async startGame(){
             let response = null;
-            response = await Axios().post('startGame',
+            response = await Axios().post('startBuilding',
                 {
                     gameName: this.gameName,
                     authCode: this.authCode,
