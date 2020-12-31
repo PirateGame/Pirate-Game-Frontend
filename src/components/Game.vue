@@ -39,8 +39,8 @@
                 <h3> Who would you like to steal from?</h3>
                 <form>
                     <select v-model="selected">
-                        <option v-for="option in optionList" v-bind:value="option.name" v-bind:key="option">
-                            {{ option.name }}
+                        <option v-for="option in optionList" v-bind:value="option" v-bind:key="option">
+                            {{ option }}
                         </option>
                     </select>
                     <div style="text-align: center;">
@@ -73,12 +73,8 @@ export default {
             gameStarted: false,
             gameStateTimer: null,
             gameTimer: null,
-            questionBool: false,
-            optionList: [
-                { name: 'Ben'},
-                { name: 'Tom'},
-                { name: 'Owen'}
-            ],
+            questionBool: true,
+            optionList: ['Ben','Tom','Owen'],
         }
     },
     async mounted () {
