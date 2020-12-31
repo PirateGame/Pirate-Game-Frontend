@@ -35,9 +35,9 @@
             </div>
             <div class="config-box float-left flex-child">
                 <h1 class="title">Players</h1>
-                    <li v-for="item in clientList">
+                    <h3 v-for="item in clientList"  v-bind:key="item">
                         {{item}}
-                    </li>
+                    </h3>
             </div>
         </div>
     </div>

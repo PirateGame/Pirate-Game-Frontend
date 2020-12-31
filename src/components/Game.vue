@@ -33,6 +33,22 @@
                 </div>
             </div>
         </div>
+        <div class="board-holder question" v-show="questionBool">
+            <div class="question-box">
+                <br>
+                <h3> Who would you like to steal from?</h3>
+                <form>
+                    <select v-model="selected">
+                        <option v-for="option in optionList" v-bind:value="option.name" v-bind:key="option">
+                            {{ option.name }}
+                        </option>
+                    </select>
+                    <div style="text-align: center;">
+                        <input type="button" value="Submit" style="color: white; text-decoration: none;" class="big-button bg-blue" @click="submitResponse">
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -56,11 +72,18 @@ export default {
             isReady: false,
             gameStarted: false,
             gameStateTimer: null,
+            gameTimer: null,
+            questionBool: false,
+            optionList: [
+                { name: 'Ben'},
+                { name: 'Tom'},
+                { name: 'Owen'}
+            ],
         }
     },
     async mounted () {
         await this.amIhost()
-        if (this.amIhost == true){
+        if (this.isHost == true){
             this.gameStateTimer = setInterval(this.getGameState, 5000);
         }
         await this.getGridDim()
@@ -179,6 +202,7 @@ export default {
             async startGame(){
                 this.gameStarted = true;
                 clearInterval(this.gameStateTimer)
+                this.gameTimer = setInterval(this.getEvent, 5000);
                 var response = null;
                 response = await Axios().post('startGame',
                     {
@@ -211,6 +235,9 @@ export default {
                 else{
                     return
                 }
+            },
+            async submitResponse(){
+                return
             }
     }
 }
