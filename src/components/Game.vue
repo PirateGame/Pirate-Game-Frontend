@@ -36,7 +36,7 @@
         <div class="board-holder question" v-show="questionBool">
             <div class="question-box">
                 <br>
-                <h3> Who would you like to steal from?</h3>
+                <h3> {{questionTitle}} </h3>
                 <form>
                     <select v-model="selected">
                         <option v-for="option in optionList" v-bind:value="option" v-bind:key="option">
@@ -66,14 +66,15 @@ export default {
             playerName: sessionStorage.getItem('playername'),
             gridWidth: 8,
             gridHeight: 8,
-            currentSquare: '--',
             isHost: false,
-            isPaused: true,
+            isPaused: false,
             isReady: false,
             gameStarted: false,
             gameStateTimer: null,
             gameTimer: null,
-            questionBool: true,
+            questionBool: false,
+            selected: null,
+            questionTitle: "nothing here",
             optionList: ['Ben','Tom','Owen'],
         }
     },
@@ -83,7 +84,9 @@ export default {
             this.gameStateTimer = setInterval(this.getGameState, 5000);
         }
         await this.getGridDim()
-        this.getEvent()
+
+        this.gameTimer = setInterval(this.getEvent, 5000);
+        
         let grid = GridStack.init({
             column: this.gridWidth,
             row: this.gridHeight,
@@ -198,7 +201,6 @@ export default {
             async startGame(){
                 this.gameStarted = true;
                 clearInterval(this.gameStateTimer)
-                this.gameTimer = setInterval(this.getEvent, 5000);
                 var response = null;
                 response = await Axios().post('startGame',
                     {
@@ -224,13 +226,16 @@ export default {
                         authCode: this.authCode,
                     }
                 );
-                if (response.data["error"] != false){
-                    console.log(response.data["error"]);
-                    return;
+                try{
+                    if (response.data["error"] == "empty"){
+                        console.log("queue empty")
+                        return
+                    }
                 }
-                else{
-                    return
+                catch (err){
+                    pass
                 }
+                this.addMessage(response.data)
             },
             async submitResponse(){
                 return
