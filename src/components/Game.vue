@@ -5,7 +5,15 @@
             <div :class="['grid-stack grid-stack-' + gridWidth]"></div>
         </div>
         <div class="right-bar">
-            <h2> Game log </h2>
+            <h2 style="margin-bottom:0"> Game log </h2>
+            <div class="flex-container" style="height:10%">
+                <div class="flex-child" style="margin-top:0">
+                    <h2> Money: 10000</h2>
+                </div>
+                <div class="flex-child" style="margin-top:0">
+                    <h2> Bank: 10000</h2>
+                </div>
+            </div>
             <div class="gameLog" id="chat">
                 <div class="message">
                     <h3> Welcome to the Pirate Game </h3>
@@ -231,6 +239,7 @@ export default {
                     return
                 }
                 if (response.data["question"] == true){
+                    clearInterval(this.gameTimer)
                     console.log(response.data)
                     this.questionBool = true,
                     this.questionTitle = response.data["text"]["labels"]
@@ -250,6 +259,7 @@ export default {
                         choice: this.selected,
                     }
                 );
+                this.gameTimer = setInterval(this.getEvent, 5000);
             }
     }
 }
