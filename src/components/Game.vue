@@ -226,19 +226,30 @@ export default {
                         authCode: this.authCode,
                     }
                 );
-                try{
-                    if (response.data["error"] == "empty"){
-                        console.log("queue empty")
-                        return
-                    }
+                if (response.data["error"] == "empty"){
+                    console.log("queue empty")
+                    return
                 }
-                catch (err){
-                    pass
+                if (response.data["question"] == true){
+                    console.log(response.data)
+                    this.questionBool = true,
+                    this.questionTitle = response.data["text"]["labels"]
+                    this.optionList = response.data["text"]["options"]
                 }
-                this.addMessage(response.data)
+                else{
+                    this.addMessage(response.data["text"])
+                }
             },
             async submitResponse(){
-                return
+                var response = null;
+                response = await Axios().post('getEvent',
+                    {
+                        gameName: this.gameName,
+                        playerName: this.playerName,
+                        authCode: this.authCode,
+                        choice: this.selected,
+                    }
+                );
             }
     }
 }
