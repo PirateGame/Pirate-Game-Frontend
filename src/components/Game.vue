@@ -251,7 +251,7 @@ export default {
             },
             async submitResponse(){
                 var response = null;
-                response = await Axios().post('getEvent',
+                response = await Axios().post('submitResponse',
                     {
                         gameName: this.gameName,
                         playerName: this.playerName,
