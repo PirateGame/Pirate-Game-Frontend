@@ -1,7 +1,8 @@
 <template>
     <div class="bg-pirate">
         <div class="config-box config-box-center">
-            <h2 class="title">Host</h2>
+            <br>
+            <h2 class="title1">Host</h2>
             <form action="play">
                 <h3 class="float-left">Grid Size = {{ gridSizex }} x {{ gridSizey }}</h3>
                 <div class="input-container">
@@ -23,7 +24,7 @@
                     <input type="text" class="text-box" placeholder=" Please enter your name..." id="playerName" v-model="playerName">
                 </div>
                 <div style="text-align: center;">
-                    <input type="button" value="Create" style="color: white; text-decoration: none;" class="big-button bg-blue" @click="createGame">
+                    <input type="button" value="Create" style="color: white; text-decoration: none;" class="big-button bg-hostColour" @click="createGame">
                 </div>
             </form>
         </div>

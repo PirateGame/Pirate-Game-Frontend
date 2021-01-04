@@ -21,15 +21,15 @@
             <br>
             <h2>Ship</h2>
             <label>
+                <input type="radio" name="Ship" v-model='Ship' v-bind:value="0" class="radio-hidden" @change="submit()">
+                <img src="/images/placeholder.png" height="150" width="250">
+            </label>
+            <label>
                 <input type="radio" name="Ship" v-model='Ship' v-bind:value="1" class="radio-hidden" @change="submit()">
                 <img src="/images/placeholder.png" height="150" width="250">
             </label>
             <label>
                 <input type="radio" name="Ship" v-model='Ship' v-bind:value="2" class="radio-hidden" @change="submit()">
-                <img src="/images/placeholder.png" height="150" width="250">
-            </label>
-            <label>
-                <input type="radio" name="Ship" v-model='Ship' v-bind:value="3" class="radio-hidden" @change="submit()">
                 <img src="/images/placeholder.png" height="150" width="250">
             </label>
         </div>

@@ -8,10 +8,10 @@
             <h2 style="margin-bottom:0"> Game log </h2>
             <div class="flex-container" style="height:10%">
                 <div class="flex-child" style="margin-top:0">
-                    <h2> Money: 10000</h2>
+                    <h2> Money: {{money}}</h2>
                 </div>
                 <div class="flex-child" style="margin-top:0">
-                    <h2> Bank: 10000</h2>
+                    <h2> Bank: {{bank}}</h2>
                 </div>
             </div>
             <div class="gameLog" id="chat">
@@ -72,8 +72,8 @@ export default {
             authCode: sessionStorage.getItem('authcode'),
             gameName: sessionStorage.getItem('gamename'),
             playerName: sessionStorage.getItem('playername'),
-            gridWidth: 8,
-            gridHeight: 8,
+            gridWidth: 7,
+            gridHeight: 7,
             isHost: false,
             isPaused: false,
             isReady: false,
@@ -82,8 +82,11 @@ export default {
             gameTimer: null,
             questionBool: false,
             selected: null,
-            questionTitle: "nothing here",
-            optionList: ['Ben','Tom','Owen'],
+            questionTitle: "",
+            optionList: [],
+            money: 0,
+            bank: 0,
+            currentTile: null,
         }
     },
     async mounted () {
@@ -238,6 +241,15 @@ export default {
                     console.log("queue empty")
                     return
                 }
+                self.money = response.data["money"]
+                self.bank = response.data["bank"]
+                if (self.currentTile != response.data["tile"]){
+                    //it has changed.
+                    //set (old) tile to colour
+                    //update currentTile variable
+                    //set tile colour
+                }
+
                 if (response.data["question"] == true){
                     clearInterval(this.gameTimer)
                     console.log(response.data)

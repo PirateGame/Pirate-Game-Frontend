@@ -26,11 +26,11 @@
                         <label for="similar">Block Similar names</label>
                     </div>
                     <div class="flex-child" style="text-align: center;">
-                        <input type="button" value="Save" style="color: white; text-decoration: none; margin:1%;" class="big-button bg-blue" @click="saveSettings">
+                        <input type="button" value="Save" style="color: white; text-decoration: none; margin:1%;" class="big-button bg-joinColour" @click="saveSettings">
                     </div>
                 </div>
                 <div style="text-align: center;">
-                    <input type="button" value="Start" style="color: white; text-decoration: none; margin:1%;" class="big-button bg-green" @click="startGame">
+                    <input type="button" value="Start" style="color: white; text-decoration: none; margin:1%;" class="big-button bg-hostColour" @click="startGame">
                 </div>
             </div>
             <div class="config-box float-left flex-child">

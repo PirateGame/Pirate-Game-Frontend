@@ -1,7 +1,8 @@
 <template>
     <div class="bg-pirate">
         <div class="config-box config-box-center">
-            <h2 class="title">Join</h2>
+            <br>
+            <h2 class="title1">Join</h2>
             <form>
                 <h3 class="float-left">Game Name</h3>
                 <div class="input-container">
@@ -12,7 +13,7 @@
                     <input type="text" class="text-box" placeholder="Name" id="playerName" v-model="playerName">
                 </div>
                 <div style="text-align: center;">
-                    <input type="button" value="Join" style="color: white; text-decoration: none;" class="big-button bg-blue" @click="joinGame">
+                    <input type="button" value="Join" style="color: white; text-decoration: none;" class="big-button bg-joinColour" @click="joinGame">
                 </div>
             </form>
         </div>
