@@ -74,6 +74,7 @@ export default {
             playerName: sessionStorage.getItem('playername'),
             gridWidth: 7,
             gridHeight: 7,
+            grid: null,
             isHost: false,
             isPaused: false,
             isReady: false,
@@ -98,7 +99,7 @@ export default {
 
         this.gameTimer = setInterval(this.getEvent, 5000);
         
-        let grid = GridStack.init({
+        this.grid = GridStack.init({
             column: this.gridWidth,
             row: this.gridHeight,
             cellHeight: 90,
@@ -106,7 +107,7 @@ export default {
         });
         
         var items = await this.getBoard()
-        grid.load(items, true);
+        this.grid.load(items, true);
     },
     methods: {
         addMessage(message){
@@ -241,13 +242,18 @@ export default {
                     console.log("queue empty")
                     return
                 }
-                self.money = response.data["money"]
-                self.bank = response.data["bank"]
-                if (self.currentTile != response.data["tile"]){
-                    //it has changed.
-                    //set (old) tile to colour
-                    //update currentTile variable
-                    //set tile colour
+                this.money = response.data["money"]
+                this.bank = response.data["bank"]
+                console.log(response.data["id"])
+                if (self.currentTile != response.data["id"]){
+                    let tile = this.grid.engine.nodes.find(n => n.id === this.currentTile).el
+                    tile.children[0].className -= "current-square"
+                    tilechildren[0].className += "old-square"
+                    this.currentTile = response.data["id"]
+                    tile = this.grid.engine.nodes.find(n => n.id === this.currentTile).el
+                    tilechildren[0].className -= "grid-stack-item-content"
+                    tilechildren[0].className += "current-square"
+                    this.addMessage("current tile: " + this.currentTile)
                 }
 
                 if (response.data["question"] == true){
@@ -255,7 +261,7 @@ export default {
                     console.log(response.data)
                     this.questionBool = true,
                     this.questionTitle = response.data["text"]["labels"]
-                    this.optionList = response.data["text"]["options"]
+                    this.optionList = response.data["text"]["options"][0]
                 }
                 else{
                     this.addMessage(response.data["text"])
@@ -272,6 +278,7 @@ export default {
                     }
                 );
                 this.gameTimer = setInterval(this.getEvent, 5000);
+                this.questionBool = false;
             }
     }
 }

@@ -152,7 +152,9 @@
     color: white;
     padding: 5%;
 }
-
+.big-button :hover {
+    cursor: pointer;
+}
 .bg-pirate {
     background-image: url("/images/piratebg.jpg");
     height: 100vh;
@@ -212,10 +214,12 @@
 
 .current-square{
     background-color: #00ff40;
+    overflow: hidden !important;
 }
 
 .old-square{
-    background-color: #f00;
+    background-color: rgba(255, 0, 0, 0.479);
+    overflow: hidden !important;
 }
 
 .board-holder {
