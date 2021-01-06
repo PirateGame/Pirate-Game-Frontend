@@ -215,11 +215,19 @@
 .current-square{
     background-color: #00ff40;
     overflow: hidden !important;
+    height: 77%;
+    margin-top: 8%;
+    width: 88%;
+    margin-left: 7%;
 }
 
 .old-square{
-    background-color: rgba(255, 0, 0, 0.479);
+    background-color: rgba(255, 0, 0, 0.575);
     overflow: hidden !important;
+    height: 77%;
+    margin-top: 8%;
+    width: 88%;
+    margin-left: 7%;
 }
 
 .board-holder {

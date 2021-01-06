@@ -245,14 +245,15 @@ export default {
                 this.money = response.data["money"]
                 this.bank = response.data["bank"]
                 console.log(response.data["id"])
-                if (self.currentTile != response.data["id"]){
-                    let tile = this.grid.engine.nodes.find(n => n.id === this.currentTile).el
-                    tile.children[0].className -= "current-square"
-                    tilechildren[0].className += "old-square"
+                if (this.currentTile != response.data["id"]){
+                    if (this.currentTile !== null){
+                        console.log('[gs-id="' + this.currentTile + '"]')
+                        var tile = this.grid.engine.nodes.find(n => n.id === this.currentTile).el
+                        tile.children[0].className = "old-square"
+                    }
                     this.currentTile = response.data["id"]
-                    tile = this.grid.engine.nodes.find(n => n.id === this.currentTile).el
-                    tilechildren[0].className -= "grid-stack-item-content"
-                    tilechildren[0].className += "current-square"
+                    var tile = this.grid.engine.nodes.find(n => n.id === this.currentTile).el
+                    tile.children[0].className = "current-square"
                     this.addMessage("current tile: " + this.currentTile)
                 }
 
@@ -260,7 +261,7 @@ export default {
                     clearInterval(this.gameTimer)
                     console.log(response.data)
                     this.questionBool = true,
-                    this.questionTitle = response.data["text"]["labels"]
+                    this.questionTitle = response.data["text"]["labels"][0]
                     this.optionList = response.data["text"]["options"][0]
                 }
                 else{
