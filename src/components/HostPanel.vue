@@ -35,9 +35,9 @@
             </div>
             <div class="config-box float-left flex-child">
                 <h1 class="title">Players</h1>
-                    <h3 v-for="item in clientList"  v-bind:key="item">
+                    <button type="button" v-for="item in clientList"  v-bind:key="item" class="kickplayer-button" @click="kickPlayer(item)">
                         {{item}}
-                    </h3>
+                    </button>
             </div>
         </div>
     </div>
@@ -108,6 +108,20 @@ export default {
                     DecisionTime: this.DecisionTime,
                     randomiseOnly: this.randomiseOnly,
                     playerLimit: this.playerLimit,
+                });
+            if (response.data["error"] != false){
+                console.log(response.data["error"])
+            }
+        },
+        async kickPlayer(playerToKick){
+            let response = null;
+            response = await Axios().post('kickPlayer',
+                {
+                    gameName: this.gameName,
+                    authCode: this.authCode,
+                    playerName: this.playerName,
+                    playerToKick: playerToKick,
+                    
                 });
             if (response.data["error"] != false){
                 console.log(response.data["error"])
