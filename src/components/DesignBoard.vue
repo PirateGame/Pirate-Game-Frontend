@@ -45,6 +45,7 @@ export default {
         //load grids
         this.grids = GridStack.initAll({
           dragIn: '.grid-stack-item',
+          maxRow: this.gridHeight,
           dragInOptions: { revert: 'invalid', scroll: false, appendTo: 'body', helper: 'clone' },
           acceptWidgets: function(el) { return true; }
         });
