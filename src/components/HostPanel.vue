@@ -30,6 +30,7 @@
                     </div>
                 </div>
                 <div style="text-align: center;">
+                    <input type="button" value="Add AI Player" style="color: white; text-decoration: none; margin:1%; vertical-align: bottom;" class="big-button bg-joinColour" @click="addAI">
                     <input type="button" value="Start" style="color: white; text-decoration: none; margin:1%;" class="big-button bg-hostColour" @click="startGame">
                 </div>
             </div>
@@ -121,6 +122,19 @@ export default {
                     authCode: this.authCode,
                     playerName: this.playerName,
                     playerToKick: playerToKick,
+                    
+                });
+            if (response.data["error"] != false){
+                console.log(response.data["error"])
+            }
+        },
+        async addAI(){
+            let response = null;
+            response = await Axios().post('addAI',
+                {
+                    gameName: this.gameName,
+                    authCode: this.authCode,
+                    playerName: this.playerName,
                     
                 });
             if (response.data["error"] != false){
