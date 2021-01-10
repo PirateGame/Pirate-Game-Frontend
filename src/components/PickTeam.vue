@@ -4,34 +4,56 @@
         <div class="team-selector" id="Captain">
             <br>
             <h2>Captain</h2>
-            <label>
-                <input type="radio" name="Captain" v-model='Captain' v-bind:value="1" class="radio-hidden" @change="showShip()">
-                <img src="/images/placeholder.png" height="150" width="250">
-            </label>
-            <label>
-                <input type="radio" name="Captain" v-model='Captain' v-bind:value="2" class="radio-hidden" @change="showShip()">
-                <img src="/images/placeholder.png" height="150" width="250">
-            </label>
-            <label>
-                <input type="radio" name="Captain" v-model='Captain' v-bind:value="3" class="radio-hidden" @change="showShip()">
-                <img src="/images/placeholder.png" height="150" width="250">
-            </label>
+            <div class="flex-container">
+                <div class="flex-child">
+                    <label>
+                        <input type="radio" name="Captain" v-model='Captain' v-bind:value="1" class="radio-hidden" @change="showShip()">
+                        <img src="/images/placeholder.png" height="150" width="250">
+                        <h3> Captain Hook </h3>
+                    </label>
+                </div>
+                <div class="flex-child">
+                    <label>
+                        <input type="radio" name="Captain" v-model='Captain' v-bind:value="2" class="radio-hidden" @change="showShip()">
+                        <img src="/images/placeholder.png" height="150" width="250">
+                        <h3> Blackbeard </h3>
+                    </label>
+                </div>
+                <div class="flex-child">
+                    <label>
+                        <input type="radio" name="Captain" v-model='Captain' v-bind:value="3" class="radio-hidden" @change="showShip()">
+                        <img src="/images/placeholder.png" height="150" width="250">
+                        <h3> Jack Sparrow </h3>
+                    </label>
+                </div>
+            </div>
         </div>
         <div class="team-selector" style="display: none;" id="ship">
             <br>
             <h2>Ship</h2>
-            <label>
-                <input type="radio" name="Ship" v-model='Ship' v-bind:value="0" class="radio-hidden" @change="submit()">
-                <img src="/images/placeholder.png" height="150" width="250">
-            </label>
-            <label>
-                <input type="radio" name="Ship" v-model='Ship' v-bind:value="1" class="radio-hidden" @change="submit()">
-                <img src="/images/placeholder.png" height="150" width="250">
-            </label>
-            <label>
-                <input type="radio" name="Ship" v-model='Ship' v-bind:value="2" class="radio-hidden" @change="submit()">
-                <img src="/images/placeholder.png" height="150" width="250">
-            </label>
+            <div class="flex-container">
+                <div class="flex-child">
+                    <label>
+                        <input type="radio" name="Ship" v-model='Ship' v-bind:value="0" class="radio-hidden" @change="submit()">
+                        <img src="/images/placeholder.png" height="150" width="250">
+                        <h3> Jolly Rodger </h3>
+                    </label>
+                </div>
+                <div class="flex-child">
+                    <label>
+                        <input type="radio" name="Ship" v-model='Ship' v-bind:value="1" class="radio-hidden" @change="submit()">
+                        <img src="/images/placeholder.png" height="150" width="250">
+                        <h3> Barnacle </h3>
+                    </label>
+                </div>
+                <div class="flex-child">
+                    <label>
+                        <input type="radio" name="Ship" v-model='Ship' v-bind:value="2" class="radio-hidden" @change="submit()">
+                        <img src="/images/placeholder.png" height="150" width="250">
+                        <h3> Queen Anne's Revenge </h3>
+                    </label>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -52,7 +74,7 @@ export default {
     },
     methods: {
         showShip() {
-            var x = document.getElementById("crew");
+            var x = document.getElementById("Captain");
             x.style.display = "none";
             var y = document.getElementById("ship");
             y.style.display = "block";
