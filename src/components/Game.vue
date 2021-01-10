@@ -8,10 +8,10 @@
             <h2 style="margin-bottom:0"> Game log </h2>
             <div class="flex-container" style="height:10%">
                 <div class="flex-child" style="margin-top:0">
-                    <h2> Money: {{money}}</h2>
+                    <h2> Stash: {{money}}</h2>
                 </div>
                 <div class="flex-child" style="margin-top:0">
-                    <h2> Bank: {{bank}}</h2>
+                    <h2> Chest: {{bank}}</h2>
                 </div>
             </div>
             <div class="gameLog" id="chat">
@@ -244,7 +244,6 @@ export default {
                 }
                 this.money = response.data["money"]
                 this.bank = response.data["bank"]
-                console.log(response.data["id"])
                 if (this.currentTile != response.data["id"]){
                     if (this.currentTile !== null){
                         console.log('[gs-id="' + this.currentTile + '"]')
@@ -254,7 +253,6 @@ export default {
                     this.currentTile = response.data["id"]
                     var tile = this.grid.engine.nodes.find(n => n.id === this.currentTile).el
                     tile.children[0].className = "current-square"
-                    this.addMessage("current tile: " + this.currentTile)
                 }
 
                 if (response.data["question"] == true){

@@ -6,7 +6,9 @@
     </div>
     <div class="board-holder-narrow">
       <input type="button" value="Randomise" style="color: white; text-decoration: none;" class="big-button bg-red" @click="randomiseBoard">
-      <div :class="['grid-stack grid-stack-' + 1]"></div>
+      <div class="board-scroll">
+        <div class="grid-stack grid-stack-1"></div>
+      </div>
       <input type="button" value="Submit" style="color: white; text-decoration: none;" class="big-button bg-blue" @click="submitBoard">
     </div>
   </div>

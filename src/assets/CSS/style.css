@@ -9,8 +9,14 @@
 }
 
 ::-webkit-scrollbar {
-    width: 0px;
+    width: 10px;
+    color: #00000000;
 }
+::-webkit-scrollbar-thumb {
+    background: rgb(109, 109, 109);
+    width: 10px;
+    border-radius: 15px;
+  }
 
 .title1 {
     font-size: 75px;
@@ -241,11 +247,16 @@
 
 .board-holder-narrow {
     width: 20%;
-    height: auto;
+    height: 50%;
     float: left;
     margin: auto;
     margin-left: 3%;
 } 
+
+.board-scroll {
+    overflow-y: scroll;
+    height: 100%;
+}
 
 
 .flex-container {
