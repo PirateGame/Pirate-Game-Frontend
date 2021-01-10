@@ -35,9 +35,9 @@
             </div>
             <div class="config-box float-left flex-child">
                 <h1 class="title">Players</h1>
-                    <button type="button" v-for="item in clientList"  v-bind:key="item" class="kickplayer-button" @click="kickPlayer(item)">
+                    <h3 type="button" v-for="item in clientList"  v-bind:key="item" class="kickplayer-button" @click="kickPlayer(item)">
                         {{item}}
-                    </button>
+                    </h3>
             </div>
         </div>
     </div>

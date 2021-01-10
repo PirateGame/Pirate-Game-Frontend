@@ -1,19 +1,19 @@
 <template>
     <div class="bg-pirate">
-        <h1 class="title">Pick your Crew and ship</h1>
-        <div class="team-selector" id="crew">
+        <h1 class="title">Pick your Captain and ship</h1>
+        <div class="team-selector" id="Captain">
             <br>
-            <h2>Crew</h2>
+            <h2>Captain</h2>
             <label>
-                <input type="radio" name="Team" v-model='Team' v-bind:value="1" class="radio-hidden" @change="showShip()">
+                <input type="radio" name="Captain" v-model='Captain' v-bind:value="1" class="radio-hidden" @change="showShip()">
                 <img src="/images/placeholder.png" height="150" width="250">
             </label>
             <label>
-                <input type="radio" name="Team" v-model='Team' v-bind:value="2" class="radio-hidden" @change="showShip()">
+                <input type="radio" name="Captain" v-model='Captain' v-bind:value="2" class="radio-hidden" @change="showShip()">
                 <img src="/images/placeholder.png" height="150" width="250">
             </label>
             <label>
-                <input type="radio" name="Team" v-model='Team' v-bind:value="3" class="radio-hidden" @change="showShip()">
+                <input type="radio" name="Captain" v-model='Captain' v-bind:value="3" class="radio-hidden" @change="showShip()">
                 <img src="/images/placeholder.png" height="150" width="250">
             </label>
         </div>
@@ -43,7 +43,7 @@ export default {
     name: 'PickTeam',
     data: function () {
         return {
-            Team: null,
+            Captain: null,
             Ship: null,
             authCode: sessionStorage.getItem('authcode'),
             gameName: sessionStorage.getItem('gamename'),
@@ -62,7 +62,7 @@ export default {
             let response = null;
             response = await Axios().post('setTeam',
                 {
-                    Team: this.Team,
+                    Captain: this.Captain,
                     Ship: this.Ship,
                     gameName: this.gameName,
                     playerName: this.playerName,
