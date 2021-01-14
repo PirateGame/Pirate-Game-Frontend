@@ -41,6 +41,7 @@
                     </h3>
             </div>
         </div>
+        <h2 style="transform: translate(0px, -100px)">Note: choose next square is stil under development and doesn't function correctly</h2>
     </div>
 </template>
 <script>
@@ -139,6 +140,9 @@ export default {
                 });
             if (response.data["error"] != false){
                 console.log(response.data["error"])
+            }
+            else{
+                this.getPlayers()
             }
         }
     }

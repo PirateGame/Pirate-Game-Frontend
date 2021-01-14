@@ -238,8 +238,8 @@ export default {
                         authCode: this.authCode,
                     }
                 );
-                if (response.data["error"] == "empty"){
-                    console.log("queue empty")
+                if (response.data["error"] != false){
+                    console.log(response.data["error"])
                     return
                 }
                 this.money = response.data["money"]
@@ -254,16 +254,16 @@ export default {
                     var tile = this.grid.engine.nodes.find(n => n.id === this.currentTile).el
                     tile.children[0].className = "current-square"
                 }
-
-                if (response.data["question"] == true){
-                    clearInterval(this.gameTimer)
-                    console.log(response.data)
-                    this.questionBool = true,
-                    this.questionTitle = response.data["text"]["labels"][0]
-                    this.optionList = response.data["text"]["options"][0]
+                var events = response.data["events"]
+                var questions = response.data["questions"]
+                for (var i = 0; i < events.length; i++){
+                    this.addMessage(events[i])
                 }
-                else{
-                    this.addMessage(response.data["text"])
+                if (questions.length != 0) {
+                    clearInterval(this.gameTimer)
+                    this.questionBool = true
+                    this.questionTitle = questions[0]["labels"][0]
+                    this.optionList = questions[0]["options"][0]
                 }
             },
             async submitResponse(){
