@@ -85,7 +85,7 @@ export default {
             questionBool: false,
             selected: null,
             questionTitle: "",
-            questionSubTitle = "",
+            questionSubTitle: "",
             optionList: [],
             money: 0,
             bank: 0,
