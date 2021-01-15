@@ -95,11 +95,11 @@ export default {
     async mounted () {
         await this.amIhost()
         if (this.isHost == true){
-            this.gameStateTimer = setInterval(this.getGameState, 5000);
+            this.gameStateTimer = setInterval(this.getGameState, 4000);
         }
         await this.getGridDim()
 
-        this.gameTimer = setInterval(this.getEvent, 5000);
+        this.gameTimer = setInterval(this.getEvent, 4000);
         
         this.grid = GridStack.init({
             column: this.gridWidth,
@@ -282,7 +282,7 @@ export default {
                         choice: this.selected,
                     }
                 );
-                this.gameTimer = setInterval(this.getEvent, 5000);
+                this.gameTimer = setInterval(this.getEvent, 4000);
             }
     }
 }
