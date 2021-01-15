@@ -45,6 +45,7 @@
             <div class="question-box">
                 <br>
                 <h3> {{questionTitle}} </h3>
+                <h3> {{questionSubTitle}} </h3>
                 <form>
                     <select v-model="selected">
                         <option v-for="option in optionList" v-bind:value="option" v-bind:key="option">
@@ -84,6 +85,7 @@ export default {
             questionBool: false,
             selected: null,
             questionTitle: "",
+            questionSubTitle = "",
             optionList: [],
             money: 0,
             bank: 0,
@@ -263,10 +265,14 @@ export default {
                     clearInterval(this.gameTimer)
                     this.questionBool = true
                     this.questionTitle = questions[0]["labels"][0]
-                    this.optionList = questions[0]["options"][0]
+                    if (questions[0]["labels"].length > 1) {
+                        this.questionSubTitle = questions[0]["labels"][1]
+                    }
+                    this.optionList = questions[0]["options"]
                 }
             },
             async submitResponse(){
+                this.questionBool = false;
                 var response = null;
                 response = await Axios().post('submitResponse',
                     {
@@ -277,7 +283,6 @@ export default {
                     }
                 );
                 this.gameTimer = setInterval(this.getEvent, 5000);
-                this.questionBool = false;
             }
     }
 }
