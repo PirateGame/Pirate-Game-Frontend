@@ -128,6 +128,9 @@ export default {
             if (response.data["error"] != false){
                 console.log(response.data["error"])
             }
+            else {
+                this.getPlayers()
+            }
         },
         async addAI(){
             let response = null;
