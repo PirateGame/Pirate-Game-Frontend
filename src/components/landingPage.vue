@@ -11,6 +11,9 @@
                 <li class="bg-hostColour">
                     <router-link :to="{ name: 'HostPage' }">Host</router-link>
                 </li>
+                <li class="bg-hostColour">
+                    <router-link :to="{ name: 'Rules' }">How To Play</router-link>
+                </li>
                 <li id="inputLI">
                 </li>
             </ul>

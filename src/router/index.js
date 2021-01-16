@@ -9,6 +9,7 @@ import AdminPanel from '../components/AdminPanel.vue'
 import DesignBoard from '../components/DesignBoard.vue'
 import PickTeam from '../components/PickTeam.vue'
 import Game from '../components/Game.vue'
+import Rules from '../components/Rules.vue'
 
 
 let router = createRouter({
@@ -22,6 +23,7 @@ let router = createRouter({
       {path:'/DesignBoard', component: DesignBoard, name:'DesignBoard'},
       {path:'/PickTeam', component: PickTeam, name:'PickTeam'},
       {path:'/AdminPanel', component: AdminPanel, name:'AdminPanel'},
+      {path:'/Rules', component: Rules, name:'Rules'},
       {path:'/Game', component: Game, name:'Game'},
     ]
   });

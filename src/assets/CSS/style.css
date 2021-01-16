@@ -210,10 +210,10 @@
 
 
 .grid-stack {
-    background: #333333;
+    background: #1100ff81;
  }
 .grid-stack-item-content {
-    background-color: #0077ff;
+    background-color: #0a0099;
     overflow: hidden !important;
 }
 
@@ -303,13 +303,13 @@ img {
     float: left;
     margin: auto;
     margin-left: 3%;
-    background-color: rgba(255, 255, 255, 0.521);
+    background-color: rgba(255, 255, 255, 0.5);
     border-radius: 15px;
 }
 
 .gameLog {
     height: 70%;
-    width: 80%;
+    width: 70%;
     margin: auto;
     background-color: rgba(255, 255, 255, 0.75);
     overflow-y: scroll;
@@ -352,7 +352,7 @@ img {
     width: 45%;
     margin: auto;
     border-radius: 15px;
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .kickplayer-button {
@@ -369,4 +369,12 @@ img {
 .kickplayer-button:focus {
     outline: none;
     box-shadow: none;
+}
+
+.rules-box{
+    margin: auto;
+    width: 70%;
+    height: auto;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.521);
 }
