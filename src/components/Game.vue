@@ -196,11 +196,12 @@ export default {
                 var tile = this.grid.engine.nodes.find(n => n.id === ids[i]).el
                 tile.children[0].className = "old-square" 
             }
-            var latestTile = ids[-1]
-            var tile = this.grid.engine.nodes.find(n => n.id === this.latestTile).el
+            var latestTile = ids[ids.length - 1]
+            var tile = this.grid.engine.nodes.find(n => n.id === latestTile).el
             tile.children[0].className = "current-square"
 
             var questions = response.data["questions"]
+            var events = response.data["events"]
             for (var i = 0; i < events.length; i++){
                 this.addMessage(events[i])
             }
