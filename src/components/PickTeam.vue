@@ -7,21 +7,21 @@
             <div class="flex-container">
                 <div class="flex-child">
                     <label>
-                        <input type="radio" name="Captain" v-model='Captain' v-bind:value="1" class="radio-hidden" @change="showShip()">
+                        <input type="radio" name="Captain" v-model='Captain' v-bind:value="0" class="radio-hidden" @change="showShip()">
                         <img src="/images/placeholder.png" height="150" width="250">
                         <h3> Captain Hook </h3>
                     </label>
                 </div>
                 <div class="flex-child">
                     <label>
-                        <input type="radio" name="Captain" v-model='Captain' v-bind:value="2" class="radio-hidden" @change="showShip()">
+                        <input type="radio" name="Captain" v-model='Captain' v-bind:value="1" class="radio-hidden" @change="showShip()">
                         <img src="/images/placeholder.png" height="150" width="250">
                         <h3> Blackbeard </h3>
                     </label>
                 </div>
                 <div class="flex-child">
                     <label>
-                        <input type="radio" name="Captain" v-model='Captain' v-bind:value="3" class="radio-hidden" @change="showShip()">
+                        <input type="radio" name="Captain" v-model='Captain' v-bind:value="2" class="radio-hidden" @change="showShip()">
                         <img src="/images/placeholder.png" height="150" width="250">
                         <h3> Jack Sparrow </h3>
                     </label>
