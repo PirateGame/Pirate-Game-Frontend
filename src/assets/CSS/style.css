@@ -210,10 +210,10 @@
 
 
 .grid-stack {
-    background: #1100ff81;
+    background: #333333;
  }
 .grid-stack-item-content {
-    background-color: #0a0099;
+    background-color: #0077ff;
     overflow: hidden !important;
 }
 
@@ -352,7 +352,7 @@ img {
     width: 45%;
     margin: auto;
     border-radius: 15px;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.85);
 }
 
 .kickplayer-button {
