@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-pirate">
+    <div class="bg-generic">
         <h1 class="title">Admin Panel</h1>
     </div>
 </template>

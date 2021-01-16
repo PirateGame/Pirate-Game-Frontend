@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-pirate">
+    <div class="bg-gamepage">
         <h1 class="title">Pick your Captain and ship</h1>
         <div class="team-selector" id="Captain">
             <br>

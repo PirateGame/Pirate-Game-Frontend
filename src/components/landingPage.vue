@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-pirate">
+    <div class="bg-generic">
         <h1 class="title3">The</h1>
         <h1 class="title1">Pirate</h1>
         <h1 class="title2">Game</h1>

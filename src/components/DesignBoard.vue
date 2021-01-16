@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-pirate">
+  <div class="bg-gamepage">
   <h2>Drag and drop the tiles to create your board, or hit the randomise button.</h2>
     <div class="board-holder">
       <div :class="['grid-stack grid-stack-' + gridWidth]"></div>

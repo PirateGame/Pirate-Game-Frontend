@@ -183,8 +183,24 @@
 .big-button :hover {
     cursor: pointer;
 }
-.bg-pirate {
-    background-image: url("/images/piratebg.jpg");
+.bg-generic {
+    background-image: url("/images/genericBackground.jpg");
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow-y :scroll;
+    overflow-x: hidden;
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+}
+.bg-gamepage {
+    background-image: url("/images/gamepageBackground.jpg");
     height: 100vh;
     background-position: center;
     background-repeat: no-repeat;

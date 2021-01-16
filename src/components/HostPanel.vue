@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-pirate">
+    <div class="bg-generic">
         <div class="flex-container">
             <div class="config-box float-left flex-child">
                 <h1 class="title">Host Panel</h1>

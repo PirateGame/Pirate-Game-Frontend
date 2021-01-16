@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-pirate">
+    <div class="bg-generic">
         <div class="config-box config-box-center">
             <br>
             <h2 class="title1">Join</h2>

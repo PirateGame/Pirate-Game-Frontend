@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-pirate">
+    <div class="bg-generic">
         <br><br><br><br><br><br><br>
         <h1 class="title1">Rules</h1>
         <br><br><br><br><br>
