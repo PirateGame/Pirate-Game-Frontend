@@ -29,15 +29,7 @@
                 </div>
             </div>
             <div v-show="isHost">
-                <div v-show="!gameStarted" class="flex-container">
-                    <div v-show="!isReady" class="flex-child" style="margin-top:0">
-                        <input type="button" value="Play" style="color: white; text-decoration: none;" class="big-button bg-red">
-                    </div>
-                    <div v-show="isReady" class="flex-child" style="margin-top:0">
-                        <input type="button" value="Play" style="color: white; text-decoration: none;" class="big-button bg-green" @click="startGame">
-                    </div>
-                </div>
-                <div v-show="gameStarted" class="flex-container">
+                <div class="flex-container">
                     <div class="flex-child" v-show="isPaused">
                         <input type="button" value="Resume" style="color: white; text-decoration: none;" class="big-button bg-green" @click="pauseGame">
                     </div>
@@ -45,7 +37,7 @@
                         <input type="button" value="Pause" style="color: white; text-decoration: none;" class="big-button bg-red" @click="pauseGame">
                     </div>
                     <div class="flex-child">
-                        <input type="button" value="Stop" style="color: white; text-decoration: none;" class="big-button bg-red" @click="stopGame">
+                    <input type="button" value="Stop" style="color: white; text-decoration: none;" class="big-button bg-red" @click="stopGame">
                     </div>
                 </div>
             </div>
@@ -92,7 +84,6 @@ export default {
             isHost: false,
             isPaused: false,
             isReady: false,
-            gameStarted: false,
             gameStateTimer: null,
             gameTimer: null,
             questionBool: false,
@@ -107,9 +98,6 @@ export default {
     },
     async mounted () {
         await this.amIhost()
-        if (this.isHost == true){
-            this.gameStateTimer = setInterval(this.getGameState, 1000);
-        }
         await this.getGridDim()
 
         this.gameTimer = setInterval(this.getEvent, 4000);
@@ -184,9 +172,10 @@ export default {
                 this.isHost = true;
             }
         },
-        async getGameState(){
+            
+        async getEvent(){
             var response = null;
-            response = await Axios().post('getGameState',
+            response = await Axios().post('getEvent',
                 {
                     gameName: this.gameName,
                     playerName: this.playerName,
@@ -194,112 +183,56 @@ export default {
                 }
             );
             if (response.data["error"] != false){
-                console.log(response.data["error"]);
-                return;
+                console.log(response.data["error"])
+                return
             }
-            else {
-                var state = response.data["state"]
-                console.log(state)
-                if (state == "paused"){
-                    this.isPaused = true;
-                    this.isReady = false;
-                }
-                else if (state == "ready"){
-                    //set the start button green
-                    this.isPaused = false;
-                    this.isReady = true;
+            this.money = response.data["money"]
+            this.bank = response.data["bank"]
+            this.shield = response.data["shield"]
+            this.mirror = response.data["mirror"]
 
-                }
-                else if (state == "active"){
-                    this.isPaused = false;
-                    this.isReady = false;
-                }
-                else if (state == "building"){
-                    this.isPaused = false;
-                    this.isReady = false;
-                }
-                else{
-                    console.log("something went wrong. missed exception")
-                    console.log(state)
-                }
-            }
-
-        },
-            async startGame(){
-                this.gameStarted = true;
-                clearInterval(this.gameStateTimer)
-                var response = null;
-                response = await Axios().post('startGame',
-                    {
-                        gameName: this.gameName,
-                        playerName: this.playerName,
-                        authCode: this.authCode,
-                    }
-                );
-                if (response.data["error"] != false){
-                    console.log(response.data["error"]);
-                    return;
-                }
-                else{
-                    return
-                }
-            },
-            async getEvent(){
-                var response = null;
-                response = await Axios().post('getEvent',
-                    {
-                        gameName: this.gameName,
-                        playerName: this.playerName,
-                        authCode: this.authCode,
-                    }
-                );
-                if (response.data["error"] != false){
-                    console.log(response.data["error"])
-                    return
-                }
-                this.money = response.data["money"]
-                this.bank = response.data["bank"]
-                this.shield = response.data["shield"]
-                this.mirror = response.data["mirror"]
-
-                if (this.currentTile != response.data["id"]){
-                    if (this.currentTile !== null){
-                        console.log('[gs-id="' + this.currentTile + '"]')
-                        var tile = this.grid.engine.nodes.find(n => n.id === this.currentTile).el
-                        tile.children[0].className = "old-square"
-                    }
-                    this.currentTile = response.data["id"]
+            if (this.currentTile != response.data["id"]){
+                if (this.currentTile !== null){
+                    console.log('[gs-id="' + this.currentTile + '"]')
                     var tile = this.grid.engine.nodes.find(n => n.id === this.currentTile).el
-                    tile.children[0].className = "current-square"
+                    tile.children[0].className = "old-square"
                 }
-                var events = response.data["events"]
-                var questions = response.data["questions"]
-                for (var i = 0; i < events.length; i++){
-                    this.addMessage(events[i])
-                }
-                if (questions.length != 0) {
-                    clearInterval(this.gameTimer)
-                    this.questionBool = true
-                    this.questionTitle = questions[0]["labels"][0]
-                    if (questions[0]["labels"].length > 1) {
-                        this.questionSubTitle = questions[0]["labels"][1]
-                    }
-                    this.optionList = questions[0]["options"]
-                }
-            },
-            async submitResponse(){
-                this.questionBool = false;
-                var response = null;
-                response = await Axios().post('submitResponse',
-                    {
-                        gameName: this.gameName,
-                        playerName: this.playerName,
-                        authCode: this.authCode,
-                        choice: this.selected,
-                    }
-                );
-                this.gameTimer = setInterval(this.getEvent, 4000);
+                this.currentTile = response.data["id"]
+                var tile = this.grid.engine.nodes.find(n => n.id === this.currentTile).el
+                tile.children[0].className = "current-square"
             }
+            var events = response.data["events"]
+            var questions = response.data["questions"]
+            for (var i = 0; i < events.length; i++){
+                this.addMessage(events[i])
+            }
+            if (questions.length != 0) {
+                clearInterval(this.gameTimer)
+                this.questionBool = true
+                this.questionTitle = questions[0]["labels"][0]
+                if (questions[0]["labels"].length > 1) {
+                    this.questionSubTitle = questions[0]["labels"][1]
+                }
+                this.optionList = questions[0]["options"]
+            }
+        },
+        async submitResponse(){
+            this.questionBool = false;
+            var response = null;
+            response = await Axios().post('submitResponse',
+                {
+                    gameName: this.gameName,
+                    playerName: this.playerName,
+                    authCode: this.authCode,
+                    choice: this.selected,
+                }
+            );
+            this.gameTimer = setInterval(this.getEvent, 4000);
+            this.money = response.data["money"]
+            this.bank = response.data["bank"]
+            this.shield = response.data["shield"]
+            this.mirror = response.data["mirror"]
+        }
     }
 }
 

@@ -51,7 +51,7 @@ export default {
                 sessionStorage.setItem("authcode", response.data["authcode"]);
                 sessionStorage.setItem("gamename", this.gameName);
                 sessionStorage.setItem("playername", this.playerName);
-                router.push("/WaitingRoom")
+                router.push("/PickTeam")
 
             } catch (err) {
                 alert("server offline")

@@ -75,7 +75,7 @@ export default {
         }
         else {
           //we should probably have a page that just says board submitted waiting for others.
-          router.push("/Game")
+          router.push("/WaitingRoom")
         }
 
       },

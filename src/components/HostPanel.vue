@@ -80,23 +80,7 @@ export default {
             this.clientList = response.data["names"]
         },
         async startGame(){
-            let response = null;
-            response = await Axios().post('startBuilding',
-                {
-                    gameName: this.gameName,
-                    authCode: this.authCode,
-                    playerName: this.playerName,
-                });
-            if (response.data["game"] == false){
-                alert("an error has occured")
-            }
-            if (response.data["auth"] == false){
-                alert("authentication failed")
-            }
-            else{
-                clearInterval(this.timerID)
-                router.push("/PickTeam")
-            } 
+            router.push("/PickTeam")
         },
         async saveSettings(){
             let response = null;
