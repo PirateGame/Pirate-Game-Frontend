@@ -190,18 +190,16 @@ export default {
             this.bank = response.data["bank"]
             this.shield = response.data["shield"]
             this.mirror = response.data["mirror"]
+            var ids = response.data["ids"]
 
-            if (this.currentTile != response.data["id"]){
-                if (this.currentTile !== null){
-                    console.log('[gs-id="' + this.currentTile + '"]')
-                    var tile = this.grid.engine.nodes.find(n => n.id === this.currentTile).el
-                    tile.children[0].className = "old-square"
-                }
-                this.currentTile = response.data["id"]
-                var tile = this.grid.engine.nodes.find(n => n.id === this.currentTile).el
-                tile.children[0].className = "current-square"
+            for (var i = 0; i < ids.length; i++){
+                var tile = this.grid.engine.nodes.find(n => n.id === ids[i]).el
+                tile.children[0].className = "old-square" 
             }
-            var events = response.data["events"]
+            var latestTile = ids[-1]
+            var tile = this.grid.engine.nodes.find(n => n.id === this.latestTile).el
+            tile.children[0].className = "current-square"
+
             var questions = response.data["questions"]
             for (var i = 0; i < events.length; i++){
                 this.addMessage(events[i])
