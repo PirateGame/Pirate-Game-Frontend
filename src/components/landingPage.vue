@@ -5,19 +5,24 @@
         <h1 class="title2">Game</h1>
         <div class="mainMenu">
             <ul id="menuUL">
-                <li class="bg-joinColour">
+                <li class="bg-landingQuickplay">
+                    <router-link :to="{ name: 'JoinPage' }">Quick Play</router-link>
+                </li>
+                <li class="bg-landingJoin">
                     <router-link :to="{ name: 'JoinPage' }">Join</router-link>
                 </li>
-                <li class="bg-hostColour">
+                <li class="bg-landingHost">
                     <router-link :to="{ name: 'HostPage' }">Host</router-link>
                 </li>
-                <li class="bg-hostColour">
-                    <router-link :to="{ name: 'Rules' }">How To Play</router-link>
+                <li class="bg-landingRules">
+                    <router-link :to="{ name: 'Rules' }">Rules</router-link>
                 </li>
                 <li id="inputLI">
                 </li>
             </ul>
-        <h1 class="bottomText1">Developed by Alex.P and Jamie.E</h1>
+        <h1 class="bottomText1">Developed by</h1>
+        <h1 class="bottomText2">Website: Alex.P</h1>
+        <h1 class="bottomText2">Backend: Jamie.E</h1>
         <a href="https://ko-fi.com/pirategameonline" target="_blank">
             <img src="/images/ko-fi.png" style="width:80%; height:auto">
         </a>

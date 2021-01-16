@@ -36,7 +36,7 @@
     -webkit-text-stroke: 2px rgba(51, 0, 0, 0.1);
 	-webkit-text-fill-color: rgba(0, 0, 0, 0.65);
     padding-top: 0%;
-    padding-bottom: 5%;
+    padding-bottom: 0%;
     margin: 0;
 }
 
@@ -58,7 +58,18 @@
     -webkit-text-stroke: 2px rgba(51, 0, 0, 0.1);
 	-webkit-text-fill-color: rgba(0, 0, 0, 0.65);
     padding-top: 10%;
-    padding-bottom: 8%;
+    padding-bottom: 0%;
+    margin: 0;
+}
+
+.bottomText2 {
+    font-size: 12px;
+    font-family: PirateFont;
+    text-align: center;
+    -webkit-text-stroke: 2px rgba(51, 0, 0, 0.1);
+	-webkit-text-fill-color: rgba(0, 0, 0, 0.65);
+    padding-top: 0%;
+    padding-bottom: 0%;
     margin: 0;
 }
 
@@ -74,12 +85,24 @@
     background-color: rgba(45, 255, 133, 0.74);
 }
 
-.bg-joinColour {
+.bg-landingJoin {
     background-color: rgb(255, 123, 0, 0.25);
 }
 
-.bg-hostColour {
+.bg-landingHost {
     background-color: rgb(255, 0, 0, 0.25);
+}
+
+.bg-landingRules {
+    background-color: rgba(255, 0, 140, 0.25);
+}
+
+.bg-landingQuickplay {
+    background-color: rgba(255, 208, 0, 0.25);
+}
+
+.bg-genericButton {
+    background-color: rgba(255, 255, 255, 0.25);
 }
 
 .config-box{
