@@ -312,7 +312,7 @@ img {
     height: 70%;
     width: 70%;
     margin: auto;
-    background-color: rgba(187, 255, 234, 0.205);
+    background-color: rgba(255, 255, 255, 0.205);
     overflow-y: scroll;
 
 }
@@ -321,15 +321,15 @@ img {
 
 /* Chat containers */
 .message {
-    border: 2px solid #f1f1f1;
-    background-color: #f1f1f1;
+    border: 5px solid #ff48482c;
+    background-color: #2905002f;
     
 }
 
 /* Darker chat container */
 .darker {
-    border-color: #ddd;
-    background-color: #ddd;
+    border: 5px solid #ff48482c;
+    background-color: #2905000a;
 }
 
 /* Clear floats */
@@ -350,9 +350,9 @@ img {
 .question-box {
     
     height: 60%;
-    width: 45%;
+    width: 35%;
     margin: auto;
-    border-radius: 15px;
+    border: 5px solid rgba(255, 255, 255, 0.5);
     background-color: rgba(255, 255, 255, 0.85);
 }
 
