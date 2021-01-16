@@ -228,10 +228,7 @@ export default {
                 }
             );
             this.gameTimer = setInterval(this.getEvent, 4000);
-            this.money = response.data["money"]
-            this.bank = response.data["bank"]
-            this.shield = response.data["shield"]
-            this.mirror = response.data["mirror"]
+            this.getEvent()
         }
     }
 }
