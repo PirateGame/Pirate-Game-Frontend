@@ -2,6 +2,7 @@
     <div class="bg-pirate">
         <br><br><br><br><br><br><br>
         <h1 class="title1">How to Play</h1>
+        <br><br><br><br><br>
         <div class="rules-box">
             <h1>
             Ahoy, me hearties.
