@@ -95,6 +95,10 @@ export default {
                 console.log(response.data["error"])
             }
             else{
+                sessionStorage.removeItem("captain")
+                sessionStorage.removeItem("ship")
+                sessionStorage.setItem("captain", this.Captain)
+                sessionStorage.setItem("ship", this.Ship)
                 router.push("/DesignBoard")
             }
         }

@@ -5,15 +5,26 @@
             <div :class="['grid-stack grid-stack-' + gridWidth]"></div>
         </div>
         <div class="right-bar">
-            <h2 style="margin-bottom:0"> Game log </h2>
-            <div class="flex-container" style="height:10%">
-                <div class="flex-child" style="margin-top:0">
+            <h2 style="margin-top:10px"> Game log </h2>
+            <div class="flex-container" style="height:6%">
+                <div class="flex-child" style="margin:0">
                     <h2> Stash: {{money}}</h2>
                 </div>
-                <div class="flex-child" style="margin-top:0">
+                <div class="flex-child" style="margin:0">
                     <h2> Chest: {{bank}}</h2>
                 </div>
             </div>
+            <div class="flex-container" style="height:6%">
+                <div class="flex-child" style="margin:0">
+                    <h2 v-show="mirror" class="has-defence"> Mirror</h2>
+                    <h2 v-show="!mirror" class="no-defence"> Mirror</h2>
+                </div>
+                <div class="flex-child" style="margin:0">
+                    <h2 v-show="shield" class="has-defence"> Shield</h2>
+                    <h2 v-show="!shield" class="no-defence"> Shield</h2>
+                </div>
+            </div>
+            <br>
             <div class="gameLog" id="chat">
                 <div class="message">
                     <h3> Welcome to the Pirate Game </h3>
@@ -73,6 +84,10 @@ export default {
             authCode: sessionStorage.getItem('authcode'),
             gameName: sessionStorage.getItem('gamename'),
             playerName: sessionStorage.getItem('playername'),
+            ship: sessionStorage.getItem("ship"),
+            captaion: sessionStorage.getItem("captain"),
+            mirror: false,
+            shield: false,
             gridWidth: 7,
             gridHeight: 7,
             grid: null,
@@ -246,6 +261,9 @@ export default {
                 }
                 this.money = response.data["money"]
                 this.bank = response.data["bank"]
+                this.shield = response.data["shield"]
+                this.mirror = response.data["mirror"]
+
                 if (this.currentTile != response.data["id"]){
                     if (this.currentTile !== null){
                         console.log('[gs-id="' + this.currentTile + '"]')

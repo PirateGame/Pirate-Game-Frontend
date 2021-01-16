@@ -299,7 +299,7 @@ img {
 
 .right-bar {
     width: 30%;
-    height: 80%;
+    height: 90%;
     float: left;
     margin: auto;
     margin-left: 3%;
@@ -369,4 +369,12 @@ img {
 .kickplayer-button:focus {
     outline: none;
     box-shadow: none;
+}
+
+.has-defence{
+    -webkit-text-fill-color: rgb(21, 255, 0);
+}
+
+.no-defence{
+    -webkit-text-fill-color: rgb(255, 0, 0);
 }
