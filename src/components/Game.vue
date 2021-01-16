@@ -95,7 +95,7 @@ export default {
     async mounted () {
         await this.amIhost()
         if (this.isHost == true){
-            this.gameStateTimer = setInterval(this.getGameState, 4000);
+            this.gameStateTimer = setInterval(this.getGameState, 1000);
         }
         await this.getGridDim()
 
