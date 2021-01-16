@@ -39,10 +39,10 @@
                 </div>
                 <div v-show="gameStarted" class="flex-container">
                     <div class="flex-child" v-show="isPaused">
-                        <input type="button" value="Play" style="color: white; text-decoration: none;" class="big-button bg-red" @click="pauseGame">
+                        <input type="button" value="Resume" style="color: white; text-decoration: none;" class="big-button bg-green" @click="pauseGame">
                     </div>
                     <div class="flex-child" v-show="!isPaused">
-                        <input type="button" value="Pause" style="color: white; text-decoration: none;" class="big-button bg-blue" @click="pauseGame">
+                        <input type="button" value="Pause" style="color: white; text-decoration: none;" class="big-button bg-red" @click="pauseGame">
                     </div>
                     <div class="flex-child">
                         <input type="button" value="Stop" style="color: white; text-decoration: none;" class="big-button bg-red" @click="stopGame">
