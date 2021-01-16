@@ -58,7 +58,7 @@
     -webkit-text-stroke: 2px rgba(51, 0, 0, 0.1);
 	-webkit-text-fill-color: rgba(0, 0, 0, 0.65);
     padding-top: 10%;
-    padding-bottom: 5%;
+    padding-bottom: 8%;
     margin: 0;
 }
 
@@ -369,12 +369,4 @@ img {
 .kickplayer-button:focus {
     outline: none;
     box-shadow: none;
-}
-
-.has-defence{
-    -webkit-text-fill-color: rgb(21, 255, 0);
-}
-
-.no-defence{
-    -webkit-text-fill-color: rgb(255, 0, 0);
 }

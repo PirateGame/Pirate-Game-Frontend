@@ -15,6 +15,9 @@
                 </li>
             </ul>
         <h1 class="bottomText1">Developed by Alex.P and Jamie.E</h1>
+        <a href="https://ko-fi.com/pirategameonline" target="_blank">
+            <img src="/images/ko-fi.png" style="width:80%; height:auto">
+        </a>
         </div>
     </div>
 </template>

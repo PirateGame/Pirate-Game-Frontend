@@ -16,12 +16,10 @@
             </div>
             <div class="flex-container" style="height:6%">
                 <div class="flex-child" style="margin:0">
-                    <h2 v-show="mirror" class="has-defence"> Mirror</h2>
-                    <h2 v-show="!mirror" class="no-defence"> Mirror</h2>
+                    <h2> Mirror: {{mirror}}</h2>
                 </div>
                 <div class="flex-child" style="margin:0">
-                    <h2 v-show="shield" class="has-defence"> Shield</h2>
-                    <h2 v-show="!shield" class="no-defence"> Shield</h2>
+                    <h2> Shield: {{shield}}</h2>
                 </div>
             </div>
             <br>
@@ -86,8 +84,8 @@ export default {
             playerName: sessionStorage.getItem('playername'),
             ship: sessionStorage.getItem("ship"),
             captaion: sessionStorage.getItem("captain"),
-            mirror: false,
-            shield: false,
+            mirror: 0,
+            shield: 0,
             gridWidth: 7,
             gridHeight: 7,
             grid: null,
