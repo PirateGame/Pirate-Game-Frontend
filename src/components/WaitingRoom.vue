@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-pirate">
+    <div class="bg-generic">
         <h1 class="title">You're In!</h1>
         <h2>Please wait while the host starts the game.</h2>
         <h2>Here is a guide on how to play the game.</h2>
