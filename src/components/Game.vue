@@ -64,8 +64,6 @@
 <script>
 import Axios from '/services/axios.js';
 import router from '../router/index';
-import '/gridstack.css';
-import '/gridstack-h5.js';
 export default {
     name: 'Game',
     data: function () {
