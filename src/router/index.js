@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import LandingPage from 'src/components/landingPage.vue'
-import HostPage from 'src/components/HostPage.vue'
-import JoinPage from 'src/components/JoinPage.vue'
+import LandingPage from '../../src/components/landingPage.vue'
+import HostPage from '../../src/components/HostPage.vue'
+import JoinPage from '../../src/components/JoinPage.vue'
 import WaitingRoom from 'src/components/WaitingRoom.vue'
 import HostPanel from 'src/components/HostPanel.vue'
 import AdminPanel from 'src/components/AdminPanel.vue'
