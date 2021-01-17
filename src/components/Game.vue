@@ -181,7 +181,7 @@ export default {
                 }
             );
             if (response.data["error"] != false){
-                console.log(response.data["error"])
+                this.addMessage(response.data["error"])
                 clearInterval(this.gameTimer)
                 return
             }
