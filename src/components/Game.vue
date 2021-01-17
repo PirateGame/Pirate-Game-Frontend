@@ -64,8 +64,6 @@
 <script>
 import Axios from '/services/axios.js';
 import router from '../router/index';
-import 'gridstack/dist/gridstack.min.css';
-import 'gridstack/dist/gridstack-h5.js';
 import { getCurrentInstance } from 'vue';
 export default {
     name: 'Game',
