@@ -64,9 +64,6 @@
 <script>
 import Axios from '/services/axios.js';
 import router from '../router/index';
-import { GridStack, $ } from 'gridstack'; // $ optional if you depend on it, to be removed in 3.x
-import 'gridstack/dist/gridstack.css';
-import { getCurrentInstance } from 'vue';
 export default {
     name: 'Game',
     data: function () {
