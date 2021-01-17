@@ -54,6 +54,7 @@ export default {
                 this.isReady = true
             }
             if (this.gameState == "started") {
+                clearInterval(this.timerID)
                 router.push("/Game")
             }
         },
