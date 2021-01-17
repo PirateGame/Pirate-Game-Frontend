@@ -16,6 +16,8 @@
 <script>
 import Axios from '/services/axios.js';
 import router from '../router/index';
+import 'https://cdnjs.com/libraries/gridstack.js/0.2.4';
+import 'https://cdnjs.cloudflare.com/ajax/libs/gridstack.js/0.2.4/gridstack.min.css';
 export default {
     name: 'DesignBoard',
     data: function () {
