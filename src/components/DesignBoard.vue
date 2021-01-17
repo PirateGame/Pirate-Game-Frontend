@@ -16,8 +16,8 @@
 <script>
 import Axios from '/services/axios.js';
 import router from '../router/index';
-import 'gridstack/dist/gridstack.min.css';
-import 'gridstack/dist/gridstack-h5.js';
+import { GridStack, $ } from 'gridstack'; // $ optional if you depend on it, to be removed in 3.x
+import 'gridstack/dist/gridstack.css';
 export default {
     name: 'DesignBoard',
     data: function () {
