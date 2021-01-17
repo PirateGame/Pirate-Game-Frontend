@@ -83,8 +83,6 @@ export default {
             grid: null,
             isHost: false,
             isPaused: false,
-            isReady: false,
-            gameStateTimer: null,
             gameTimer: null,
             questionBool: false,
             selected: null,
@@ -184,6 +182,7 @@ export default {
             );
             if (response.data["error"] != false){
                 console.log(response.data["error"])
+                clearInterval(this.gameTimer)
                 return
             }
             this.money = response.data["money"]

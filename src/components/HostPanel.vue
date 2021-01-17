@@ -76,6 +76,7 @@ export default {
                 });
             if (response.data["game"] == false){
                 alert("game not found")
+                clearInterval(this.timerID)
             }
             this.clientList = response.data["names"]
         },

@@ -46,6 +46,7 @@ export default {
                 });
             if (response.data["error"] != false){
                 console.log(response.data["error"])
+                clearInterval(this.timerID)
             }
             this.gameState = response.data["state"]
             console.log(this.gameState)
