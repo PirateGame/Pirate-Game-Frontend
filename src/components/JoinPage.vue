@@ -1,7 +1,8 @@
 <template>
-    <div class="bg-pirate">
-        <div class="config-box">
-            <h2 class="title">Join</h2>
+    <div class="bg-generic">
+        <div class="config-box config-box-center">
+            <br>
+            <h2 class="title1">Join</h2>
             <form>
                 <h3 class="float-left">Game Name</h3>
                 <div class="input-container">
@@ -12,7 +13,7 @@
                     <input type="text" class="text-box" placeholder="Name" id="playerName" v-model="playerName">
                 </div>
                 <div style="text-align: center;">
-                    <input type="button" value="Join" style="color: white; text-decoration: none;" class="big-button bg-blue" @click="joinGame">
+                    <input type="button" value="Join" style="color: white; text-decoration: none;" class="big-button bg-genericButton" @click="joinGame">
                 </div>
             </form>
         </div>
@@ -39,14 +40,18 @@ export default {
                         playerName: this.playerName
                     },
                 );
-                console.log(response.data);
+                if (response.data["error"] != false){
+                    alert(response.data["error"]);
+                    return;
+                }
 
                 //incase we already have one
-                localStorage.removeItem('authcode');
-                localStorage.removeItem('gamename');
-                localStorage.setItem("authcode", response.data["authCode"]);
-                localStorage.setItem("gamename", this.gameName);
-                router.push("/WaitingRoom")
+                sessionStorage.removeItem('authcode');
+                sessionStorage.removeItem('gamename');
+                sessionStorage.setItem("authcode", response.data["authcode"]);
+                sessionStorage.setItem("gamename", this.gameName);
+                sessionStorage.setItem("playername", this.playerName);
+                router.push("/PickTeam")
 
             } catch (err) {
                 alert("server offline")

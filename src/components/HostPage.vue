@@ -1,11 +1,12 @@
 <template>
-    <div class="bg-pirate">
-        <div class="config-box">
-            <h2 class="title">Host</h2>
+    <div class="bg-generic">
+        <div class="config-box config-box-center">
+            <br>
+            <h2 class="title1">Host</h2>
             <form action="play">
                 <h3 class="float-left">Grid Size = {{ gridSizex }} x {{ gridSizey }}</h3>
                 <div class="input-container">
-                    <input type="range" min="5" max="15" :size='gridSizey' class="slider" id="gridSizex" v-model='gridSizex'>
+                    <input type="range" min="5" max="12" :size='gridSizey' class="slider" id="gridSizex" v-model='gridSizex'>
                     <input type="range" min="5" max="15" :size='gridSizex' class="slider" id="gridSizey" v-model='gridSizey'>
                 </div>
                 <h3 class="float-left">Custom Game ID</h3>
@@ -23,7 +24,7 @@
                     <input type="text" class="text-box" placeholder=" Please enter your name..." id="playerName" v-model="playerName">
                 </div>
                 <div style="text-align: center;">
-                    <input type="button" value="Create" style="color: white; text-decoration: none;" class="big-button bg-blue" @click="createGame">
+                    <input type="button" value="Create" style="color: white; text-decoration: none;" class="big-button bg-genericButton" @click="createGame">
                 </div>
             </form>
         </div>
@@ -56,13 +57,14 @@ export default {
                         isHostPlaying: this.isHostPlaying,
                     },
                 );
-                console.log(response.data.authCode);
+                if (response.data["error"] != false){
+                    alert(response.data["error"]);
+                    return;
+                }
 
-                //incase we already have one
-                localStorage.removeItem('authcode');
-                localStorage.removeItem('gamename');
-                localStorage.setItem("authcode", response.data["authCode"]);
-                localStorage.setItem("gamename", this.gameName);
+                sessionStorage.setItem("authcode", response.data["authcode"]);
+                sessionStorage.setItem("gamename", response.data["gameName"]);
+                sessionStorage.setItem("playername", response.data["playerName"]);
                 router.push("/HostPanel")
 
             } catch (err) {
