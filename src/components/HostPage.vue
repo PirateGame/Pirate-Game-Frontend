@@ -4,13 +4,12 @@
             <br>
             <h2 class="title1">Host</h2>
             <form action="play">
-                <h3 class="float-left">Grid Size</h3>
-                <h3 class="float-left">{{ gridSizex }} x {{ gridSizey }}</h3>
+                <h3 class="float-left">Grid Size = {{ gridSizex }} x {{ gridSizey }}</h3>
                 <div class="input-container">
                     <input type="range" min="5" max="12" :size='gridSizey' class="slider" id="gridSizex" v-model='gridSizex'>
                     <input type="range" min="5" max="15" :size='gridSizex' class="slider" id="gridSizey" v-model='gridSizey'>
                 </div>
-                <h3 class="float-left">Game Name</h3>
+                <h3 class="float-left">Custom Game ID</h3>
                 <div class="input-container">
                     <input type="text" class="text-box" placeholder=" Please enter a game id..." id="gameName" v-model="gameName">
                 </div>
@@ -69,7 +68,7 @@ export default {
                 router.push("/HostPanel")
 
             } catch (err) {
-                alert("The server isn't responding!")
+                alert("server offline")
                 console.log(err)
             }
 

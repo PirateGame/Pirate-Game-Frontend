@@ -3,7 +3,6 @@
         <h1 class="title3">The</h1>
         <h1 class="title1">Pirate</h1>
         <h1 class="title2">Game</h1>
-        <h1 class="subtitle1">Conquer the seven seas!</h1>
         <div class="mainMenu">
             <ul id="menuUL">
                 <li class="bg-landingQuickplay">
@@ -21,7 +20,6 @@
                 <li id="inputLI">
                 </li>
             </ul>
-        <h1 class="bottomText1">v1.1</h1>
         <h1 class="bottomText1">Developed by</h1>
         <h1 class="bottomText2">Website: Alex.P</h1>
         <h1 class="bottomText2">Backend: Jamie.E</h1>

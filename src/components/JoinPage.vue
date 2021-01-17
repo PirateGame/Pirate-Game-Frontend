@@ -54,7 +54,7 @@ export default {
                 router.push("/PickTeam")
 
             } catch (err) {
-                alert("The server isn't responding!")
+                alert("server offline")
                 console.log(err)
             }
 
