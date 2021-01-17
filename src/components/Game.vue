@@ -178,8 +178,10 @@ export default {
                 }
             );
             if (response.data["error"] != false){
-                this.addMessage(response.data["error"])
-                clearInterval(this.gameTimer)
+                if (response.data["error"] == "game finished") {
+                    this.addMessage(response.data["error"])
+                    clearInterval(this.gameTimer)
+                }
                 return
             }
             this.money = response.data["money"]
