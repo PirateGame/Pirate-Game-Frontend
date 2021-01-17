@@ -76,7 +76,6 @@ export default {
             }
         },
         async startGame(){
-                clearInterval(this.gameStateTimer)
                 var response = null;
                 response = await Axios().post('startGame',
                     {

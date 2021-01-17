@@ -81,6 +81,7 @@ export default {
             this.clientList = response.data["names"]
         },
         async startGame(){
+            clearInterval(this.timerID)
             router.push("/PickTeam")
         },
         async saveSettings(){
