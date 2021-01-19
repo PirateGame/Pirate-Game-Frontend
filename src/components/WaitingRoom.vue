@@ -4,12 +4,15 @@
         <h2>Please wait while the host starts the game.</h2>
         <h2>Here is a guide on how to play the game.</h2>
         <h2> game state: {{gameState}} </h2>
-        <div v-show="isHost">
+        <router-link :to="{ name: 'Rules'}" target="_blank">
+            <input type="button" value="Rules" style="color: white; text-decoration: none; width:50%; margin:2%" class="big-button bg-genericButton">
+        </router-link>
+        <div v-show="isHost" style="margin:0">
             <div v-show="!isReady" class="flex-child" style="margin-top:0">
-                <input type="button" value="Play" style="color: white; text-decoration: none;" class="big-button bg-red">
+                <input type="button" value="Play" style="color: white; text-decoration: none; width:50%; margin:2%" class="big-button bg-red">
             </div>
             <div v-show="isReady" class="flex-child" style="margin-top:0">
-                <input type="button" value="Play" style="color: white; text-decoration: none;" class="big-button bg-green" @click="startGame">
+                <input type="button" value="Play" style="color: white; text-decoration: none; width:53%; margin:2%" class="big-button bg-green" @click="startGame">
             </div>
         </div>
     </div>
@@ -76,22 +79,21 @@ export default {
             }
         },
         async startGame(){
-                var response = null;
-                response = await Axios().post('startGame',
-                    {
-                        gameName: this.gameName,
-                        playerName: this.playerName,
-                        authCode: this.authCode,
-                    }
-                );
-                if (response.data["error"] != false){
-                    console.log(response.data["error"]);
+            var response = null;
+            response = await Axios().post('startGame',
+                {
+                    gameName: this.gameName,
+                    playerName: this.playerName,
+                    authCode: this.authCode,
                 }
-                else {
-                    this.gameCheck()
-                }
-            },
-
+            );
+            if (response.data["error"] != false){
+                console.log(response.data["error"]);
+            }
+            else {
+                this.gameCheck()
+            }
+        }
     }
 }
 
