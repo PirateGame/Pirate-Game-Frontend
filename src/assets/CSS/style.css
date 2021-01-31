@@ -195,7 +195,7 @@
     cursor: pointer;
 }
 .bg-generic {
-    background-image: url("/images/genericBackground.jpg");
+    background-image: url("/images/genericBackgroundLowRes.jpg");
     height: 100vh;
     background-position: center;
     background-repeat: no-repeat;
@@ -210,7 +210,7 @@
 }
 
 .bg-gamepage {
-    background-image: url("/images/gamepageBackground.jpg");
+    background-image: url("/images/gamepageBackgroundLowRes.jpg");
     height: 100vh;
     background-position: center;
     background-repeat: no-repeat;
