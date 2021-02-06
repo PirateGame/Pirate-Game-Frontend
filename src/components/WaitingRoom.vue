@@ -18,7 +18,6 @@
     </div>
 </template>
 <script>
-import Axios from '/services/axios.js';
 import router from '../router/index';
 export default {
     name: 'WaitingRoom',
@@ -34,64 +33,50 @@ export default {
         }
     },
     async created () {
-        this.timerID = setInterval(this.gameCheck, 5000);
         this.amIhost()
-        this.gameCheck()
-    },
-    methods: {
-        async gameCheck(){
-            let response = null;
-            response = await Axios().post('lobbyCheck',
-                {
-                    gameName: this.gameName,
-                    playerName: this.playerName,
-                    authCode: this.authCode,
-                });
-            if (response.data["error"] != false){
-                console.log(response.data["error"])
-                clearInterval(this.timerID)
-            }
-            this.gameState = response.data["state"]
+        this.sockets.listener.subscribe("lobbyCheck", (data) => {
+            this.gameState = data["state"]
             console.log(this.gameState)
             if (this.gameState == "ready") {
                 this.isReady = true
             }
             if (this.gameState == "started") {
-                clearInterval(this.timerID)
                 router.push("/Game")
             }
-        },
+        });
+    },
+    methods: {
         async amIhost(){
-            var response = null;
-            response = await Axios().post('amIHost',
+            if (this.$socket.connected){
+                this.$socket.emit('amIHost',
                 {
                     gameName: this.gameName,
                     playerName: this.playerName,
                     authCode: this.authCode,
                 }
             );
-            if (response.data["error"] != false){
-                console.log(response.data["error"])
-                return;
-            }
-            else{
-                this.isHost = true;
+            await this.$socket.on('response', (data) => {
+                    if (data["error"] != false){
+                        alert(data["error"]);
+                        return;
+                    }
+                });
             }
         },
         async startGame(){
-            var response = null;
-            response = await Axios().post('startGame',
+            if (this.$socket.connected){
+                this.$socket.emit('startGame',
                 {
                     gameName: this.gameName,
                     playerName: this.playerName,
                     authCode: this.authCode,
-                }
-            );
-            if (response.data["error"] != false){
-                console.log(response.data["error"]);
-            }
-            else {
-                this.gameCheck()
+                });
+                await this.$socket.on('response', (data) => {
+                    if (data["error"] != false){
+                        alert(data["error"]);
+                        return;
+                    }
+                });
             }
         }
     }

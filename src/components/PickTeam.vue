@@ -60,7 +60,6 @@
 
 
 <script>
-import Axios from '/services/axios.js';
 import router from '../router/index';
 export default {
     name: 'PickTeam',
@@ -82,25 +81,26 @@ export default {
             
         },
         async submit(){
-            let response = null;
-            response = await Axios().post('setTeam',
+            if (this.$socket.connected){
+                this.$socket.emit('setTeam',
                 {
                     Captain: this.Captain,
                     Ship: this.Ship,
                     gameName: this.gameName,
                     playerName: this.playerName,
                     authCode: this.authCode,
-                },
-            );
-            if (response.data["error"] != false){
-                console.log(response.data["error"])
-            }
-            else{
-                sessionStorage.removeItem("captain")
+                });
+                await this.$socket.on('response', (data) => {
+                    if (data["error"] != false){
+                        alert(data["error"]);
+                        return;
+                    }
+                    sessionStorage.removeItem("captain")
                 sessionStorage.removeItem("ship")
                 sessionStorage.setItem("captain", this.Captain)
                 sessionStorage.setItem("ship", this.Ship)
                 router.push("/DesignBoard")
+                });
             }
         }
     }

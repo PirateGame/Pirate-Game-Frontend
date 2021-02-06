@@ -75,12 +75,11 @@ export default {
             captaion: sessionStorage.getItem("captain"),
             mirror: 0,
             shield: 0,
-            gridWidth: 7,
-            gridHeight: 7,
+            gridWidth: sessionStorage.getItem("gridWidth"),
+            gridHeight: sessionStorage.getItem("gridHeight"),
             grid: null,
             isHost: false,
             isPaused: false,
-            gameTimer: null,
             questionBool: false,
             selected: null,
             questionTitle: "",
@@ -93,9 +92,7 @@ export default {
     },
     async mounted () {
         await this.amIhost()
-        await this.getGridDim()
 
-        this.gameTimer = setInterval(this.getEvent, 4000);
         
         this.grid = GridStack.init({
             column: this.gridWidth,
@@ -106,6 +103,10 @@ export default {
         
         var items = await this.getBoard()
         this.grid.load(items, true);
+
+        this.sockets.listener.subscribe("getEvents", (data) => {
+            this.processEvent(data)
+        });
     },
     methods: {
         addMessage(message){
@@ -117,7 +118,7 @@ export default {
 
             chat.insertBefore(div, chat.children[0]);
         },
-        async pauseGame(){
+        pauseGame(){
             this.isPaused = !this.isPaused
 
             if (this.isPaused){
@@ -128,67 +129,46 @@ export default {
             }
         },
         async getBoard(){
-            let response = null;
-            response = await Axios().post('getBoard',
-                {
-                    gameName: this.gameName,
-                    playerName: this.playerName,
-                    authCode: this.authCode
+            if (this.$socket.connected){
+                this.$socket.emit('getBoard',
+                    {
+                        gameName: this.gameName,
+                        playerName: this.playerName,
+                        authCode: this.authCode
                 });
-            var board = response.data;
-            return board
-        },
-        async getGridDim () {
-        var response = null;
-        response = await Axios().post('getGridDim',
-            {
-                gameName: this.gameName,
-                playerName: this.playerName
+            await this.$socket.on('response', (data) => {
+                    if (data["error"] != false){
+                        alert(data["error"]);
+                        return;
+                    }
+                });
             }
-        );
-        console.log("got grid Dimensions: " + response.data["x"] + ", " + response.data["y"])
-        this.gridWidth = response.data["x"]
-        this.gridHeight = response.data["y"]
         },
         async amIhost(){
-            var response = null;
-            response = await Axios().post('amIHost',
+            if (this.$socket.connected){
+                this.$socket.emit('amIHost',
                 {
                     gameName: this.gameName,
                     playerName: this.playerName,
                     authCode: this.authCode,
                 }
             );
-            if (response.data["error"] != false){
-                console.log(response.data["error"])
-                return;
-            }
-            else{
-                this.isHost = true;
+            await this.$socket.on('response', (data) => {
+                    if (data["error"] != false){
+                        alert(data["error"]);
+                        return;
+                    }
+                });
             }
         },
             
-        async getEvent(){
-            var response = null;
-            response = await Axios().post('getEvent',
-                {
-                    gameName: this.gameName,
-                    playerName: this.playerName,
-                    authCode: this.authCode,
-                }
-            );
-            if (response.data["error"] != false){
-                if (response.data["error"] == "game finished") {
-                    this.addMessage(response.data["error"])
-                    clearInterval(this.gameTimer)
-                }
-                return
-            }
-            this.money = response.data["money"]
-            this.bank = response.data["bank"]
-            this.shield = response.data["shield"]
-            this.mirror = response.data["mirror"]
-            var ids = response.data["ids"]
+        processEvent(data){
+            
+            this.money = data["money"]
+            this.bank = data["bank"]
+            this.shield = data["shield"]
+            this.mirror = data["mirror"]
+            var ids = data["ids"]
 
             for (var i = 0; i < ids.length; i++){
                 var tile = this.grid.engine.nodes.find(n => n.id === ids[i]).el
@@ -198,13 +178,12 @@ export default {
             var tile = this.grid.engine.nodes.find(n => n.id === latestTile).el
             tile.children[0].className = "current-square"
 
-            var questions = response.data["questions"]
-            var events = response.data["events"]
+            var questions = data["questions"]
+            var events = data["events"]
             for (var i = 0; i < events.length; i++){
                 this.addMessage(events[i])
             }
             if (questions.length != 0) {
-                clearInterval(this.gameTimer)
                 this.questionBool = true
                 this.questionTitle = questions[0]["labels"][0]
                 if (questions[0]["labels"].length > 1) {
@@ -215,17 +194,21 @@ export default {
         },
         async submitResponse(){
             this.questionBool = false;
-            var response = null;
-            response = await Axios().post('submitResponse',
-                {
-                    gameName: this.gameName,
-                    playerName: this.playerName,
-                    authCode: this.authCode,
-                    choice: this.selected,
-                }
-            );
-            this.gameTimer = setInterval(this.getEvent, 4000);
-            this.getEvent()
+            if (this.$socket.connected){
+                this.$socket.emit('submitResponse',
+                    {
+                        gameName: this.gameName,
+                        playerName: this.playerName,
+                        authCode: this.authCode,
+                        choice: this.selected,
+                });
+                await this.$socket.on('response', (data) => {
+                    if (data["error"] != false){
+                        alert(data["error"]);
+                        return;
+                    }
+                });
+            }
         }
     }
 }

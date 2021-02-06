@@ -61,22 +61,12 @@ export default {
             playerLimit: 12,
         }
     },
-    async created () {
-        this.getPlayers()
+    async mounted () {
+        this.sockets.listener.subscribe("playerList", (data) => {
+            this.clientList = data["names"]
+        });
     },
     methods: {
-        async getPlayers(){
-            if (this.$socket.connected){
-                this.$socket.emit('getPlayers',
-                    {
-                        gameName: this.gameName
-                    },
-                );
-                await this.$socket.on('response', (data) => {
-                    this.clientList = response.data["names"]
-                });
-            }
-        },
         async startGame(){
             router.push("/PickTeam")
         },

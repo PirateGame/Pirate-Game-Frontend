@@ -14,7 +14,6 @@
   </div>
 </template>
 <script>
-import Axios from '/services/axios.js';
 import router from '../router/index';
 export default {
     name: 'DesignBoard',
@@ -58,65 +57,85 @@ export default {
         this.grids[1].load(this.items, true);
     },
     methods: {
-      async submitBoard(){
-        var serializedData = this.grids[0].save();
-        let response = null;
-        response = await Axios().post('saveBoard',
-            {
-                gameName: this.gameName,
-                playerName: this.playerName,
-                authCode: this.authCode,
-                board: serializedData
-            });
-        if (response.data["error"] != false){
-            alert(response.data["error"])
-        }
-        else {
-          //we should probably have a page that just says board submitted waiting for others.
-          router.push("/WaitingRoom")
-        }
-
-      },
-      async randomiseBoard (){
-        this.grids[1].removeAll();
-        let response = null;
-        response = await Axios().post('randomiseBoard',
-              {
-                  gameName: this.gameName,
-                  playerName: this.playerName,
-                  authCode: this.authCode
-              });
-        var board = response.data;
-        console.log("Randomised board");
-        this.grids[0].load(board, true);
-      },
-      async getGridDim () {
-        var response = null;
-        response = await Axios().post('getGridDim',
-            {
-                gameName: this.gameName,
-                playerName: this.playerName
+        async submitBoard(){
+            var serializedData = this.grids[0].save();
+            this.grids[1].removeAll();
+            if (this.$socket.connected){
+                this.$socket.emit('getGridDim',
+                    {
+                        gameName: this.gameName,
+                        playerName: this.playerName,
+                        authCode: this.authCode,
+                        board: serializedData
+                    }
+                );
+                await this.$socket.on('response', (data) => {
+                    if (data["error"] != false){
+                        alert(data["error"]);
+                        return;
+                    }
+                    router.push("/WaitingRoom")
+                });
             }
-        );
-        console.log("got grid Dimensions: " + response.data["x"] + ", " + response.data["y"])
-        this.gridWidth = response.data["x"]
-        this.gridHeight = response.data["y"]
-
-      },
-      async getTiles(){
-        var response = null;
-        response = await Axios().post('getBarTiles',
-            {
-                gameName: this.gameName,
-                playerName: this.playerName
+        },
+        async randomiseBoard (){
+            this.grids[1].removeAll();
+            if (this.$socket.connected){
+                this.$socket.emit('getGridDim',
+                    {
+                        gameName: this.gameName,
+                        playerName: this.playerName,
+                        authCode: this.authCode
+                    }
+                );
+                await this.$socket.on('response', (data) => {
+                    if (data["error"] != false){
+                        alert(data["error"]);
+                        return;
+                    }
+                    var board = data;
+                    this.grids[0].load(board, true);
+                });
             }
-        );
-        if (response.data["error"] == !false){
-            console.log(response.data["error"])
-            return;
+        },
+        async getGridDim () {
+            if (this.$socket.connected){
+                this.$socket.emit('getGridDim',
+                    {
+                        gameName: this.gameName,
+                        playerName: this.playerName
+                    }
+                );
+                await this.$socket.on('response', (data) => {
+                    if (data["error"] != false){
+                        alert(data["error"]);
+                        return;
+                    }
+                    this.gridWidth = data["x"]
+                    this.gridHeight = data["y"]
+                    sessionStorage.setItem("gridWidth", this.gridWidth);
+                    sessionStorage.setItem("gridHeight", this.gridHeight);
+                });
+            }
+
+        },
+        async getTiles(){
+            if (this.$socket.connected){
+                this.$socket.emit('amIHost',
+                    {
+                        gameName: this.gameName,
+                        playerName: this.playerName
+                    }
+                );
+                await this.$socket.on('response', (data) => {
+                    if (data["error"] != false){
+                        alert(data["error"]);
+                        return;
+                    }
+                    this.items = data;
+                });
+            }
         }
-        this.items = response.data;
-      }
     }
 }
 
