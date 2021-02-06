@@ -21,7 +21,7 @@
                 <li id="inputLI">
                 </li>
             </ul>
-        <h1 class="bottomText1">v1.2</h1>
+        <h1 class="bottomText1">v2</h1>
         <h1 class="bottomText1">Developed by</h1>
         <h1 class="bottomText2">Website: Alex.P</h1>
         <h1 class="bottomText2">Backend: Jamie.E</h1>

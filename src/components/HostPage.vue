@@ -32,7 +32,6 @@
     </div>
 </template>
 <script>
-import Axios from '/services/axios.js';
 import router from '../router/index';
 export default {
     name: 'HostPage',
@@ -45,11 +44,12 @@ export default {
             isHostPlaying: false
         }
     },
+    async mounted () {
+    },
     methods: {
         async createGame() {
-            let response = null;
-            try {
-                response = await Axios().post('create_game',
+            if (this.$socket.connected){
+                this.$socket.emit('createGame',
                     {
                         Sizex: this.gridSizex,
                         Sizey: this.gridSizey,
@@ -58,21 +58,19 @@ export default {
                         isHostPlaying: this.isHostPlaying,
                     },
                 );
-                if (response.data["error"] != false){
-                    alert(response.data["error"]);
-                    return;
-                }
-
-                sessionStorage.setItem("authcode", response.data["authcode"]);
-                sessionStorage.setItem("gamename", response.data["gameName"]);
-                sessionStorage.setItem("playername", response.data["playerName"]);
-                router.push("/HostPanel")
-
-            } catch (err) {
-                alert("The server isn't responding!")
-                console.log(err)
+                await this.$socket.on('response', (data) => {
+                    if (data["error"] != false){
+                        alert(data["error"]);
+                        return;
+                    }
+                    sessionStorage.setItem("authcode", data["authcode"]);
+                    sessionStorage.setItem("gamename", data["gameName"]);
+                    sessionStorage.setItem("playername", data["playerName"]);
+                    router.push("/HostPanel")
+                });
+            } else {
+                alert("You are not connected to the server.\n Please contact an Admin")
             }
-
         }
     }
 }

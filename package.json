@@ -6,10 +6,12 @@
     "build": "vite build"
   },
   "dependencies": {
-    "axios": "^0.21.0",
+    "axios": "^0.21.1",
     "gridstack": "^3.1.4",
+    "socket.io-client": "^3.1.1",
     "vue": "^3.0.4",
-    "vue-router": "^4.0.1"
+    "vue-router": "^4.0.1",
+    "vue3-socket": "^1.0.0"
   },
   "devDependencies": {
     "@types/gridstack": "^0.5.2",

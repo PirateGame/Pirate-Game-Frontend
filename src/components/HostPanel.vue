@@ -45,7 +45,6 @@
     </div>
 </template>
 <script>
-import Axios from '/services/axios.js';
 import router from '../router/index';
 export default {
     name: 'HostPanel',
@@ -59,34 +58,31 @@ export default {
             naughty: false,
             similar: false,
             clientList: null,
-            timerID: null,
             playerLimit: 12,
         }
     },
     async created () {
         this.getPlayers()
-        this.timerID = setInterval(this.getPlayers, 5000);
     },
     methods: {
         async getPlayers(){
-            let response = null;
-            response = await Axios().post('getPlayers',
-                {
-                    gameName: this.gameName
+            if (this.$socket.connected){
+                this.$socket.emit('getPlayers',
+                    {
+                        gameName: this.gameName
+                    },
+                );
+                await this.$socket.on('response', (data) => {
+                    this.clientList = response.data["names"]
                 });
-            if (response.data["game"] == false){
-                alert("game not found")
-                clearInterval(this.timerID)
             }
-            this.clientList = response.data["names"]
         },
         async startGame(){
-            clearInterval(this.timerID)
             router.push("/PickTeam")
         },
         async saveSettings(){
-            let response = null;
-            response = await Axios().post('modifyGame',
+            if (this.$socket.connected){
+                this.$socket.emit('modifyGame',
                 {
                     gameName: this.gameName,
                     authCode: this.authCode,
@@ -97,42 +93,50 @@ export default {
                     randomiseOnly: this.randomiseOnly,
                     playerLimit: this.playerLimit,
                 });
-            if (response.data["error"] != false){
-                console.log(response.data["error"])
+                await this.$socket.on('response', (data) => {
+                    if (data["error"] != false){
+                        alert(data["error"]);
+                        return;
+                    }
+                });
             }
         },
         async kickPlayer(playerToKick){
-            let response = null;
-            response = await Axios().post('kickPlayer',
-                {
-                    gameName: this.gameName,
-                    authCode: this.authCode,
-                    playerName: this.playerName,
-                    playerToKick: playerToKick,
-                    
+            if (this.$socket.connected){
+                this.$socket.emit('kickPlayer',
+                    {
+                        gameName: this.gameName,
+                        authCode: this.authCode,
+                        playerName: this.playerName,
+                        playerToKick: playerToKick,
+                    }
+                );
+                await this.$socket.on('response', (data) => {
+                    if (data["error"] != false){
+                        alert(data["error"]);
+                        return;
+                    }
+                    this.getPlayers();
                 });
-            if (response.data["error"] != false){
-                console.log(response.data["error"])
-            }
-            else {
-                this.getPlayers()
+                }
             }
         },
         async addAI(){
-            let response = null;
-            response = await Axios().post('addAI',
-                {
-                    gameName: this.gameName,
-                    authCode: this.authCode,
-                    playerName: this.playerName,
-                    
+            if (this.$socket.connected){
+                this.$socket.emit('addAI',
+                    {
+                        gameName: this.gameName,
+                        authCode: this.authCode,
+                        playerName: this.playerName,
+                    }
+                );
+                await this.$socket.on('response', (data) => {
+                    if (data["error"] != false){
+                        alert(data["error"]);
+                        return;
+                    }
+                    this.getPlayers();
                 });
-            if (response.data["error"] != false){
-                console.log(response.data["error"])
-            }
-            else{
-                this.getPlayers()
-            }
         }
     }
 }

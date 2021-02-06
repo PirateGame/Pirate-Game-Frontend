@@ -32,32 +32,28 @@ export default {
     },
     methods: {
         async joinGame() {
-            let response = null;
-            try {
-                response = await Axios().post('join_game',
-                    {
-                        gameName: this.gameName,
-                        playerName: this.playerName
-                    },
-                );
-                if (response.data["error"] != false){
-                    alert(response.data["error"]);
-                    return;
-                }
-
-                //incase we already have one
-                sessionStorage.removeItem('authcode');
-                sessionStorage.removeItem('gamename');
-                sessionStorage.setItem("authcode", response.data["authcode"]);
-                sessionStorage.setItem("gamename", this.gameName);
-                sessionStorage.setItem("playername", this.playerName);
-                router.push("/PickTeam")
-
-            } catch (err) {
-                alert("The server isn't responding!")
-                console.log(err)
+            if (this.$socket.connected){
+                this.$socket.emit('joinGame',
+                {
+                    gameName: this.gameName,
+                    playerName: this.playerName
+                });
+                await this.$socket.on('response', (data) => {
+                        console.log(data);
+                        if (data["error"] != false){
+                            alert(data["error"]);
+                            return;
+                        }
+                        sessionStorage.removeItem('authcode');
+                        sessionStorage.removeItem('gamename');
+                        sessionStorage.setItem("authcode", response.data["authcode"]);
+                        sessionStorage.setItem("gamename", this.gameName);
+                        sessionStorage.setItem("playername", this.playerName);
+                        router.push("/PickTeam")
+                    });
+                } else {
+                alert("You are not connected to the server.\n Please contact an Admin")
             }
-
         }
     }
 }
