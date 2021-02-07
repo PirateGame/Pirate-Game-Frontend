@@ -45,7 +45,7 @@ export default {
                         }
                         sessionStorage.removeItem('authcode');
                         sessionStorage.removeItem('gamename');
-                        sessionStorage.setItem("authcode", response.data["authcode"]);
+                        sessionStorage.setItem("authcode", data["authcode"]);
                         sessionStorage.setItem("gamename", this.gameName);
                         sessionStorage.setItem("playername", this.playerName);
                         router.push("/PickTeam")

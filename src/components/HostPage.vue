@@ -62,6 +62,8 @@ export default {
                     if (data["error"] != false){
                         alert(data["error"]);
                         return;
+                    }else{
+                        console.log(data)
                     }
                     sessionStorage.setItem("authcode", data["authcode"]);
                     sessionStorage.setItem("gamename", data["gameName"]);

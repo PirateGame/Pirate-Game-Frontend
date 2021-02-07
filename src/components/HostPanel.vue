@@ -62,7 +62,7 @@ export default {
         }
     },
     async mounted () {
-        this.sockets.listener.subscribe("playerList", (data) => {
+        this.$socket.on("playerList", (data) => {
             this.clientList = data["names"]
         });
     },
@@ -87,6 +87,8 @@ export default {
                     if (data["error"] != false){
                         alert(data["error"]);
                         return;
+                    }else{
+                        console.log(data)
                     }
                 });
             }
@@ -105,6 +107,8 @@ export default {
                     if (data["error"] != false){
                         alert(data["error"]);
                         return;
+                    }else{
+                        console.log(data)
                     }
                     this.getPlayers();
                 });
@@ -113,6 +117,7 @@ export default {
         },
         async addAI(){
             if (this.$socket.connected){
+                console.log("here")
                 this.$socket.emit('addAI',
                     {
                         gameName: this.gameName,
@@ -124,6 +129,9 @@ export default {
                     if (data["error"] != false){
                         alert(data["error"]);
                         return;
+                    }
+                    else{
+                        console.log(data)
                     }
                     this.getPlayers();
                 });

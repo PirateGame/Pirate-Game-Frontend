@@ -59,6 +59,8 @@ export default {
                     if (data["error"] != false){
                         alert(data["error"]);
                         return;
+                    }else{
+                        console.log(data)
                     }
                 });
             }
@@ -75,6 +77,8 @@ export default {
                     if (data["error"] != false){
                         alert(data["error"]);
                         return;
+                    }else{
+                        console.log(data)
                     }
                 });
             }
