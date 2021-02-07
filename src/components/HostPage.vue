@@ -63,12 +63,11 @@ export default {
                         alert(data["error"]);
                         return;
                     }else{
-                        console.log(data)
+                        sessionStorage.setItem("authcode", data["authcode"]);
+                        sessionStorage.setItem("gamename", data["gameName"]);
+                        sessionStorage.setItem("playername", data["playerName"]);
+                        router.push("/HostPanel")
                     }
-                    sessionStorage.setItem("authcode", data["authcode"]);
-                    sessionStorage.setItem("gamename", data["gameName"]);
-                    sessionStorage.setItem("playername", data["playerName"]);
-                    router.push("/HostPanel")
                 });
             } else {
                 alert("You are not connected to the server.\n Please contact an Admin")

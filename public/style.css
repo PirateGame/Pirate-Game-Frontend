@@ -376,7 +376,7 @@ img {
 }
 
 /* Darker chat container */
-.darker {
+.message-dark {
     border: 5px solid #ff48482c;
     background-color: #2905000a;
 }

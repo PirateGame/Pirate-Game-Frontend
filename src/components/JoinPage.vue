@@ -38,20 +38,20 @@ export default {
                     playerName: this.playerName
                 });
                 await this.$socket.on('response', (data) => {
-                        console.log(data);
-                        if (data["error"] != false){
-                            alert(data["error"]);
-                            return;
-                        }
-                        sessionStorage.removeItem('authcode');
-                        sessionStorage.removeItem('gamename');
-                        sessionStorage.setItem("authcode", data["authcode"]);
-                        sessionStorage.setItem("gamename", this.gameName);
-                        sessionStorage.setItem("playername", this.playerName);
-                        router.push("/PickTeam")
-                    });
-                } else {
-                alert("You are not connected to the server.\n Please contact an Admin")
+                    console.log(data);
+                    if (data["error"] != false){
+                        alert(data["error"]);
+                        return;
+                    }
+                    sessionStorage.removeItem('authcode');
+                    sessionStorage.removeItem('gamename');
+                    sessionStorage.setItem("authcode", data["authcode"]);
+                    sessionStorage.setItem("gamename", this.gameName);
+                    sessionStorage.setItem("playername", this.playerName);
+                    router.push("/PickTeam")
+                });
+            } else {
+            alert("You are not connected to the server.\n Please contact an Admin")
             }
         }
     }

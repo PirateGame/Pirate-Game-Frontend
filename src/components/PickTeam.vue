@@ -94,16 +94,17 @@ export default {
                     if (data["error"] != false){
                         alert(data["error"]);
                         return;
+                    }else{
+                        sessionStorage.removeItem("captain")
+                        sessionStorage.removeItem("ship")
+                        sessionStorage.setItem("captain", this.Captain)
+                        sessionStorage.setItem("ship", this.Ship)
+                        if (data["randomise"]){
+                            router.push("/WaitingRoom")
+                        } else {
+                            router.push("/DesignBoard")
+                        }
                     }
-                    sessionStorage.removeItem("captain")
-                sessionStorage.removeItem("ship")
-                sessionStorage.setItem("captain", this.Captain)
-                sessionStorage.setItem("ship", this.Ship)
-                if (data["randomise"]){
-                    router.push("/WaitingRoom")
-                } else {
-                    router.push("/DesignBoard")
-                }
                 });
             }
         }

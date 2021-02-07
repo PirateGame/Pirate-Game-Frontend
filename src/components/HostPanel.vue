@@ -41,7 +41,6 @@
                     </h3>
             </div>
         </div>
-        <h2 style="transform: translate(0px, -100px)">Note: choose next square is stil under development and doesn't function correctly</h2>
     </div>
 </template>
 <script>
@@ -88,7 +87,7 @@ export default {
                         alert(data["error"]);
                         return;
                     }else{
-                        console.log(data)
+                        console.log("saved settings")
                     }
                 });
             }
@@ -108,7 +107,7 @@ export default {
                         alert(data["error"]);
                         return;
                     }else{
-                        console.log(data)
+                        console.log("kicked player")
                     }
                     this.getPlayers();
                 });
@@ -117,7 +116,6 @@ export default {
         },
         async addAI(){
             if (this.$socket.connected){
-                console.log("here")
                 this.$socket.emit('addAI',
                     {
                         gameName: this.gameName,
@@ -131,7 +129,7 @@ export default {
                         return;
                     }
                     else{
-                        console.log(data)
+                        console.log("added AI")
                     }
                     this.getPlayers();
                 });
