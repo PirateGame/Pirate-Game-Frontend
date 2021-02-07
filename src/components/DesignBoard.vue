@@ -135,6 +135,13 @@ export default {
                     this.items = data;
                 });
             }
+        },
+        async clearGrid(){
+            this.grids[0].removeAll();
+            this.grids[1].removeAll();
+            this.getTiles()
+            this.grids[0].load([{content: '£5000',noResize: true, noMove:false}]);
+            this.grids[1].load(this.items, true);
         }
     }
 }

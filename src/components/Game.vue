@@ -24,7 +24,7 @@
             </div>
             <br>
             <div class="gameLog" id="chat">
-                <div class="message">
+                <div class="message-dark">
                     <h3> Welcome to the Pirate Game </h3>
                 </div>
             </div>
@@ -62,7 +62,6 @@
     </div>
 </template>
 <script>
-import Axios from '/services/axios.js';
 import router from '../router/index';
 export default {
     name: 'Game',
@@ -104,15 +103,20 @@ export default {
         var items = await this.getBoard()
         this.grid.load(items, true);
 
-        this.sockets.listener.subscribe("getEvents", (data) => {
+        this.sockets.on("getEvents", (data) => {
             this.processEvent(data)
         });
     },
     methods: {
-        addMessage(message){
+        addMessage(message, turnNum){
             var div = document.createElement('div');
             div.innerHTML = '<h3>' + message + '</h3>';
-            div.class = 'message'
+            if (turnNum % 2 ==0){
+                div.class = 'message'
+            } else {
+                div.class = 'message-dark'
+            }
+            
 
             var chat = document.getElementById("chat")
 
@@ -181,7 +185,7 @@ export default {
             var questions = data["questions"]
             var events = data["events"]
             for (var i = 0; i < events.length; i++){
-                this.addMessage(events[i])
+                this.addMessage(events[i], latestTile)
             }
             if (questions.length != 0) {
                 this.questionBool = true
