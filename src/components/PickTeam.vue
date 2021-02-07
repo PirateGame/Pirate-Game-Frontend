@@ -87,8 +87,8 @@ export default {
                     Captain: this.Captain,
                     Ship: this.Ship,
                     gameName: this.gameName,
-                    playerName: this.playerName,
                     authCode: this.authCode,
+                    playerName: this.playerName,
                 });
                 await this.$socket.on('response', (data) => {
                     if (data["error"] != false){

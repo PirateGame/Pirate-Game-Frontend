@@ -109,12 +109,10 @@ export default {
                     }else{
                         console.log("kicked player")
                     }
-                    this.getPlayers();
                 });
-                }
             }
         },
-        async addAI(){
+        async addAI(){          
             if (this.$socket.connected){
                 this.$socket.emit('addAI',
                     {
@@ -123,6 +121,7 @@ export default {
                         playerName: this.playerName,
                     }
                 );
+                console.log(sessionStorage.getItem('playername'))
                 await this.$socket.on('response', (data) => {
                     if (data["error"] != false){
                         alert(data["error"]);
@@ -131,9 +130,12 @@ export default {
                     else{
                         console.log("added AI")
                     }
-                    this.getPlayers();
+                    console.log(sessionStorage.getItem('playername'))
                 });
+            }
         }
     }
 }
+
+
 </script>

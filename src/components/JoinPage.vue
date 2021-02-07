@@ -45,6 +45,13 @@ export default {
                     }
                     sessionStorage.removeItem('authcode');
                     sessionStorage.removeItem('gamename');
+                    sessionStorage.removeItem('playername');
+                    sessionStorage.removeItem('gamename');
+                    sessionStorage.removeItem('gridWidth');
+                    sessionStorage.removeItem('gridHeight');
+                    sessionStorage.removeItem('captain');
+                    sessionStorage.removeItem('ship');
+                    
                     sessionStorage.setItem("authcode", data["authcode"]);
                     sessionStorage.setItem("gamename", this.gameName);
                     sessionStorage.setItem("playername", this.playerName);
