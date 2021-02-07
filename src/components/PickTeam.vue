@@ -99,7 +99,11 @@ export default {
                 sessionStorage.removeItem("ship")
                 sessionStorage.setItem("captain", this.Captain)
                 sessionStorage.setItem("ship", this.Ship)
-                router.push("/DesignBoard")
+                if (data["randomise"]){
+                    router.push("/WaitingRoom")
+                } else {
+                    router.push("/DesignBoard")
+                }
                 });
             }
         }
