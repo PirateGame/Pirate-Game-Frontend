@@ -69,7 +69,11 @@ export default {
             Ship: null,
             authCode: sessionStorage.getItem('authcode'),
             gameName: sessionStorage.getItem('gamename'),
-            playerName: sessionStorage.getItem('playername')
+            playerName: sessionStorage.getItem('playername'),
+            ship: sessionStorage.getItem("ship"),
+            captain: sessionStorage.getItem("captain"),
+            gridWidth: sessionStorage.getItem("gridWidth"),
+            gridHeight: sessionStorage.getItem("gridHeight"),
         }
     },
     methods: {
@@ -104,6 +108,13 @@ export default {
                         } else {
                             router.push("/DesignBoard")
                         }
+                        sessionStorage.setItem('authcode', this.authCode);
+                    sessionStorage.setItem('gamename', this.gameName);
+                    sessionStorage.setItem('playername', this.playerName);
+                    sessionStorage.setItem('gridWidth', this.gridWidth);
+                    sessionStorage.setItem('gridHeight', this.gridHeight);
+                    sessionStorage.setItem('captain', this.captain);
+                    sessionStorage.setItem('ship', this.ship);
                     }
                 });
             }

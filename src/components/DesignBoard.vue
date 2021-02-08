@@ -24,6 +24,10 @@ export default {
             authCode: sessionStorage.getItem('authcode'),
             gameName: sessionStorage.getItem('gamename'),
             playerName: sessionStorage.getItem('playername'),
+            ship: sessionStorage.getItem("ship"),
+            captain: sessionStorage.getItem("captain"),
+            gridWidth: sessionStorage.getItem("gridWidth"),
+            gridHeight: sessionStorage.getItem("gridHeight"),
             items: [],
         }
     },
@@ -36,8 +40,6 @@ export default {
           {content: '£5000',noResize: true, noMove:false}
         ];
         
-
-        //load grids
 
         //load grids
         this.grids = GridStack.initAll({
@@ -74,6 +76,13 @@ export default {
                         alert(data["error"]);
                         return;
                     }
+                    sessionStorage.setItem('authcode', this.authCode);
+                    sessionStorage.setItem('gamename', this.gameName);
+                    sessionStorage.setItem('playername', this.playerName);
+                    sessionStorage.setItem('gridWidth', this.gridWidth);
+                    sessionStorage.setItem('gridHeight', this.gridHeight);
+                    sessionStorage.setItem('captain', this.captain);
+                    sessionStorage.setItem('ship', this.ship);
                     router.push("/WaitingRoom")
                 });
             }
@@ -95,6 +104,13 @@ export default {
                     }
                     var board = data;
                     this.grids[0].load(board, true);
+                    sessionStorage.setItem('authcode', this.authCode);
+                    sessionStorage.setItem('gamename', this.gameName);
+                    sessionStorage.setItem('playername', this.playerName);
+                    sessionStorage.setItem('gridWidth', this.gridWidth);
+                    sessionStorage.setItem('gridHeight', this.gridHeight);
+                    sessionStorage.setItem('captain', this.captain);
+                    sessionStorage.setItem('ship', this.ship);
                 });
             }
         },
@@ -115,6 +131,11 @@ export default {
                     this.gridHeight = data["y"]
                     sessionStorage.setItem("gridWidth", this.gridWidth);
                     sessionStorage.setItem("gridHeight", this.gridHeight);
+                    sessionStorage.setItem('authcode', this.authCode);
+                    sessionStorage.setItem('gamename', this.gameName);
+                    sessionStorage.setItem('playername', this.playerName);
+                    sessionStorage.setItem('captain', this.captain);
+                    sessionStorage.setItem('ship', this.ship);
                 });
             }
 
@@ -131,8 +152,16 @@ export default {
                     if (data["error"] != false){
                         alert(data["error"]);
                         return;
+                    }else{
+                        this.items = data;
                     }
-                    this.items = data;
+                    sessionStorage.setItem('authcode', this.authCode);
+                    sessionStorage.setItem('gamename', this.gameName);
+                    sessionStorage.setItem('playername', this.playerName);
+                    sessionStorage.setItem('gridWidth', this.gridWidth);
+                    sessionStorage.setItem('gridHeight', this.gridHeight);
+                    sessionStorage.setItem('captain', this.captain);
+                    sessionStorage.setItem('ship', this.ship);
                 });
             }
         },

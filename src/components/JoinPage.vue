@@ -29,6 +29,22 @@ export default {
             playerName: null
         }
     },
+    async mounted () {
+        sessionStorage.removeItem('authcode');
+        sessionStorage.removeItem('gamename');
+        sessionStorage.removeItem('playername');
+        sessionStorage.removeItem('gridWidth');
+        sessionStorage.removeItem('gridHeight');
+        sessionStorage.removeItem('captain');
+        sessionStorage.removeItem('ship');
+        sessionStorage.setItem('authcode', "None");
+        sessionStorage.setItem('gamename', "None");
+        sessionStorage.setItem('playername', "None");
+        sessionStorage.setItem('gridWidth', "None");
+        sessionStorage.setItem('gridHeight', "None");
+        sessionStorage.setItem('captain', "None");
+        sessionStorage.setItem('ship', "None");
+    },
     methods: {
         async joinGame() {
             if (this.$socket.connected){
@@ -42,16 +58,7 @@ export default {
                     if (data["error"] != false){
                         alert(data["error"]);
                         return;
-                    }
-                    sessionStorage.removeItem('authcode');
-                    sessionStorage.removeItem('gamename');
-                    sessionStorage.removeItem('playername');
-                    sessionStorage.removeItem('gamename');
-                    sessionStorage.removeItem('gridWidth');
-                    sessionStorage.removeItem('gridHeight');
-                    sessionStorage.removeItem('captain');
-                    sessionStorage.removeItem('ship');
-                    
+                    }                    
                     sessionStorage.setItem("authcode", data["authcode"]);
                     sessionStorage.setItem("gamename", this.gameName);
                     sessionStorage.setItem("playername", this.playerName);

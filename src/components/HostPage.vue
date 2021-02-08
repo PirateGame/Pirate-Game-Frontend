@@ -45,6 +45,20 @@ export default {
         }
     },
     async mounted () {
+        sessionStorage.removeItem('authcode');
+        sessionStorage.removeItem('gamename');
+        sessionStorage.removeItem('playername');
+        sessionStorage.removeItem('gridWidth');
+        sessionStorage.removeItem('gridHeight');
+        sessionStorage.removeItem('captain');
+        sessionStorage.removeItem('ship');
+        sessionStorage.setItem('authcode', "None");
+        sessionStorage.setItem('gamename', "None");
+        sessionStorage.setItem('playername', "None");
+        sessionStorage.setItem('gridWidth', "None");
+        sessionStorage.setItem('gridHeight', "None");
+        sessionStorage.setItem('captain', "None");
+        sessionStorage.setItem('ship', "None");
     },
     methods: {
         async createGame() {
@@ -63,14 +77,6 @@ export default {
                         alert(data["error"]);
                         return;
                     }else{
-                        sessionStorage.removeItem('authcode');
-                        sessionStorage.removeItem('gamename');
-                        sessionStorage.removeItem('playername');
-                        sessionStorage.removeItem('gamename');
-                        sessionStorage.removeItem('gridWidth');
-                        sessionStorage.removeItem('gridHeight');
-                        sessionStorage.removeItem('captain');
-                        sessionStorage.removeItem('ship');
                         sessionStorage.setItem("authcode", data["authcode"]);
                         sessionStorage.setItem("gamename", data["gameName"]);
                         sessionStorage.setItem("playername", data["playerName"]);

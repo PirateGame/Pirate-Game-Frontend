@@ -52,6 +52,10 @@ export default {
             authCode: sessionStorage.getItem('authcode'),
             gameName: sessionStorage.getItem('gamename'),
             playerName: sessionStorage.getItem('playername'),
+            ship: sessionStorage.getItem("ship"),
+            captain: sessionStorage.getItem("captain"),
+            gridWidth: sessionStorage.getItem("gridWidth"),
+            gridHeight: sessionStorage.getItem("gridHeight"),
             DecisionTime: 30,
             randomiseOnly: false,
             naughty: false,
@@ -89,6 +93,13 @@ export default {
                     }else{
                         console.log("saved settings")
                     }
+                    sessionStorage.setItem('authcode', this.authCode);
+                    sessionStorage.setItem('gamename', this.gameName);
+                    sessionStorage.setItem('playername', this.playerName);
+                    sessionStorage.setItem('gridWidth', this.gridWidth);
+                    sessionStorage.setItem('gridHeight', this.gridHeight);
+                    sessionStorage.setItem('captain', this.captain);
+                    sessionStorage.setItem('ship', this.ship);
                 });
             }
         },
@@ -109,6 +120,13 @@ export default {
                     }else{
                         console.log("kicked player")
                     }
+                    sessionStorage.setItem('authcode', this.authCode);
+                    sessionStorage.setItem('gamename', this.gameName);
+                    sessionStorage.setItem('playername', this.playerName);
+                    sessionStorage.setItem('gridWidth', this.gridWidth);
+                    sessionStorage.setItem('gridHeight', this.gridHeight);
+                    sessionStorage.setItem('captain', this.captain);
+                    sessionStorage.setItem('ship', this.ship);
                 });
             }
         },
@@ -121,8 +139,8 @@ export default {
                         playerName: this.playerName,
                     }
                 );
-                console.log(sessionStorage.getItem('playername'))
                 await this.$socket.on('response', (data) => {
+                    console.log(sessionStorage.getItem('playername'))
                     if (data["error"] != false){
                         alert(data["error"]);
                         return;
@@ -130,7 +148,13 @@ export default {
                     else{
                         console.log("added AI")
                     }
-                    console.log(sessionStorage.getItem('playername'))
+                    sessionStorage.setItem('authcode', this.authCode);
+                    sessionStorage.setItem('gamename', this.gameName);
+                    sessionStorage.setItem('playername', this.playerName);
+                    sessionStorage.setItem('gridWidth', this.gridWidth);
+                    sessionStorage.setItem('gridHeight', this.gridHeight);
+                    sessionStorage.setItem('captain', this.captain);
+                    sessionStorage.setItem('ship', this.ship);
                 });
             }
         }
