@@ -73,6 +73,7 @@ export default {
                 );
                 await this.$socket.on('response', (data) => {
                     if (data["error"] != false){
+                        console.log("board failed to submit")
                         alert(data["error"]);
                         return;
                     }
@@ -98,10 +99,6 @@ export default {
                     }
                 );
                 await this.$socket.on('response', (data) => {
-                    if (data["error"] != false){
-                        alert(data["error"]);
-                        return;
-                    }
                     var board = data;
                     this.grids[0].load(board, true);
                     sessionStorage.setItem('authcode', this.authCode);
@@ -123,10 +120,7 @@ export default {
                     }
                 );
                 await this.$socket.on('response', (data) => {
-                    if (data["error"] != false){
-                        alert(data["error"]);
-                        return;
-                    }
+                    console.log("got grid dimensions")
                     this.gridWidth = data["x"]
                     this.gridHeight = data["y"]
                     sessionStorage.setItem("gridWidth", this.gridWidth);
@@ -142,19 +136,15 @@ export default {
         },
         async getTiles(){
             if (this.$socket.connected){
-                this.$socket.emit('amIHost',
+                this.$socket.emit('getTiles',
                     {
                         gameName: this.gameName,
                         playerName: this.playerName
                     }
                 );
                 await this.$socket.on('response', (data) => {
-                    if (data["error"] != false){
-                        alert(data["error"]);
-                        return;
-                    }else{
-                        this.items = data;
-                    }
+                    console.log("got tiles")
+                    this.items = data;
                     sessionStorage.setItem('authcode', this.authCode);
                     sessionStorage.setItem('gamename', this.gameName);
                     sessionStorage.setItem('playername', this.playerName);

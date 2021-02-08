@@ -140,7 +140,6 @@ export default {
                     }
                 );
                 await this.$socket.on('response', (data) => {
-                    console.log(sessionStorage.getItem('playername'))
                     if (data["error"] != false){
                         alert(data["error"]);
                         return;

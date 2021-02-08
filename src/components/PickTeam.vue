@@ -109,12 +109,12 @@ export default {
                             router.push("/DesignBoard")
                         }
                         sessionStorage.setItem('authcode', this.authCode);
-                    sessionStorage.setItem('gamename', this.gameName);
-                    sessionStorage.setItem('playername', this.playerName);
-                    sessionStorage.setItem('gridWidth', this.gridWidth);
-                    sessionStorage.setItem('gridHeight', this.gridHeight);
-                    sessionStorage.setItem('captain', this.captain);
-                    sessionStorage.setItem('ship', this.ship);
+                        sessionStorage.setItem('gamename', this.gameName);
+                        sessionStorage.setItem('playername', this.playerName);
+                        sessionStorage.setItem('gridWidth', this.gridWidth);
+                        sessionStorage.setItem('gridHeight', this.gridHeight);
+                        sessionStorage.setItem('captain', this.captain);
+                        sessionStorage.setItem('ship', this.ship);
                     }
                 });
             }
