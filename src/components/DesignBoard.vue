@@ -32,8 +32,7 @@ export default {
         }
     },
     async mounted () {
-        await this.getTiles();
-        this.getGridDim();
+        await this.getGridDim();
         
         //this is pre placed to stop the grid from disappearing
         var MANDATORYitems = [
@@ -52,18 +51,21 @@ export default {
         this.grids[0].column(this.gridWidth);
         this.grids[0].opts.minRow = this.gridHeight;
         this.grids[0].opts.maxRow = this.gridHeight;
+        this.grids[0].load(MANDATORYitems);
+
         this.grids[1].float(false);
         this.grids[1].column(1);
         this.grids[1].opts.cellHeight = 40; //pixels
-        this.grids[0].load(MANDATORYitems);
-        this.grids[1].load(this.items, true);
+        console.log(this.items)
+        this.getTiles();
+        this.grids[1].load(this.items);
     },
     methods: {
         async submitBoard(){
             var serializedData = this.grids[0].save();
             this.grids[1].removeAll();
             if (this.$socket.connected){
-                this.$socket.emit('getGridDim',
+                this.$socket.emit('saveBoard',
                     {
                         gameName: this.gameName,
                         playerName: this.playerName,
@@ -71,7 +73,7 @@ export default {
                         board: serializedData
                     }
                 );
-                await this.$socket.on('response', (data) => {
+                await this.$socket.on('saveBoardResponse', (data) => {
                     if (data["error"] != false){
                         console.log("board failed to submit")
                         alert(data["error"]);
@@ -91,23 +93,30 @@ export default {
         async randomiseBoard (){
             this.grids[1].removeAll();
             if (this.$socket.connected){
-                this.$socket.emit('getGridDim',
+                this.$socket.emit('randomiseBoard',
                     {
                         gameName: this.gameName,
                         playerName: this.playerName,
                         authCode: this.authCode
                     }
                 );
-                await this.$socket.on('response', (data) => {
-                    var board = data;
-                    this.grids[0].load(board, true);
-                    sessionStorage.setItem('authcode', this.authCode);
-                    sessionStorage.setItem('gamename', this.gameName);
-                    sessionStorage.setItem('playername', this.playerName);
-                    sessionStorage.setItem('gridWidth', this.gridWidth);
-                    sessionStorage.setItem('gridHeight', this.gridHeight);
-                    sessionStorage.setItem('captain', this.captain);
-                    sessionStorage.setItem('ship', this.ship);
+                await this.$socket.on('randomiseBoardResponse', (data) => {
+                    if (data["error"] != false){
+                        console.log("board failed to submit")
+                        alert(data["error"]);
+                        return;
+                    }
+                    else {
+                        var board = data["board"];
+                        this.grids[0].load(board, true);
+                        sessionStorage.setItem('authcode', this.authCode);
+                        sessionStorage.setItem('gamename', this.gameName);
+                        sessionStorage.setItem('playername', this.playerName);
+                        sessionStorage.setItem('gridWidth', this.gridWidth);
+                        sessionStorage.setItem('gridHeight', this.gridHeight);
+                        sessionStorage.setItem('captain', this.captain);
+                        sessionStorage.setItem('ship', this.ship);
+                    }
                 });
             }
         },
@@ -119,17 +128,23 @@ export default {
                         playerName: this.playerName
                     }
                 );
-                await this.$socket.on('response', (data) => {
-                    console.log("got grid dimensions")
-                    this.gridWidth = data["x"]
-                    this.gridHeight = data["y"]
-                    sessionStorage.setItem("gridWidth", this.gridWidth);
-                    sessionStorage.setItem("gridHeight", this.gridHeight);
-                    sessionStorage.setItem('authcode', this.authCode);
-                    sessionStorage.setItem('gamename', this.gameName);
-                    sessionStorage.setItem('playername', this.playerName);
-                    sessionStorage.setItem('captain', this.captain);
-                    sessionStorage.setItem('ship', this.ship);
+                await this.$socket.on('getGridDimResponse', (data) => {
+                    if (data["error"] != false){
+                        console.log("board failed to submit")
+                        alert(data["error"]);
+                        return;
+                    }else{
+                        console.log("got grid dimensions")
+                        this.gridWidth = data["x"]
+                        this.gridHeight = data["y"]
+                        sessionStorage.setItem("gridWidth", this.gridWidth);
+                        sessionStorage.setItem("gridHeight", this.gridHeight);
+                        sessionStorage.setItem('authcode', this.authCode);
+                        sessionStorage.setItem('gamename', this.gameName);
+                        sessionStorage.setItem('playername', this.playerName);
+                        sessionStorage.setItem('captain', this.captain);
+                        sessionStorage.setItem('ship', this.ship);
+                    }
                 });
             }
 
@@ -142,16 +157,22 @@ export default {
                         playerName: this.playerName
                     }
                 );
-                await this.$socket.on('response', (data) => {
-                    console.log("got tiles")
-                    this.items = data;
-                    sessionStorage.setItem('authcode', this.authCode);
-                    sessionStorage.setItem('gamename', this.gameName);
-                    sessionStorage.setItem('playername', this.playerName);
-                    sessionStorage.setItem('gridWidth', this.gridWidth);
-                    sessionStorage.setItem('gridHeight', this.gridHeight);
-                    sessionStorage.setItem('captain', this.captain);
-                    sessionStorage.setItem('ship', this.ship);
+                await this.$socket.on('getTilesResponse', (data) => {
+                    if (data["error"] != false){
+                        console.log("failed to get tiles")
+                        alert(data["error"]);
+                        return;
+                    } else {
+                        console.log("got tiles")
+                        this.grids[1].load(data["tiles"]);
+                        sessionStorage.setItem('authcode', this.authCode);
+                        sessionStorage.setItem('gamename', this.gameName);
+                        sessionStorage.setItem('playername', this.playerName);
+                        sessionStorage.setItem('gridWidth', this.gridWidth);
+                        sessionStorage.setItem('gridHeight', this.gridHeight);
+                        sessionStorage.setItem('captain', this.captain);
+                        sessionStorage.setItem('ship', this.ship);
+                    }
                 });
             }
         },

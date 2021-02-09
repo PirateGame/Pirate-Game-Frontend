@@ -38,7 +38,7 @@ export default {
     },
     async created () {
         this.amIhost()
-        this.sockets.listener.subscribe("lobbyCheck", (data) => {
+        this.$socket.on("lobbyCheck", (data) => {
             this.gameState = data["state"]
             console.log(this.gameState)
             if (this.gameState == "ready") {
@@ -66,12 +66,12 @@ export default {
                     authCode: this.authCode,
                 }
             );
-            await this.$socket.on('response', (data) => {
+            await this.$socket.on('amIHostResponse', (data) => {
                     if (data["error"] != false){
                         alert(data["error"]);
                         return;
                     }else{
-                        console.log(data)
+                        this.isHost = true;
                     }
                     sessionStorage.setItem('authcode', this.authCode);
                     sessionStorage.setItem('gamename', this.gameName);
@@ -91,7 +91,7 @@ export default {
                     playerName: this.playerName,
                     authCode: this.authCode,
                 });
-                await this.$socket.on('response', (data) => {
+                await this.$socket.on('startGameResponse', (data) => {
                     if (data["error"] != false){
                         alert(data["error"]);
                         return;

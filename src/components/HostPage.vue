@@ -72,7 +72,7 @@ export default {
                         isHostPlaying: this.isHostPlaying,
                     },
                 );
-                await this.$socket.on('response', (data) => {
+                await this.$socket.on('createGameResponse', (data) => {
                     if (data["error"] != false){
                         alert(data["error"]);
                         return;

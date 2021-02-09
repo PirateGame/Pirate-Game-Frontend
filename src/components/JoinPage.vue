@@ -53,7 +53,7 @@ export default {
                     gameName: this.gameName,
                     playerName: this.playerName
                 });
-                await this.$socket.on('response', (data) => {
+                await this.$socket.on('joinGameResponse', (data) => {
                     console.log(data);
                     if (data["error"] != false){
                         alert(data["error"]);

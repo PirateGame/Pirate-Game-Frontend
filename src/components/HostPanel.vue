@@ -86,7 +86,7 @@ export default {
                     randomiseOnly: this.randomiseOnly,
                     playerLimit: this.playerLimit,
                 });
-                await this.$socket.on('response', (data) => {
+                await this.$socket.on('modifyGameResponse', (data) => {
                     if (data["error"] != false){
                         alert(data["error"]);
                         return;
@@ -113,7 +113,7 @@ export default {
                         playerToKick: playerToKick,
                     }
                 );
-                await this.$socket.on('response', (data) => {
+                await this.$socket.on('kickPlayerResponse', (data) => {
                     if (data["error"] != false){
                         alert(data["error"]);
                         return;
@@ -139,7 +139,7 @@ export default {
                         playerName: this.playerName,
                     }
                 );
-                await this.$socket.on('response', (data) => {
+                await this.$socket.on('addAIResponse', (data) => {
                     if (data["error"] != false){
                         alert(data["error"]);
                         return;

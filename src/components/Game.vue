@@ -140,7 +140,7 @@ export default {
                         playerName: this.playerName,
                         authCode: this.authCode
                 });
-            await this.$socket.on('response', (data) => {
+            await this.$socket.on('getBoardResponse', (data) => {
                     if (data["error"] != false){
                         alert(data["error"]);
                         return;
@@ -157,7 +157,7 @@ export default {
                     authCode: this.authCode,
                 }
             );
-            await this.$socket.on('response', (data) => {
+            await this.$socket.on('amIHostResponse', (data) => {
                     if (data["error"] != false){
                         alert(data["error"]);
                         return;
@@ -206,7 +206,7 @@ export default {
                         authCode: this.authCode,
                         choice: this.selected,
                 });
-                await this.$socket.on('response', (data) => {
+                await this.$socket.on('submitResponseResponse', (data) => {
                     if (data["error"] != false){
                         alert(data["error"]);
                         return;

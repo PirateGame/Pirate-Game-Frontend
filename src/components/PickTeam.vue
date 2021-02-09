@@ -94,7 +94,7 @@ export default {
                     authCode: this.authCode,
                     playerName: this.playerName,
                 });
-                await this.$socket.on('response', (data) => {
+                await this.$socket.on('setTeamResponse', (data) => {
                     if (data["error"] != false){
                         alert(data["error"]);
                         return;
