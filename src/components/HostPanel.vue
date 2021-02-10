@@ -65,6 +65,9 @@ export default {
         }
     },
     async mounted () {
+        if (this.$socket.connected){this.$socket.emit('requestPlayerList', {gameName: this.gameName});}
+        else{console.log("not connected to server")}
+
         this.$socket.on("playerList", (data) => {
             this.clientList = data["names"]
         });

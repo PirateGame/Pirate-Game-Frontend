@@ -36,9 +36,13 @@ export default {
             isReady: false,
         }
     },
-    async created () {
+    async mounted () {
         this.amIhost()
-        this.$socket.on("lobbyCheck", (data) => {
+
+        if (this.$socket.connected){this.$socket.emit('requestGameState', {gameName: this.gameName});}
+        else{console.log("not connected to server")}
+
+        this.$socket.on("status", (data) => {
             this.gameState = data["state"]
             console.log(this.gameState)
             if (this.gameState == "ready") {
@@ -96,15 +100,14 @@ export default {
                         alert(data["error"]);
                         return;
                     }else{
-                        console.log(data)
+                        sessionStorage.setItem('authcode', this.authCode);
+                        sessionStorage.setItem('gamename', this.gameName);
+                        sessionStorage.setItem('playername', this.playerName);
+                        sessionStorage.setItem('gridWidth', this.gridWidth);
+                        sessionStorage.setItem('gridHeight', this.gridHeight);
+                        sessionStorage.setItem('captain', this.captain);
+                        sessionStorage.setItem('ship', this.ship);
                     }
-                    sessionStorage.setItem('authcode', this.authCode);
-                    sessionStorage.setItem('gamename', this.gameName);
-                    sessionStorage.setItem('playername', this.playerName);
-                    sessionStorage.setItem('gridWidth', this.gridWidth);
-                    sessionStorage.setItem('gridHeight', this.gridHeight);
-                    sessionStorage.setItem('captain', this.captain);
-                    sessionStorage.setItem('ship', this.ship);
                 });
             }
         }

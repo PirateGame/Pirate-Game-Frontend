@@ -100,10 +100,9 @@ export default {
             disableDrag: true,
         });
         
-        var items = await this.getBoard()
-        this.grid.load(items, true);
+        await this.getBoard()
 
-        this.sockets.on("getEvents", (data) => {
+        this.$socket.on("getEvents", (data) => {
             this.processEvent(data)
         });
     },
@@ -145,6 +144,9 @@ export default {
                         alert(data["error"]);
                         return;
                     }
+                    else{
+                        this.grid.load(data["board"]);
+                    }
                 });
             }
         },
@@ -161,6 +163,8 @@ export default {
                     if (data["error"] != false){
                         alert(data["error"]);
                         return;
+                    }else{
+                        this.isHost = true;
                     }
                 });
             }
