@@ -46,7 +46,9 @@
             <div class="question-box">
                 <br>
                 <h3> {{questionTitle}} </h3>
-                <h3> {{questionSubTitle}} </h3>
+                <h3 v-for="line in text" v-bind:value="line" v-bind:key="line">
+                    {{line}}
+                </h3>
                 <form>
                     <select v-model="selected">
                         <option v-for="option in optionList" v-bind:value="option" v-bind:key="option">
@@ -102,8 +104,16 @@ export default {
         
         await this.getBoard()
 
-        this.$socket.on("getEvents", (data) => {
+        this.$socket.on("turn", (data) => {
+            this.processTurn(data)
+        });
+
+        this.$socket.on("Event", (data) => {
             this.processEvent(data)
+        });
+
+        this.$socket.on("Question", (data) => {
+            this.processQuestion(data)
         });
     },
     methods: {
@@ -120,6 +130,16 @@ export default {
             var chat = document.getElementById("chat")
 
             chat.insertBefore(div, chat.children[0]);
+        },
+        removeMessage(message, id){
+            //this will remove a message from the log
+        },
+        clearAllMessages(){
+            var chat = document.getElementById("chat")
+            var messages = chat.children;
+            for(var i = 0; i < messages.length; i++) {
+                messages[i].remove()
+            }
         },
         pauseGame(){
             this.isPaused = !this.isPaused
@@ -185,20 +205,28 @@ export default {
             var latestTile = ids[ids.length - 1]
             var tile = this.grid.engine.nodes.find(n => n.id === latestTile).el
             tile.children[0].className = "current-square"
-
-            var questions = data["questions"]
+            this.clearAllMessages()
             var events = data["events"]
-            for (var i = 0; i < events.length; i++){
+            for (var i = 1; i < events.length; i++){
                 this.addMessage(events[i], latestTile)
             }
-            if (questions.length != 0) {
-                this.questionBool = true
-                this.questionTitle = questions[0]["labels"][0]
-                if (questions[0]["labels"].length > 1) {
-                    this.questionSubTitle = questions[0]["labels"][1]
+        },
+        processQuestion(data){
+            var questions = data["question"]
+            this.questionBool = true
+                this.questionTitle = questions["labels"][0]
+                if (questions["labels"].length > 1) {
+                    this.questionSubTitle = questions["labels"]
                 }
-                this.optionList = questions[0]["options"]
+                this.optionList = questions["options"]
+
+        },
+        processTurn(data){
+            var message = data["events"]
+            for (var i = 1; i < message.length; i++){
+                this.addMessage(message[i], latestTile)
             }
+
         },
         async submitResponse(){
             this.questionBool = false;
