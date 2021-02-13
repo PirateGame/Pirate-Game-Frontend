@@ -191,7 +191,7 @@ export default {
         },
             
         processEvent(data){
-            
+
             this.money = data["money"]
             this.bank = data["bank"]
             this.shield = data["shield"]
@@ -212,11 +212,11 @@ export default {
             }
         },
         processQuestion(data){
-            var questions = data["question"]
+            var questions = data["labels"]
             this.questionBool = true
-                this.questionTitle = questions["labels"][0]
-                if (questions["labels"].length > 1) {
-                    this.questionSubTitle = questions["labels"]
+                this.questionTitle = questions[0]
+                if (questions.length > 1) {
+                    this.questionSubTitle = questions.slice(1,-0)
                 }
                 this.optionList = questions["options"]
 
@@ -224,7 +224,7 @@ export default {
         processTurn(data){
             var message = data["events"]
             for (var i = 1; i < message.length; i++){
-                this.addMessage(message[i], latestTile)
+                this.addMessage(message[i])
             }
 
         },
