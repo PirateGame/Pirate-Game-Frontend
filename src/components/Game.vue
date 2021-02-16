@@ -46,7 +46,7 @@
             <div class="question-box">
                 <br>
                 <h3> {{questionTitle}} </h3>
-                <h3 v-for="line in text" v-bind:value="line" v-bind:key="line">
+                <h3 v-for="line in questionSubTitle" v-bind:value="line" v-bind:key="line">
                     {{line}}
                 </h3>
                 <form>
@@ -119,7 +119,7 @@ export default {
     methods: {
         addMessage(message, turnNum){
             var div = document.createElement('div');
-            div.innerHTML = '<h3>' + message + '</h3>';
+            div.innerHTML = '<h3 id="message">' + message + '</h3>';
             if (turnNum % 2 ==0){
                 div.class = 'message'
             } else {
@@ -133,12 +133,14 @@ export default {
         },
         removeMessage(message, id){
             //this will remove a message from the log
+            return
         },
         clearAllMessages(){
-            var chat = document.getElementById("chat")
-            var messages = chat.children;
+            console.log("here")
+            var messages = document.getElementById("message")
+            console.log(messages)
             for(var i = 0; i < messages.length; i++) {
-                messages[i].remove()
+                messages[i].parentNode.remove()
             }
         },
         pauseGame(){
