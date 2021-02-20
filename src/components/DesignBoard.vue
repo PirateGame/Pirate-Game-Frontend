@@ -43,7 +43,6 @@ export default {
         //load grids
         this.grids = GridStack.initAll({
           dragIn: '.grid-stack-item',
-          maxRow: this.gridHeight,
           dragInOptions: { revert: 'invalid', scroll: false, appendTo: 'body', helper: 'clone' },
           acceptWidgets: function(el) { return true; }
         });
@@ -107,8 +106,7 @@ export default {
                         return;
                     }
                     else {
-                        var board = data["board"];
-                        this.grids[0].load(board, true);
+                        this.grids[0].load(data["board"]);
                         sessionStorage.setItem('authcode', this.authCode);
                         sessionStorage.setItem('gamename', this.gameName);
                         sessionStorage.setItem('playername', this.playerName);

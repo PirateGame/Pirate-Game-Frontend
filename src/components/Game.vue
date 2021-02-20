@@ -119,7 +119,7 @@ export default {
     methods: {
         addMessage(message, turnNum){
             var div = document.createElement('div');
-            div.innerHTML = '<h3 id="message">' + message + '</h3>';
+            div.innerHTML = '<h3 name="message">' + message + '</h3>';
             if (turnNum % 2 ==0){
                 div.class = 'message'
             } else {
@@ -136,11 +136,12 @@ export default {
             return
         },
         clearAllMessages(){
-            console.log("here")
-            var messages = document.getElementById("message")
-            console.log(messages)
+            var messages = document.getElementsByName('message')
+            if (messages == null){
+                return
+            }
             for(var i = 0; i < messages.length; i++) {
-                messages[i].parentNode.remove()
+                messages[i].parentElement.parentElement.removeChild(messages[i].parentElement)
             }
         },
         pauseGame(){
@@ -192,7 +193,7 @@ export default {
             }
         },
             
-        processEvent(data){
+        processTurn(data){
 
             this.money = data["money"]
             this.bank = data["bank"]
@@ -209,8 +210,8 @@ export default {
             tile.children[0].className = "current-square"
             this.clearAllMessages()
             var events = data["events"]
-            for (var i = 1; i < events.length; i++){
-                this.addMessage(events[i], latestTile)
+            for (var i = 0; i < events.length; i++){
+                this.addMessage(events[i], ids.length)
             }
         },
         processQuestion(data){
@@ -220,11 +221,13 @@ export default {
                 if (questions.length > 1) {
                     this.questionSubTitle = questions.slice(1,-0)
                 }
-                this.optionList = questions["options"]
+                this.optionList = data["options"]
 
         },
-        processTurn(data){
+        processEvent(data){
+            this.addMessage("this is an event rather than a turn")
             var message = data["events"]
+            console.log(message)
             for (var i = 1; i < message.length; i++){
                 this.addMessage(message[i])
             }
