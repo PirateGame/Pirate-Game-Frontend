@@ -119,7 +119,7 @@ export default {
     methods: {
         addMessage(message, turnNum){
             var div = document.createElement('div');
-            div.innerHTML = '<h3 name="message">' + message + '</h3>';
+            div.innerHTML = '<h3 name="event">' + message + '</h3>';
             if (turnNum % 2 ==0){
                 div.class = 'message'
             } else {
@@ -131,22 +131,14 @@ export default {
 
             chat.insertBefore(div, chat.children[0]);
         },
-        removeMessage(message, id){
-            //this will remove a message from the log
-            return
-        },
         clearAllMessages(){
-            var messages = document.getElementsByName('message')
-            if (messages == null){
-                return
-            }
-            for(var i = 0; i < messages.length; i++) {
-                messages[i].parentElement.parentElement.removeChild(messages[i].parentElement)
+            var log = document.getElementById("chat")
+            while (log.firstChild) {
+                log.removeChild(log.firstChild);
             }
         },
         pauseGame(){
-            this.isPaused = !this.isPaused
-
+            this.isPaused = !this.isPaused;
             if (this.isPaused){
                 console.log("pause game")
             }
@@ -194,7 +186,6 @@ export default {
         },
             
         processTurn(data){
-
             this.money = data["money"]
             this.bank = data["bank"]
             this.shield = data["shield"]
