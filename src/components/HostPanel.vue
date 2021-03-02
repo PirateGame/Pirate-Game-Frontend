@@ -1,7 +1,7 @@
 <template>
     <div class="bg-generic">
         <div class="flex-container">
-            <div class="config-box float-left flex-child">
+            <div class="config-box flex-child">
                 <h1 class="title">Host Panel</h1>
                 <h3>Game Name: {{gameName}}</h3>
                 <h3 class="float-left">Decision Time = {{ DecisionTime }}</h3>
@@ -34,7 +34,7 @@
                     <input type="button" value="Start" style="color: white; text-decoration: none; margin:1%;" class="big-button bg-genericButton" @click="startGame">
                 </div>
             </div>
-            <div class="config-box float-left flex-child">
+            <div class="config-box flex-child">
                 <h1 class="title">Players</h1>
                     <h3 type="button" v-for="item in clientList"  v-bind:key="item" class="kickplayer-button" @click="kickPlayer(item)">
                         {{item}}
