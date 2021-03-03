@@ -23,13 +23,13 @@ export default {
     name: 'WaitingRoom',
     data: function () {
         return {
-            authCode: sessionStorage.getItem('authcode'),
-            gameName: sessionStorage.getItem('gamename'),
-            playerName: sessionStorage.getItem('playername'),
-            ship: sessionStorage.getItem("ship"),
-            captain: sessionStorage.getItem("captain"),
-            gridWidth: sessionStorage.getItem("gridWidth"),
-            gridHeight: sessionStorage.getItem("gridHeight"),
+            authCode: this.$store.state.authCode,
+            gameName: this.$store.state.gameName,
+            playerName: this.$store.state.playerName,
+            gridWidth: this.$store.state.gridWidth,
+            gridHeight: this.$store.state.gridGHeight,
+            ship: this.$store.state.ship,
+            captain: this.$store.state.captain,
             gameState: "unknown",
             timerID: null,
             isHost: false,
@@ -51,13 +51,6 @@ export default {
             if (this.gameState == "started") {
                 router.push("/Game")
             }
-            sessionStorage.setItem('authcode', this.authCode);
-            sessionStorage.setItem('gamename', this.gameName);
-            sessionStorage.setItem('playername', this.playerName);
-            sessionStorage.setItem('gridWidth', this.gridWidth);
-            sessionStorage.setItem('gridHeight', this.gridHeight);
-            sessionStorage.setItem('captain', this.captain);
-            sessionStorage.setItem('ship', this.ship);
         });
     },
     methods: {
@@ -77,13 +70,6 @@ export default {
                     }else{
                         this.isHost = true;
                     }
-                    sessionStorage.setItem('authcode', this.authCode);
-                    sessionStorage.setItem('gamename', this.gameName);
-                    sessionStorage.setItem('playername', this.playerName);
-                    sessionStorage.setItem('gridWidth', this.gridWidth);
-                    sessionStorage.setItem('gridHeight', this.gridHeight);
-                    sessionStorage.setItem('captain', this.captain);
-                    sessionStorage.setItem('ship', this.ship);
                 });
             }
         },
@@ -99,14 +85,6 @@ export default {
                     if (data["error"] != false){
                         alert(data["error"]);
                         return;
-                    }else{
-                        sessionStorage.setItem('authcode', this.authCode);
-                        sessionStorage.setItem('gamename', this.gameName);
-                        sessionStorage.setItem('playername', this.playerName);
-                        sessionStorage.setItem('gridWidth', this.gridWidth);
-                        sessionStorage.setItem('gridHeight', this.gridHeight);
-                        sessionStorage.setItem('captain', this.captain);
-                        sessionStorage.setItem('ship', this.ship);
                     }
                 });
             }

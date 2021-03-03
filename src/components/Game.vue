@@ -64,18 +64,17 @@
     </div>
 </template>
 <script>
-import router from '../router/index';
 export default {
     name: 'Game',
     data: function () {
         return {
-            authCode: sessionStorage.getItem('authcode'),
-            gameName: sessionStorage.getItem('gamename'),
-            playerName: sessionStorage.getItem('playername'),
-            ship: sessionStorage.getItem("ship"),
-            captain: sessionStorage.getItem("captain"),
-            gridWidth: sessionStorage.getItem("gridWidth"),
-            gridHeight: sessionStorage.getItem("gridHeight"),
+            authCode: this.$store.state.authCode,
+            gameName: this.$store.state.gameName,
+            playerName: this.$store.state.playerName,
+            gridWidth: this.$store.state.gridWidth,
+            gridHeight: this.$store.state.gridGHeight,
+            ship: this.$store.state.ship,
+            captain: this.$store.state.captain,
             mirror: 0,
             shield: 0,
             grid: null,
@@ -93,6 +92,8 @@ export default {
     },
     async mounted () {
         await this.amIhost()
+
+        console.log(this.gridWidth)
 
         
         this.grid = GridStack.init({
@@ -196,9 +197,9 @@ export default {
                 var tile = this.grid.engine.nodes.find(n => n.id === ids[i]).el
                 tile.children[0].className = "old-square" 
             }
-            var latestTile = ids[ids.length - 1]
-            var tile = this.grid.engine.nodes.find(n => n.id === latestTile).el
-            tile.children[0].className = "current-square"
+            var latestID = ids[ids.length - 1]
+            var latestTile = this.grid.engine.nodes.find(n => n.id === latestID).el
+            latestTile.children[0].className = "current-square"
             this.clearAllMessages()
             var events = data["events"]
             for (var i = 0; i < events.length; i++){

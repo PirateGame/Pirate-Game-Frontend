@@ -23,8 +23,11 @@
 import router from '../router/index';
 export default {
     name: 'JoinPage',
-    mounted: function() {
-        console.log(this.$store.state.playerName)
+    data: function () {
+        return {
+            playerName: null,
+            gameName: null
+        }
     },
     methods: {
         async joinGame() {
@@ -39,10 +42,10 @@ export default {
                     if (data["error"] != false){
                         alert(data["error"]);
                         return;
-                    }                    
-                    sessionStorage.setItem("authcode", data["authcode"]);
-                    sessionStorage.setItem("gamename", this.gameName);
-                    sessionStorage.setItem("playername", this.playerName);
+                    }
+                    this.$store.commit("updatePlayerName", this.playerName)
+                    this.$store.commit("updateGameName", this.gameName)
+                    this.$store.commit("updateAuthCode", data["authcode"])
                     router.push("/PickTeam")
                 });
             } else {

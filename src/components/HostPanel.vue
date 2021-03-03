@@ -49,13 +49,11 @@ export default {
     name: 'HostPanel',
     data: function () {
         return {
-            authCode: sessionStorage.getItem('authcode'),
-            gameName: sessionStorage.getItem('gamename'),
-            playerName: sessionStorage.getItem('playername'),
-            ship: sessionStorage.getItem("ship"),
-            captain: sessionStorage.getItem("captain"),
-            gridWidth: sessionStorage.getItem("gridWidth"),
-            gridHeight: sessionStorage.getItem("gridHeight"),
+            authCode: this.$store.state.authCode,
+            gameName: this.$store.state.gameName,
+            playerName: this.$store.state.playerName,
+            gridWidth: this.$store.state.gridWidth,
+            gridHeight: this.$store.state.gridGHeight,
             DecisionTime: 30,
             randomiseOnly: false,
             naughty: false,
@@ -96,13 +94,6 @@ export default {
                     }else{
                         console.log("saved settings")
                     }
-                    sessionStorage.setItem('authcode', this.authCode);
-                    sessionStorage.setItem('gamename', this.gameName);
-                    sessionStorage.setItem('playername', this.playerName);
-                    sessionStorage.setItem('gridWidth', this.gridWidth);
-                    sessionStorage.setItem('gridHeight', this.gridHeight);
-                    sessionStorage.setItem('captain', this.captain);
-                    sessionStorage.setItem('ship', this.ship);
                 });
             }
         },
@@ -123,13 +114,6 @@ export default {
                     }else{
                         console.log("kicked player")
                     }
-                    sessionStorage.setItem('authcode', this.authCode);
-                    sessionStorage.setItem('gamename', this.gameName);
-                    sessionStorage.setItem('playername', this.playerName);
-                    sessionStorage.setItem('gridWidth', this.gridWidth);
-                    sessionStorage.setItem('gridHeight', this.gridHeight);
-                    sessionStorage.setItem('captain', this.captain);
-                    sessionStorage.setItem('ship', this.ship);
                 });
             }
         },
@@ -150,13 +134,6 @@ export default {
                     else{
                         console.log("added AI")
                     }
-                    sessionStorage.setItem('authcode', this.authCode);
-                    sessionStorage.setItem('gamename', this.gameName);
-                    sessionStorage.setItem('playername', this.playerName);
-                    sessionStorage.setItem('gridWidth', this.gridWidth);
-                    sessionStorage.setItem('gridHeight', this.gridHeight);
-                    sessionStorage.setItem('captain', this.captain);
-                    sessionStorage.setItem('ship', this.ship);
                 });
             }
         }

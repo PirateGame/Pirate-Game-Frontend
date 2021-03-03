@@ -19,15 +19,11 @@ export default {
     name: 'DesignBoard',
     data: function () {
         return {
-            gridWidth: 7,
-            gridHeight: 7,
-            authCode: sessionStorage.getItem('authcode'),
-            gameName: sessionStorage.getItem('gamename'),
-            playerName: sessionStorage.getItem('playername'),
-            ship: sessionStorage.getItem("ship"),
-            captain: sessionStorage.getItem("captain"),
-            gridWidth: sessionStorage.getItem("gridWidth"),
-            gridHeight: sessionStorage.getItem("gridHeight"),
+            authCode: this.$store.state.authCode,
+            gameName: this.$store.state.gameName,
+            playerName: this.$store.state.playerName,
+            gridWidth: this.$store.state.gridWidth,
+            gridHeight: this.$store.state.gridGHeight,
             items: [],
         }
     },
@@ -55,7 +51,6 @@ export default {
         this.grids[1].float(false);
         this.grids[1].column(1);
         this.grids[1].opts.cellHeight = 40; //pixels
-        console.log(this.items)
         this.getTiles();
         this.grids[1].load(this.items);
     },
@@ -78,13 +73,6 @@ export default {
                         alert(data["error"]);
                         return;
                     }
-                    sessionStorage.setItem('authcode', this.authCode);
-                    sessionStorage.setItem('gamename', this.gameName);
-                    sessionStorage.setItem('playername', this.playerName);
-                    sessionStorage.setItem('gridWidth', this.gridWidth);
-                    sessionStorage.setItem('gridHeight', this.gridHeight);
-                    sessionStorage.setItem('captain', this.captain);
-                    sessionStorage.setItem('ship', this.ship);
                     router.push("/WaitingRoom")
                 });
             }
@@ -107,13 +95,6 @@ export default {
                     }
                     else {
                         this.grids[0].load(data["board"]);
-                        sessionStorage.setItem('authcode', this.authCode);
-                        sessionStorage.setItem('gamename', this.gameName);
-                        sessionStorage.setItem('playername', this.playerName);
-                        sessionStorage.setItem('gridWidth', this.gridWidth);
-                        sessionStorage.setItem('gridHeight', this.gridHeight);
-                        sessionStorage.setItem('captain', this.captain);
-                        sessionStorage.setItem('ship', this.ship);
                     }
                 });
             }
@@ -135,13 +116,8 @@ export default {
                         console.log("got grid dimensions")
                         this.gridWidth = data["x"]
                         this.gridHeight = data["y"]
-                        sessionStorage.setItem("gridWidth", this.gridWidth);
-                        sessionStorage.setItem("gridHeight", this.gridHeight);
-                        sessionStorage.setItem('authcode', this.authCode);
-                        sessionStorage.setItem('gamename', this.gameName);
-                        sessionStorage.setItem('playername', this.playerName);
-                        sessionStorage.setItem('captain', this.captain);
-                        sessionStorage.setItem('ship', this.ship);
+                        this.$store.commit("updateGridWidth", this.gridWidth)
+                        this.$store.commit("updateGridHeight", this.gridHeight)
                     }
                 });
             }
@@ -163,13 +139,6 @@ export default {
                     } else {
                         console.log("got tiles")
                         this.grids[1].load(data["tiles"]);
-                        sessionStorage.setItem('authcode', this.authCode);
-                        sessionStorage.setItem('gamename', this.gameName);
-                        sessionStorage.setItem('playername', this.playerName);
-                        sessionStorage.setItem('gridWidth', this.gridWidth);
-                        sessionStorage.setItem('gridHeight', this.gridHeight);
-                        sessionStorage.setItem('captain', this.captain);
-                        sessionStorage.setItem('ship', this.ship);
                     }
                 });
             }

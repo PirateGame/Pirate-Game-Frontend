@@ -14,12 +14,36 @@ app.use(router);
 
 var store = createStore({
   state:{
-      playerName: "Alex"
+    playerName: null,
+    gameName: null,
+    authCode: null,
+    ship: null,
+    captain: null,
+    gridHeight: null,
+    gridWidth: null
   },
   mutations: {
-      edit(state, key, value){
-          state.key = value
-      }
+    updatePlayerName(state, value){
+        state.playerName = value
+    },
+    updateGameName(state, value){
+      state.gameName = value
+    },
+    updateAuthCode(state, value){
+      state.authCode = value
+    },
+    updateShip(state, value){
+      state.ship = value
+    },
+    updateCaptain(state, value){
+      state.captain = value
+    },
+    updateGridHeight(state, value){
+      state.gridHeight = value
+    },
+    updateGridWidth(state, value){
+      state.gridWidth = value
+    },
   }
 })
 
