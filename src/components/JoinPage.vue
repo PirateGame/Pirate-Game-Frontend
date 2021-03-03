@@ -23,27 +23,8 @@
 import router from '../router/index';
 export default {
     name: 'JoinPage',
-    data: function () {
-        return {
-            gameName: null,
-            playerName: null
-        }
-    },
-    async mounted () {
-        sessionStorage.removeItem('authcode');
-        sessionStorage.removeItem('gamename');
-        sessionStorage.removeItem('playername');
-        sessionStorage.removeItem('gridWidth');
-        sessionStorage.removeItem('gridHeight');
-        sessionStorage.removeItem('captain');
-        sessionStorage.removeItem('ship');
-        sessionStorage.setItem('authcode', "None");
-        sessionStorage.setItem('gamename', "None");
-        sessionStorage.setItem('playername', "None");
-        sessionStorage.setItem('gridWidth', "None");
-        sessionStorage.setItem('gridHeight', "None");
-        sessionStorage.setItem('captain', "None");
-        sessionStorage.setItem('ship', "None");
+    mounted: function() {
+        console.log(this.$store.state.playerName)
     },
     methods: {
         async joinGame() {
