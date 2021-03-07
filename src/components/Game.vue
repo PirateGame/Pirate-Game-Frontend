@@ -30,15 +30,7 @@
             </div>
             <div v-show="isHost">
                 <div class="flex-container">
-                    <div class="flex-child" v-show="isPaused">
-                        <input type="button" value="Resume" style="color: white; text-decoration: none;" class="big-button bg-green" @click="pauseGame">
-                    </div>
-                    <div class="flex-child" v-show="!isPaused">
-                        <input type="button" value="Pause" style="color: white; text-decoration: none;" class="big-button bg-red" @click="pauseGame">
-                    </div>
-                    <div class="flex-child">
-                    <input type="button" value="Stop" style="color: white; text-decoration: none;" class="big-button bg-red" @click="stopGame">
-                    </div>
+                    <input type="button" value="Host Controls" style="color: white; text-decoration: none;" class="big-button bg-blue">
                 </div>
             </div>
         </div>
@@ -72,7 +64,7 @@ export default {
             gameName: this.$store.state.gameName,
             playerName: this.$store.state.playerName,
             gridWidth: this.$store.state.gridWidth,
-            gridHeight: this.$store.state.gridGHeight,
+            gridHeight: this.$store.state.gridHeight,
             ship: this.$store.state.ship,
             captain: this.$store.state.captain,
             mirror: 0,

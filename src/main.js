@@ -48,5 +48,5 @@ var store = createStore({
 })
 
 app.use(store);
-
+app.config.devtools = true;
 app.mount('#app');

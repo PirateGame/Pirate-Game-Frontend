@@ -27,11 +27,10 @@ export default {
             gameName: this.$store.state.gameName,
             playerName: this.$store.state.playerName,
             gridWidth: this.$store.state.gridWidth,
-            gridHeight: this.$store.state.gridGHeight,
+            gridHeight: this.$store.state.gridHeight,
             ship: this.$store.state.ship,
             captain: this.$store.state.captain,
             gameState: "unknown",
-            timerID: null,
             isHost: false,
             isReady: false,
         }

@@ -51,7 +51,7 @@ export default {
         this.grids[1].float(false);
         this.grids[1].column(1);
         this.grids[1].opts.cellHeight = 40; //pixels
-        this.getTiles();
+        this.items = this.getTiles();
         this.grids[1].load(this.items);
     },
     methods: {
@@ -138,7 +138,7 @@ export default {
                         return;
                     } else {
                         console.log("got tiles")
-                        this.grids[1].load(data["tiles"]);
+                        return data["tiles"];
                     }
                 });
             }
