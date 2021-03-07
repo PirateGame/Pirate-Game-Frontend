@@ -24,11 +24,12 @@ export default {
             playerName: this.$store.state.playerName,
             gridWidth: this.$store.state.gridWidth,
             gridHeight: this.$store.state.gridGHeight,
-            items: [],
+            items: null,
         }
     },
     async mounted () {
         await this.getGridDim();
+        await this.getTiles();
         
         //this is pre placed to stop the grid from disappearing
         var MANDATORYitems = [
@@ -51,7 +52,6 @@ export default {
         this.grids[1].float(false);
         this.grids[1].column(1);
         this.grids[1].opts.cellHeight = 40; //pixels
-        this.items = this.getTiles();
         this.grids[1].load(this.items);
     },
     methods: {
@@ -138,7 +138,7 @@ export default {
                         return;
                     } else {
                         console.log("got tiles")
-                        return data["tiles"];
+                        this.items = data["tiles"];
                     }
                 });
             }
