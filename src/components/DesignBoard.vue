@@ -23,13 +23,12 @@ export default {
             gameName: this.$store.state.gameName,
             playerName: this.$store.state.playerName,
             gridWidth: this.$store.state.gridWidth,
-            gridHeight: this.$store.state.gridGHeight,
-            items: null,
+            gridHeight: this.$store.state.gridHeight,
         }
     },
     async mounted () {
+        
         await this.getGridDim();
-        await this.getTiles();
         
         //this is pre placed to stop the grid from disappearing
         var MANDATORYitems = [
@@ -41,7 +40,8 @@ export default {
         this.grids = GridStack.initAll({
           dragIn: '.grid-stack-item',
           dragInOptions: { revert: 'invalid', scroll: false, appendTo: 'body', helper: 'clone' },
-          acceptWidgets: function(el) { return true; }
+          acceptWidgets: function(el) { return true; },
+          minRow: 1,
         });
         this.grids[0].float(true);
         this.grids[0].column(this.gridWidth);
@@ -51,13 +51,12 @@ export default {
 
         this.grids[1].float(false);
         this.grids[1].column(1);
-        this.grids[1].opts.cellHeight = 40; //pixels
-        this.grids[1].load(this.items);
+        this.grids[1].cellHeight(50)// = 50; //pixels
+        this.getTiles();
     },
     methods: {
         async submitBoard(){
             var serializedData = this.grids[0].save();
-            this.grids[1].removeAll();
             if (this.$socket.connected){
                 this.$socket.emit('saveBoard',
                     {
@@ -138,7 +137,7 @@ export default {
                         return;
                     } else {
                         console.log("got tiles")
-                        this.items = data["tiles"];
+                        this.grids[1].load(data["tiles"])
                     }
                 });
             }
