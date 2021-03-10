@@ -4,15 +4,20 @@
         <h2>Please wait while the host starts the game.</h2>
         <h2>Here is a guide on how to play the game.</h2>
         <h2> game state: {{gameState}} </h2>
-        <router-link :to="{ name: 'Rules'}" target="_blank">
-            <input type="button" value="Rules" style="color: white; text-decoration: none; width:50%; margin:2%" class="big-button bg-genericButton">
-        </router-link>
-        <div v-show="isHost" style="margin:0">
-            <div v-show="!isReady" class="flex-child" style="margin-top:0">
-                <input type="button" value="Play" style="color: white; text-decoration: none; width:50%; margin:2%" class="big-button bg-red">
+
+        <div class="flex-vertical-box" style="height:60%">
+            <div class="flex-child" style="height:25%">
+                <router-link :to="{ name: 'Rules'}" target="_blank">
+                    <input type="button" value="Rules" style="color: white; text-decoration: none; width:50%; margin:2%" class="big-button bg-genericButton">
+                </router-link>
             </div>
-            <div v-show="isReady" class="flex-child" style="margin-top:0">
-                <input type="button" value="Play" style="color: white; text-decoration: none; width:53%; margin:2%" class="big-button bg-green" @click="startGame">
+            <div v-show="isHost" style="height:25%" class="flex-child">
+                <div v-show="!isReady" style="height:100%">
+                    <input type="button" value="Play" style="color: white; text-decoration: none; width:50%; margin:2%" class="big-button bg-red">
+                </div>
+                <div v-show="isReady" style="height:100%">
+                    <input type="button" value="Play" style="color: white; text-decoration: none; width:50%; margin:2%" class="big-button bg-green" @click="startGame">
+                </div>
             </div>
         </div>
     </div>

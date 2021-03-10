@@ -3,7 +3,7 @@
         <div class="config-box config-box-center">
             <br>
             <h2 class="title1">Host</h2>
-            <form action="play">
+            <form action="play" style="height:80%">
                 <h3 class="float-left">Grid Size</h3>
                 <h3 class="float-left">{{ gridSizex }} x {{ gridSizey }}</h3>
                 <div class="input-container">
@@ -24,7 +24,7 @@
                 <div class="input-container" v-show="isHostPlaying">
                     <input type="text" class="text-box" placeholder=" Please enter your name..." id="playerName" v-model="playerName">
                 </div>
-                <div style="text-align: center;">
+                <div style="padding:15%; height:15%">
                     <input type="button" value="Create" style="color: white; text-decoration: none;" class="big-button bg-genericButton" @click="createGame">
                 </div>
             </form>

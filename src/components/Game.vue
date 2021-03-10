@@ -5,34 +5,44 @@
             <div :class="['grid-stack grid-stack-' + gridWidth]"></div>
         </div>
         <div class="right-bar">
-            <h2 style="margin-top:10px"> Game log </h2>
-            <div class="flex-container" style="height:6%">
-                <div class="flex-child" style="margin:0">
-                    <h2> Stash: {{money}}</h2>
+            <div class="flex-vertical-container" style="height:100%; margin:0">
+                <div class="flex-child">
+                    <div class="flex-container" style="margin:0">
+                        <h2 class="flex-child"> Game log </h2>
+                        <div v-show="isHost" class="flex-child" style="flex-grow:2">
+                            <input type="button" value="Host Controls" style="color: white; text-decoration: none;" class="big-button bg-blue">
+                        </div>
+                    </div>
                 </div>
-                <div class="flex-child" style="margin:0">
-                    <h2> Chest: {{bank}}</h2>
+                <div class="flex-child">
+                    <div class="flex-container">
+                        <div class="flex-child" style="margin:0">
+                            <h2 style="margin:0"> Stash: {{money}}</h2>
+                        </div>
+                        <div class="flex-child" style="margin:0">
+                            <h2 style="margin:0"> Chest: {{bank}}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-child">
+                    <div class="flex-container">
+                        <div class="flex-child" style="margin:0">
+                            <h2 style="margin:0"> Mirror: {{mirror}}</h2>
+                        </div>
+                        <div class="flex-child" style="margin:0">
+                            <h2 style="margin:0"> Shield: {{shield}}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-child" style="flex-grow:10">
+                    <div class="gameLog" id="chat">
+                        <div class="message-dark">
+                            <h3> Welcome to the Pirate Game </h3>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="flex-container" style="height:6%">
-                <div class="flex-child" style="margin:0">
-                    <h2> Mirror: {{mirror}}</h2>
-                </div>
-                <div class="flex-child" style="margin:0">
-                    <h2> Shield: {{shield}}</h2>
-                </div>
-            </div>
-            <br>
-            <div class="gameLog" id="chat">
-                <div class="message-dark">
-                    <h3> Welcome to the Pirate Game </h3>
-                </div>
-            </div>
-            <div v-show="isHost">
-                <div class="flex-container">
-                    <input type="button" value="Host Controls" style="color: white; text-decoration: none;" class="big-button bg-blue">
-                </div>
-            </div>
+            
         </div>
         <div class="board-holder question" v-show="questionBool">
             <div class="question-box">
@@ -93,6 +103,8 @@ export default {
             row: this.gridHeight,
             cellHeight: 90,
             disableDrag: true,
+            staticGrid: true,
+            disableOneColumnMode: true,
         });
         
         await this.getBoard()

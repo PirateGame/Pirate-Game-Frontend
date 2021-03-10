@@ -1,17 +1,29 @@
 <template>
-  <div class="bg-gamepage">
-  <h2>Drag and drop the tiles to create your board, or hit the randomise button.</h2>
-    <div class="board-holder">
-      <div :class="['grid-stack grid-stack-' + gridWidth]"></div>
+    <div class="bg-gamepage">
+        <h2>Drag and drop the tiles to create your board, or hit the randomise button.</h2>
+        <div class="flex-container" style="width:100%; height:20%">
+            <div class="flex-child">
+                <input type="button" value="Randomise" style="color: white; text-decoration: none;" class="big-button bg-green" @click="randomiseBoard">
+            </div>
+            <div class="flex-child">
+                <input type="button" value="Clear" style="color: white; text-decoration: none;" class="big-button bg-red" @click="clearBoard">
+            </div>
+            <div class="flex-child">
+                <input type="button" value="Submit" style="color: white; text-decoration: none;" class="big-button bg-blue" @click="submitBoard">
+            </div>
+            <div class="flex-child" style="flex-grow:4"></div>
+        </div>
+        <div class="board-holder">
+            <div :class="['grid-stack grid-stack-' + gridWidth]"></div>
+        </div>
+        <div class="board-holder-narrow">
+            
+            <div class="board-scroll">
+                <div class="grid-stack grid-stack-1"></div>
+            </div>
+            
+        </div>
     </div>
-    <div class="board-holder-narrow">
-      <input type="button" value="Randomise" style="color: white; text-decoration: none;" class="big-button bg-red" @click="randomiseBoard">
-      <div class="board-scroll">
-        <div class="grid-stack grid-stack-1"></div>
-      </div>
-      <input type="button" value="Submit" style="color: white; text-decoration: none;" class="big-button bg-blue" @click="submitBoard">
-    </div>
-  </div>
 </template>
 <script>
 import router from '../router/index';
@@ -142,12 +154,11 @@ export default {
                 });
             }
         },
-        async clearGrid(){
+        async clearBoard(){
             this.grids[0].removeAll();
             this.grids[1].removeAll();
             this.getTiles()
             this.grids[0].load([{content: '£5000',noResize: true, noMove:false}]);
-            this.grids[1].load(this.items, true);
         }
     }
 }
