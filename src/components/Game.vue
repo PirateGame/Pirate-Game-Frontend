@@ -1,6 +1,8 @@
 <template>
     <div class="bg-gamepage">
-        <h2>The Pirate Game</h2>
+        <h2 class="tooltip-wrap">The Pirate Game
+            <div class="tooltip-content board-holder"> Your name: {{playerName}} <br> Game name: {{gameName}} <br> Ship: {{ship}} <br> Captain: {{captain}} </div>
+        </h2>
         <div class="board-holder">
             <div :class="['grid-stack grid-stack-' + gridWidth]"></div>
         </div>
@@ -44,23 +46,25 @@
             </div>
             
         </div>
-        <div class="board-holder question" v-show="questionBool">
+        <div class="board-holder question" v-show="questionBool">s
             <div class="question-box">
                 <br>
                 <h3> {{questionTitle}} </h3>
                 <h3 v-for="line in questionSubTitle" v-bind:value="line" v-bind:key="line">
                     {{line}}
                 </h3>
-                <form>
-                    <select v-model="selected">
-                        <option v-for="option in optionList" v-bind:value="option" v-bind:key="option">
-                            {{ option }}
-                        </option>
-                    </select>
-                    <div style="text-align: center;">
+                <div class="flex-vertical-box" style="height:70%">
+                    <div class="flex-child">
+                        <select v-model="selected">
+                            <option v-for="option in optionList" v-bind:value="option" v-bind:key="option">
+                                {{ option }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="flex-child" style="text-align: center">
                         <input type="button" value="Submit" style="color: white; text-decoration: none;" class="big-button bg-blue" @click="submitResponse">
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>

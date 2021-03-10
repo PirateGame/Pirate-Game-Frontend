@@ -328,6 +328,7 @@
     height: 100%;
     flex-wrap: wrap;
     flex-direction: row;
+    justify-content: space-around;
 }
 
 .flex-child {
@@ -342,6 +343,7 @@
     height: 80%;
     flex-wrap: nowrap;
     flex-direction: column;
+    justify-content: space-around;
 }
 
 /* HIDE RADIO */
@@ -453,3 +455,21 @@ img {
     background-color: rgba(255, 255, 255, 0.521);
     text-align: left;
 }
+
+.tooltip-wrap {
+    position: relative;
+  }
+  .tooltip-wrap .tooltip-content {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    border: 5px solid rgb(75, 75, 75);
+    background-color: rgb(255, 255, 255);
+    z-index: 12;
+  }
+  .tooltip-wrap:hover .tooltip-content {
+    display: block;
+  }
