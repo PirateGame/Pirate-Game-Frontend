@@ -7,6 +7,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "chart.js": "^2.9.4",
     "gridstack": "^3.3.0",
     "socket.io-client": "^3.1.2",
     "vue": "^3.0.7",

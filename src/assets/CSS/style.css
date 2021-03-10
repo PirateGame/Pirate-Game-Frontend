@@ -473,3 +473,12 @@ img {
   .tooltip-wrap:hover .tooltip-content {
     display: block;
   }
+
+.leaderboard {
+    height: 80%;
+    width: 80%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
