@@ -22,10 +22,10 @@
                                 <input class="float-left" id="random"  type="checkbox" name="Randomize only" v-bind:value="false" v-model='randomiseOnly'>
                                 <label for="random">Randomise Boards Only</label>
                                 <br>
-                                <input class="float-left" id="naughty"  type="checkbox" name="block naughty" v-bind:value="false" v-model='naughty'>
+                                <input class="float-left" id="naughty"  type="checkbox" name="block naughty" v-bind:value="true" v-model='naughty'>
                                 <label for="naughty">Block Naughty Names</label>
                                 <br>
-                                <input class="float-left" id="similar"  type="checkbox" name="block similar" v-bind:value="false" v-model='similar'>
+                                <input class="float-left" id="similar"  type="checkbox" name="block similar" v-bind:value="true" v-model='similar'>
                                 <label for="similar">Block Similar names</label>
                             </div>
                             <div class="flex-child" style="text-align: center;">
@@ -61,8 +61,8 @@ export default {
             gridHeight: this.$store.state.gridGHeight,
             DecisionTime: 30,
             randomiseOnly: false,
-            naughty: false,
-            similar: false,
+            naughty: true,
+            similar: true,
             clientList: null,
             playerLimit: 12,
         }
