@@ -88,7 +88,7 @@ export default {
                     playerName: this.playerName,
                     naughty: this.naughty,
                     similar: this.similar,
-                    DecisionTime: this.DecisionTime,
+                    turnTime: this.DecisionTime,
                     randomiseOnly: this.randomiseOnly,
                     playerLimit: this.playerLimit,
                 });
