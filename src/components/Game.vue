@@ -121,6 +121,10 @@ export default {
             this.processEvent(data)
         });
 
+        this.$socket.on("End", (data) => {
+            router.push("/Leaderboard")
+        });
+
         this.$socket.on("Question", (data) => {
             this.processQuestion(data)
         });

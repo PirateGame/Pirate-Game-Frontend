@@ -3,7 +3,7 @@
         <div class="config-box config-box-center">
             <br>
             <h2 class="title1">Join</h2>
-            <form>
+            <form style="height:80%">
                 <h3 class="float-left">Game Name</h3>
                 <div class="input-container">
                     <input type="text" class="text-box" placeholder="Game Name..." id="gameName" v-model="gameName">
@@ -12,7 +12,7 @@
                 <div class="input-container">
                     <input type="text" class="text-box" placeholder="Name" id="playerName" v-model="playerName">
                 </div>
-                <div style="text-align: center;">
+                <div style="padding:15%; height:15%">
                     <input type="button" value="Join" style="color: white; text-decoration: none;" class="big-button bg-genericButton" @click="joinGame">
                 </div>
             </form>
