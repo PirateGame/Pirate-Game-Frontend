@@ -200,6 +200,7 @@ export default {
             this.shield = data["shield"]
             this.mirror = data["mirror"]
             var ids = data["ids"]
+            this.questionBool = false
 
             for (var i = 0; i < ids.length; i++){
                 var tile = this.grid.engine.nodes.find(n => n.id === ids[i]).el
