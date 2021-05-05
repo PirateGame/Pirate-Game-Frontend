@@ -8,7 +8,7 @@ import { createStore } from "vuex";
 
 const app = createApp(App);
 app.use(Vue3SocketIO, {
-    connection: 'http://localhost:5000/',
+    connection: 'http://api.pirategame.uk/',
 });
 app.use(router);
 
