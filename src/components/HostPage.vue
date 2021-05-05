@@ -3,7 +3,7 @@
         <div class="config-box config-box-center">
             <br>
             <h2 class="title1">Host</h2>
-            <form action="play">
+            <form action="play" style="height:80%">
                 <h3 class="float-left">Grid Size</h3>
                 <h3 class="float-left">{{ gridSizex }} x {{ gridSizey }}</h3>
                 <div class="input-container">
@@ -24,7 +24,7 @@
                 <div class="input-container" v-show="isHostPlaying">
                     <input type="text" class="text-box" placeholder=" Please enter your name..." id="playerName" v-model="playerName">
                 </div>
-                <div style="text-align: center;">
+                <div style="padding:15%; height:15%">
                     <input type="button" value="Create" style="color: white; text-decoration: none;" class="big-button bg-genericButton" @click="createGame">
                 </div>
             </form>
@@ -32,7 +32,6 @@
     </div>
 </template>
 <script>
-import Axios from '/services/axios.js';
 import router from '../router/index';
 export default {
     name: 'HostPage',
@@ -47,9 +46,8 @@ export default {
     },
     methods: {
         async createGame() {
-            let response = null;
-            try {
-                response = await Axios().post('create_game',
+            if (this.$socket.connected){
+                this.$socket.emit('createGame',
                     {
                         Sizex: this.gridSizex,
                         Sizey: this.gridSizey,
@@ -58,21 +56,20 @@ export default {
                         isHostPlaying: this.isHostPlaying,
                     },
                 );
-                if (response.data["error"] != false){
-                    alert(response.data["error"]);
-                    return;
-                }
-
-                sessionStorage.setItem("authcode", response.data["authcode"]);
-                sessionStorage.setItem("gamename", response.data["gameName"]);
-                sessionStorage.setItem("playername", response.data["playerName"]);
-                router.push("/HostPanel")
-
-            } catch (err) {
-                alert("The server isn't responding!")
-                console.log(err)
+                await this.$socket.on('createGameResponse', (data) => {
+                    if (data["error"] != false){
+                        alert(data["error"]);
+                        return;
+                    }else{
+                        this.$store.commit("updatePlayerName",this.playerName)
+                        this.$store.commit("updateGameName", this.gameName)
+                        this.$store.commit("updateAuthCode", data["authcode"])
+                        router.push("/HostPanel")
+                    }
+                });
+            } else {
+                alert("You are not connected to the server.\n Please contact an Admin")
             }
-
         }
     }
 }

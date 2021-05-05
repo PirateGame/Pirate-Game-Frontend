@@ -310,9 +310,15 @@
 
 .flex-container {
     display: flex;
-    height: 100%;
-    width: 100%;
-}
+    flex-direction: row;
+  }
+  
+  /* Responsive layout - makes a one column layout instead of a two-column layout */
+  @media (max-width: 1450px) {
+    .flex-container {
+      flex-direction: column;
+    }
+  }
 
 .flex-child {
     flex: 1;
@@ -376,7 +382,7 @@ img {
 }
 
 /* Darker chat container */
-.darker {
+.message-dark {
     border: 5px solid #ff48482c;
     background-color: #2905000a;
 }

@@ -3,7 +3,7 @@
         <div class="config-box config-box-center">
             <br>
             <h2 class="title1">Join</h2>
-            <form>
+            <form style="height:80%">
                 <h3 class="float-left">Game Name</h3>
                 <div class="input-container">
                     <input type="text" class="text-box" placeholder="Game Name..." id="gameName" v-model="gameName">
@@ -12,7 +12,7 @@
                 <div class="input-container">
                     <input type="text" class="text-box" placeholder="Name" id="playerName" v-model="playerName">
                 </div>
-                <div style="text-align: center;">
+                <div style="padding:15%; height:15%">
                     <input type="button" value="Join" style="color: white; text-decoration: none;" class="big-button bg-genericButton" @click="joinGame">
                 </div>
             </form>
@@ -20,44 +20,37 @@
     </div>
 </template>
 <script>
-import Axios from '/services/axios.js';
 import router from '../router/index';
 export default {
     name: 'JoinPage',
     data: function () {
         return {
-            gameName: null,
-            playerName: null
+            playerName: null,
+            gameName: null
         }
     },
     methods: {
         async joinGame() {
-            let response = null;
-            try {
-                response = await Axios().post('join_game',
-                    {
-                        gameName: this.gameName,
-                        playerName: this.playerName
-                    },
-                );
-                if (response.data["error"] != false){
-                    alert(response.data["error"]);
-                    return;
-                }
-
-                //incase we already have one
-                sessionStorage.removeItem('authcode');
-                sessionStorage.removeItem('gamename');
-                sessionStorage.setItem("authcode", response.data["authcode"]);
-                sessionStorage.setItem("gamename", this.gameName);
-                sessionStorage.setItem("playername", this.playerName);
-                router.push("/PickTeam")
-
-            } catch (err) {
-                alert("The server isn't responding!")
-                console.log(err)
+            if (this.$socket.connected){
+                this.$socket.emit('joinGame',
+                {
+                    gameName: this.gameName,
+                    playerName: this.playerName
+                });
+                await this.$socket.on('joinGameResponse', (data) => {
+                    console.log(data);
+                    if (data["error"] != false){
+                        alert(data["error"]);
+                        return;
+                    }
+                    this.$store.commit("updatePlayerName", this.playerName)
+                    this.$store.commit("updateGameName", this.gameName)
+                    this.$store.commit("updateAuthCode", data["authcode"])
+                    router.push("/PickTeam")
+                });
+            } else {
+            alert("You are not connected to the server.\n Please contact an Admin")
             }
-
         }
     }
 }

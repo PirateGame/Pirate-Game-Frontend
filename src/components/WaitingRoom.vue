@@ -4,94 +4,93 @@
         <h2>Please wait while the host starts the game.</h2>
         <h2>Here is a guide on how to play the game.</h2>
         <h2> game state: {{gameState}} </h2>
-        <router-link :to="{ name: 'Rules'}" target="_blank">
-            <input type="button" value="Rules" style="color: white; text-decoration: none; width:50%; margin:2%" class="big-button bg-genericButton">
-        </router-link>
-        <div v-show="isHost" style="margin:0">
-            <div v-show="!isReady" class="flex-child" style="margin-top:0">
-                <input type="button" value="Play" style="color: white; text-decoration: none; width:50%; margin:2%" class="big-button bg-red">
+
+        <div class="flex-vertical-box" style="height:60%">
+            <div class="flex-child" style="height:25%">
+                <router-link :to="{ name: 'Rules'}" target="_blank">
+                    <input type="button" value="Rules" style="color: white; text-decoration: none; width:50%; margin:2%" class="big-button bg-genericButton">
+                </router-link>
             </div>
-            <div v-show="isReady" class="flex-child" style="margin-top:0">
-                <input type="button" value="Play" style="color: white; text-decoration: none; width:53%; margin:2%" class="big-button bg-green" @click="startGame">
+            <div v-show="isHost" style="height:25%" class="flex-child">
+                <div v-show="!isReady" style="height:100%">
+                    <input type="button" value="Play" style="color: white; text-decoration: none; width:50%; margin:2%" class="big-button bg-red">
+                </div>
+                <div v-show="isReady" style="height:100%">
+                    <input type="button" value="Play" style="color: white; text-decoration: none; width:50%; margin:2%" class="big-button bg-green" @click="startGame">
+                </div>
             </div>
         </div>
     </div>
 </template>
 <script>
-import Axios from '/services/axios.js';
 import router from '../router/index';
 export default {
     name: 'WaitingRoom',
     data: function () {
         return {
-            authCode: sessionStorage.getItem('authcode'),
-            gameName: sessionStorage.getItem('gamename'),
-            playerName: sessionStorage.getItem("playername"),
+            authCode: this.$store.state.authCode,
+            gameName: this.$store.state.gameName,
+            playerName: this.$store.state.playerName,
+            gridWidth: this.$store.state.gridWidth,
+            gridHeight: this.$store.state.gridHeight,
+            ship: this.$store.state.ship,
+            captain: this.$store.state.captain,
             gameState: "unknown",
-            timerID: null,
             isHost: false,
             isReady: false,
         }
     },
-    async created () {
-        this.timerID = setInterval(this.gameCheck, 5000);
+    async mounted () {
         this.amIhost()
-        this.gameCheck()
-    },
-    methods: {
-        async gameCheck(){
-            let response = null;
-            response = await Axios().post('lobbyCheck',
-                {
-                    gameName: this.gameName,
-                    playerName: this.playerName,
-                    authCode: this.authCode,
-                });
-            if (response.data["error"] != false){
-                console.log(response.data["error"])
-                clearInterval(this.timerID)
-            }
-            this.gameState = response.data["state"]
+
+        if (this.$socket.connected){this.$socket.emit('requestGameState', {gameName: this.gameName});}
+        else{console.log("not connected to server")}
+
+        this.$socket.on("status", (data) => {
+            this.gameState = data["state"]
             console.log(this.gameState)
             if (this.gameState == "ready") {
                 this.isReady = true
             }
             if (this.gameState == "started") {
-                clearInterval(this.timerID)
                 router.push("/Game")
             }
-        },
+        });
+    },
+    methods: {
         async amIhost(){
-            var response = null;
-            response = await Axios().post('amIHost',
+            if (this.$socket.connected){
+                this.$socket.emit('amIHost',
                 {
                     gameName: this.gameName,
                     playerName: this.playerName,
                     authCode: this.authCode,
                 }
             );
-            if (response.data["error"] != false){
-                console.log(response.data["error"])
-                return;
-            }
-            else{
-                this.isHost = true;
+            await this.$socket.on('amIHostResponse', (data) => {
+                    if (data["error"] != false){
+                        alert(data["error"]);
+                        return;
+                    }else{
+                        this.isHost = true;
+                    }
+                });
             }
         },
         async startGame(){
-            var response = null;
-            response = await Axios().post('startGame',
+            if (this.$socket.connected){
+                this.$socket.emit('startGame',
                 {
                     gameName: this.gameName,
                     playerName: this.playerName,
                     authCode: this.authCode,
-                }
-            );
-            if (response.data["error"] != false){
-                console.log(response.data["error"]);
-            }
-            else {
-                this.gameCheck()
+                });
+                await this.$socket.on('startGameResponse', (data) => {
+                    if (data["error"] != false){
+                        alert(data["error"]);
+                        return;
+                    }
+                });
             }
         }
     }

@@ -1,86 +1,91 @@
 <template>
     <div class="bg-gamepage">
-        <h2>The Pirate Game</h2>
+        <h2 class="tooltip-wrap">The Pirate Game
+            <div class="tooltip-content board-holder"> Your name: {{playerName}} <br> Game name: {{gameName}} <br> Ship: {{ship}} <br> Captain: {{captain}} </div>
+        </h2>
         <div class="board-holder">
             <div :class="['grid-stack grid-stack-' + gridWidth]"></div>
         </div>
         <div class="right-bar">
-            <h2 style="margin-top:10px"> Game log </h2>
-            <div class="flex-container" style="height:6%">
-                <div class="flex-child" style="margin:0">
-                    <h2> Stash: {{money}}</h2>
-                </div>
-                <div class="flex-child" style="margin:0">
-                    <h2> Chest: {{bank}}</h2>
-                </div>
-            </div>
-            <div class="flex-container" style="height:6%">
-                <div class="flex-child" style="margin:0">
-                    <h2> Mirror: {{mirror}}</h2>
-                </div>
-                <div class="flex-child" style="margin:0">
-                    <h2> Shield: {{shield}}</h2>
-                </div>
-            </div>
-            <br>
-            <div class="gameLog" id="chat">
-                <div class="message">
-                    <h3> Welcome to the Pirate Game </h3>
-                </div>
-            </div>
-            <div v-show="isHost">
-                <div class="flex-container">
-                    <div class="flex-child" v-show="isPaused">
-                        <input type="button" value="Resume" style="color: white; text-decoration: none;" class="big-button bg-green" @click="pauseGame">
-                    </div>
-                    <div class="flex-child" v-show="!isPaused">
-                        <input type="button" value="Pause" style="color: white; text-decoration: none;" class="big-button bg-red" @click="pauseGame">
-                    </div>
-                    <div class="flex-child">
-                    <input type="button" value="Stop" style="color: white; text-decoration: none;" class="big-button bg-red" @click="stopGame">
+            <div class="flex-vertical-container" style="height:100%; margin:0">
+                <div class="flex-child">
+                    <div class="flex-container" style="margin:0">
+                        <h2 class="flex-child"> Game log </h2>
+                        <div v-show="isHost" class="flex-child" style="flex-grow:2">
+                            <input type="button" value="Host Controls" style="color: white; text-decoration: none;" class="big-button bg-blue">
+                        </div>
                     </div>
                 </div>
+                <div class="flex-child">
+                    <div class="flex-container">
+                        <div class="flex-child" style="margin:0">
+                            <h2 style="margin:0"> Stash: {{money}}</h2>
+                        </div>
+                        <div class="flex-child" style="margin:0">
+                            <h2 style="margin:0"> Chest: {{bank}}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-child">
+                    <div class="flex-container">
+                        <div class="flex-child" style="margin:0">
+                            <h2 style="margin:0"> Mirror: {{mirror}}</h2>
+                        </div>
+                        <div class="flex-child" style="margin:0">
+                            <h2 style="margin:0"> Shield: {{shield}}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-child" style="flex-grow:10">
+                    <div class="gameLog" id="chat">
+                        <div class="message-dark">
+                            <h3> Welcome to the Pirate Game </h3>
+                        </div>
+                    </div>
+                </div>
             </div>
+            
         </div>
-        <div class="board-holder question" v-show="questionBool">
+        <div class="board-holder question" v-show="questionBool">s
             <div class="question-box">
                 <br>
                 <h3> {{questionTitle}} </h3>
-                <h3> {{questionSubTitle}} </h3>
-                <form>
-                    <select v-model="selected">
-                        <option v-for="option in optionList" v-bind:value="option" v-bind:key="option">
-                            {{ option }}
-                        </option>
-                    </select>
-                    <div style="text-align: center;">
+                <h3 v-for="line in questionSubTitle" v-bind:value="line" v-bind:key="line">
+                    {{line}}
+                </h3>
+                <div class="flex-vertical-box" style="height:70%">
+                    <div class="flex-child">
+                        <select v-model="selected">
+                            <option v-for="option in optionList" v-bind:value="option" v-bind:key="option">
+                                {{ option }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="flex-child" style="text-align: center">
                         <input type="button" value="Submit" style="color: white; text-decoration: none;" class="big-button bg-blue" @click="submitResponse">
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
 </template>
 <script>
-import Axios from '/services/axios.js';
-import router from '../router/index';
 export default {
     name: 'Game',
     data: function () {
         return {
-            authCode: sessionStorage.getItem('authcode'),
-            gameName: sessionStorage.getItem('gamename'),
-            playerName: sessionStorage.getItem('playername'),
-            ship: sessionStorage.getItem("ship"),
-            captaion: sessionStorage.getItem("captain"),
+            authCode: this.$store.state.authCode,
+            gameName: this.$store.state.gameName,
+            playerName: this.$store.state.playerName,
+            gridWidth: this.$store.state.gridWidth,
+            gridHeight: this.$store.state.gridHeight,
+            ship: this.$store.state.ship,
+            captain: this.$store.state.captain,
             mirror: 0,
             shield: 0,
-            gridWidth: 7,
-            gridHeight: 7,
             grid: null,
             isHost: false,
             isPaused: false,
-            gameTimer: null,
             questionBool: false,
             selected: null,
             questionTitle: "",
@@ -93,33 +98,60 @@ export default {
     },
     async mounted () {
         await this.amIhost()
-        await this.getGridDim()
 
-        this.gameTimer = setInterval(this.getEvent, 4000);
+        console.log(this.gridWidth)
+
         
         this.grid = GridStack.init({
             column: this.gridWidth,
             row: this.gridHeight,
             cellHeight: 90,
             disableDrag: true,
+            staticGrid: true,
+            disableOneColumnMode: true,
         });
         
-        var items = await this.getBoard()
-        this.grid.load(items, true);
+        await this.getBoard()
+
+        this.$socket.on("turn", (data) => {
+            this.processTurn(data)
+        });
+
+        this.$socket.on("Event", (data) => {
+            this.processEvent(data)
+        });
+
+        this.$socket.on("End", (data) => {
+            router.push("/Leaderboard")
+        });
+
+        this.$socket.on("Question", (data) => {
+            this.processQuestion(data)
+        });
     },
     methods: {
-        addMessage(message){
+        addMessage(message, turnNum){
             var div = document.createElement('div');
-            div.innerHTML = '<h3>' + message + '</h3>';
-            div.class = 'message'
+            div.innerHTML = '<h3 name="event">' + message + '</h3>';
+            if (turnNum % 2 ==0){
+                div.class = 'message'
+            } else {
+                div.class = 'message-dark'
+            }
+            
 
             var chat = document.getElementById("chat")
 
             chat.insertBefore(div, chat.children[0]);
         },
-        async pauseGame(){
-            this.isPaused = !this.isPaused
-
+        clearAllMessages(){
+            var log = document.getElementById("chat")
+            while (log.firstChild) {
+                log.removeChild(log.firstChild);
+            }
+        },
+        pauseGame(){
+            this.isPaused = !this.isPaused;
             if (this.isPaused){
                 console.log("pause game")
             }
@@ -128,104 +160,101 @@ export default {
             }
         },
         async getBoard(){
-            let response = null;
-            response = await Axios().post('getBoard',
-                {
-                    gameName: this.gameName,
-                    playerName: this.playerName,
-                    authCode: this.authCode
+            if (this.$socket.connected){
+                this.$socket.emit('getBoard',
+                    {
+                        gameName: this.gameName,
+                        playerName: this.playerName,
+                        authCode: this.authCode
                 });
-            var board = response.data;
-            return board
-        },
-        async getGridDim () {
-        var response = null;
-        response = await Axios().post('getGridDim',
-            {
-                gameName: this.gameName,
-                playerName: this.playerName
+            await this.$socket.on('getBoardResponse', (data) => {
+                    if (data["error"] != false){
+                        alert(data["error"]);
+                        return;
+                    }
+                    else{
+                        this.grid.load(data["board"]);
+                    }
+                });
             }
-        );
-        console.log("got grid Dimensions: " + response.data["x"] + ", " + response.data["y"])
-        this.gridWidth = response.data["x"]
-        this.gridHeight = response.data["y"]
         },
         async amIhost(){
-            var response = null;
-            response = await Axios().post('amIHost',
+            if (this.$socket.connected){
+                this.$socket.emit('amIHost',
                 {
                     gameName: this.gameName,
                     playerName: this.playerName,
                     authCode: this.authCode,
                 }
             );
-            if (response.data["error"] != false){
-                console.log(response.data["error"])
-                return;
-            }
-            else{
-                this.isHost = true;
+            await this.$socket.on('amIHostResponse', (data) => {
+                    if (data["error"] != false){
+                        alert(data["error"]);
+                        return;
+                    }else{
+                        this.isHost = true;
+                    }
+                });
             }
         },
             
-        async getEvent(){
-            var response = null;
-            response = await Axios().post('getEvent',
-                {
-                    gameName: this.gameName,
-                    playerName: this.playerName,
-                    authCode: this.authCode,
-                }
-            );
-            if (response.data["error"] != false){
-                if (response.data["error"] == "game finished") {
-                    this.addMessage(response.data["error"])
-                    clearInterval(this.gameTimer)
-                }
-                return
-            }
-            this.money = response.data["money"]
-            this.bank = response.data["bank"]
-            this.shield = response.data["shield"]
-            this.mirror = response.data["mirror"]
-            var ids = response.data["ids"]
+        processTurn(data){
+            this.money = data["money"]
+            this.bank = data["bank"]
+            this.shield = data["shield"]
+            this.mirror = data["mirror"]
+            var ids = data["ids"]
+            this.questionBool = false
 
             for (var i = 0; i < ids.length; i++){
                 var tile = this.grid.engine.nodes.find(n => n.id === ids[i]).el
                 tile.children[0].className = "old-square" 
             }
-            var latestTile = ids[ids.length - 1]
-            var tile = this.grid.engine.nodes.find(n => n.id === latestTile).el
-            tile.children[0].className = "current-square"
-
-            var questions = response.data["questions"]
-            var events = response.data["events"]
+            var latestID = ids[ids.length - 1]
+            var latestTile = this.grid.engine.nodes.find(n => n.id === latestID).el
+            latestTile.children[0].className = "current-square"
+            this.clearAllMessages()
+            var events = data["events"]
             for (var i = 0; i < events.length; i++){
-                this.addMessage(events[i])
+                this.addMessage(events[i], ids.length)
             }
-            if (questions.length != 0) {
-                clearInterval(this.gameTimer)
-                this.questionBool = true
-                this.questionTitle = questions[0]["labels"][0]
-                if (questions[0]["labels"].length > 1) {
-                    this.questionSubTitle = questions[0]["labels"][1]
+        },
+        processQuestion(data){
+            var questions = data["labels"]
+            this.questionBool = true
+                this.questionTitle = questions[0]
+                if (questions.length > 1) {
+                    this.questionSubTitle = questions.slice(1,-0)
                 }
-                this.optionList = questions[0]["options"]
+                this.optionList = data["options"]
+
+        },
+        processEvent(data){
+            this.addMessage("this is an event rather than a turn")
+            var message = data["events"]
+            console.log(message)
+            for (var i = 1; i < message.length; i++){
+                this.addMessage(message[i])
             }
+
         },
         async submitResponse(){
             this.questionBool = false;
-            var response = null;
-            response = await Axios().post('submitResponse',
-                {
-                    gameName: this.gameName,
-                    playerName: this.playerName,
-                    authCode: this.authCode,
-                    choice: this.selected,
-                }
-            );
-            this.gameTimer = setInterval(this.getEvent, 4000);
-            this.getEvent()
+            if (this.$socket.connected){
+                this.$socket.emit('submitResponse',
+                    {
+                        gameName: this.gameName,
+                        playerName: this.playerName,
+                        authCode: this.authCode,
+                        choice: this.selected,
+                });
+                await this.$socket.on('submitResponseResponse', (data) => {
+                    if (data["error"] != false){
+                        alert(data["error"]);
+                        return;
+                    }
+                });
+            }
         }
     }
 }

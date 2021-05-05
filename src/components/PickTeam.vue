@@ -1,27 +1,27 @@
 <template>
     <div class="bg-gamepage">
-        <h1 class="title">Pick your Captain and ship</h1>
-        <div class="team-selector" id="Captain">
+        <h1 class="title">Pick your captain and ship</h1>
+        <div class="team-selector" id="captain">
             <br>
             <h2>Captain</h2>
             <div class="flex-container">
                 <div class="flex-child">
                     <label>
-                        <input type="radio" name="Captain" v-model='Captain' v-bind:value="0" class="radio-hidden" @change="showShip()">
+                        <input type="radio" name="captain" v-model='captain' v-bind:value="0" class="radio-hidden" @change="showShip()">
                         <img src="/images/placeholder.png" height="150" width="250">
-                        <h3> Captain Hook </h3>
+                        <h3> captain Hook </h3>
                     </label>
                 </div>
                 <div class="flex-child">
                     <label>
-                        <input type="radio" name="Captain" v-model='Captain' v-bind:value="1" class="radio-hidden" @change="showShip()">
+                        <input type="radio" name="captain" v-model='captain' v-bind:value="1" class="radio-hidden" @change="showShip()">
                         <img src="/images/placeholder.png" height="150" width="250">
                         <h3> Blackbeard </h3>
                     </label>
                 </div>
                 <div class="flex-child">
                     <label>
-                        <input type="radio" name="Captain" v-model='Captain' v-bind:value="2" class="radio-hidden" @change="showShip()">
+                        <input type="radio" name="captain" v-model='captain' v-bind:value="2" class="radio-hidden" @change="showShip()">
                         <img src="/images/placeholder.png" height="150" width="250">
                         <h3> Jack Sparrow </h3>
                     </label>
@@ -34,21 +34,21 @@
             <div class="flex-container">
                 <div class="flex-child">
                     <label>
-                        <input type="radio" name="Ship" v-model='Ship' v-bind:value="0" class="radio-hidden" @change="submit()">
+                        <input type="radio" name="ship" v-model='ship' v-bind:value="0" class="radio-hidden" @change="submit()">
                         <img src="/images/placeholder.png" height="150" width="250">
                         <h3> Jolly Rodger </h3>
                     </label>
                 </div>
                 <div class="flex-child">
                     <label>
-                        <input type="radio" name="Ship" v-model='Ship' v-bind:value="1" class="radio-hidden" @change="submit()">
+                        <input type="radio" name="ship" v-model='ship' v-bind:value="1" class="radio-hidden" @change="submit()">
                         <img src="/images/placeholder.png" height="150" width="250">
                         <h3> Barnacle </h3>
                     </label>
                 </div>
                 <div class="flex-child">
                     <label>
-                        <input type="radio" name="Ship" v-model='Ship' v-bind:value="2" class="radio-hidden" @change="submit()">
+                        <input type="radio" name="ship" v-model='ship' v-bind:value="2" class="radio-hidden" @change="submit()">
                         <img src="/images/placeholder.png" height="150" width="250">
                         <h3> Queen Anne's Revenge </h3>
                     </label>
@@ -60,47 +60,52 @@
 
 
 <script>
-import Axios from '/services/axios.js';
 import router from '../router/index';
 export default {
     name: 'PickTeam',
     data: function () {
         return {
-            Captain: null,
-            Ship: null,
-            authCode: sessionStorage.getItem('authcode'),
-            gameName: sessionStorage.getItem('gamename'),
-            playerName: sessionStorage.getItem('playername')
+            authCode: this.$store.state.authCode,
+            gameName: this.$store.state.gameName,
+            playerName: this.$store.state.playerName,
+            gridWidth: this.$store.state.gridWidth,
+            gridHeight: this.$store.state.gridGHeight,
+            ship: this.$store.state.ship,
+            captain: this.$store.state.captain,
         }
     },
     methods: {
         showShip() {
-            var x = document.getElementById("Captain");
+            var x = document.getElementById("captain");
             x.style.display = "none";
             var y = document.getElementById("ship");
             y.style.display = "block";
             
         },
         async submit(){
-            let response = null;
-            response = await Axios().post('setTeam',
+            if (this.$socket.connected){
+                this.$socket.emit('setTeam',
                 {
-                    Captain: this.Captain,
-                    Ship: this.Ship,
+                    Captain: this.captain,
+                    Ship: this.ship,
                     gameName: this.gameName,
-                    playerName: this.playerName,
                     authCode: this.authCode,
-                },
-            );
-            if (response.data["error"] != false){
-                console.log(response.data["error"])
-            }
-            else{
-                sessionStorage.removeItem("captain")
-                sessionStorage.removeItem("ship")
-                sessionStorage.setItem("captain", this.Captain)
-                sessionStorage.setItem("ship", this.Ship)
-                router.push("/DesignBoard")
+                    playerName: this.playerName,
+                });
+                await this.$socket.on('setTeamResponse', (data) => {
+                    if (data["error"] != false){
+                        alert(data["error"]);
+                        return;
+                    }else{
+                        this.$store.commit("updateCaptain", this.captain)
+                        this.$store.commit("updateShip", this.ship)
+                        if (data["randomise"]){
+                            router.push("/WaitingRoom")
+                        } else {
+                            router.push("/DesignBoard")
+                        }
+                    }
+                });
             }
         }
     }
