@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import './index.css';
+import './assets/CSS/style.css'
 import router from './router/index';
 import Vue3SocketIO from 'vue3-socket';
 import { createStore } from "vuex";
