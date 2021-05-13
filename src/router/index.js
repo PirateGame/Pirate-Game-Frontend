@@ -11,6 +11,7 @@ import PickTeam from '../../src/components/PickTeam.vue'
 import Game from '../../src/components/Game.vue'
 import Rules from '../../src/components/Rules.vue'
 import Leaderboard from '../../src/components/Leaderboard.vue'
+import gridstackload from '../../src/components/gridstackload.vue'
 
 let router = createRouter({
     history: createWebHistory(),
@@ -26,6 +27,7 @@ let router = createRouter({
       {path:'/Rules', component: Rules, name:'Rules'},
       {path:'/Game', component: Game, name:'Game'},
       {path:'/Leaderboard', component: Leaderboard, name:'Leaderboard'},
+      {path:'/gridstackload', component: gridstackload, name:'gridstackload'},
     ]
   });
 

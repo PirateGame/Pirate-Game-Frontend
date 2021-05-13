@@ -102,7 +102,7 @@ export default {
                         if (data["randomise"]){
                             router.push("/WaitingRoom")
                         } else {
-                            router.push("/DesignBoard")
+                            router.push("/gridstackload")
                         }
                     }
                 });
